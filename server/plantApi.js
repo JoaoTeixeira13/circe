@@ -5,23 +5,8 @@ const https = require("https");
 //example request POST 1. Get token Client Creds
 
 module.exports.getToken = () => {
-    // const formdata = new FormData();
-    // formdata.append("grant_type", "client_credentials");
-    // formdata.append("client_id", `${secrets.CLIENT_ID}`);
-    // formdata.append("client_secret", `${secrets.CLIENT_SECRET}`);
-
-    // const requestOptions = {
-    //     method: "POST",
-    //     body: formdata,
-    //     redirect: "follow",
-    // };
-
-    // fetch("https://open.plantbook.io/api/v1/token/", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => console.log(result))
-    //     .catch((error) => console.log("error", error));
-    var request = require("request");
-    var options = {
+    const request = require("request");
+    const options = {
         method: "POST",
         url: "https://open.plantbook.io/api/v1/token/",
         headers: {},
@@ -33,25 +18,33 @@ module.exports.getToken = () => {
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
-        console.log(response.body);
+        const parsedBody = JSON.parse(response.body);
+        const token = parsedBody.access_token;
+        console.log("token is ", token);
+        return token;
     });
 };
 module.exports.getToken();
 // example 2 seach plant GET request
 
-module.exports.searchPlant = () => {
-    var request = require("request");
-    var options = {
+module.exports.searchPlant = (token, searchedPlant) => {
+    const request = require("request");
+    const options = {
         method: "GET",
-        url: "https://open.plantbook.io/api/v1/plant/search?alias=acer&limit=10&offset=20",
+        url: `https://open.plantbook.io/api/v1/plant/search?alias=${searchedPlant}&limit=10&offset=20`,
+        // url: `https://open.plantbook.io/api/v1/plant/search?alias=acer&limit=10&offset=20`,
+
         headers: {
-            Authorization: "Bearer nmOpI4kd7jva9PlvpSL7jCpSF9JVSi",
+            Authorization: "Bearer " + token,
         },
         formData: {},
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
-        console.log(response.body);
+        const parsedBody = JSON.parse(response.body);
+        const plantSearch = parsedBody.results;
+        console.log("parsed plant results are", plantSearch);
+        return plantSearch;
     });
 };
 
@@ -59,20 +52,21 @@ module.exports.searchPlant();
 
 // 3. GET  Plant Details by Pid
 
-module.exports.plantDetails = () => {
-    var request = require("request");
-    var options = {
+module.exports.plantDetails = (token, specificPlant) => {
+    const request = require("request");
+    const options = {
         method: "GET",
-        url: "https://open.plantbook.io/api/v1/plant/detail/acer pseudoplatanus/",
+        url: `https://open.plantbook.io/api/v1/plant/detail/${specificPlant}/`,
         headers: {
-            Authorization: "Bearer nmOpI4kd7jva9PlvpSL7jCpSF9JVSi",
+            Authorization: "Bearer " + token,
         },
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
-        console.log(response.body);
+        const plant = JSON.parse(response.body);
+        console.log("parsed plant detailed plants results are", plant);
+        return plant;
     });
 };
 
 module.exports.plantDetails();
-

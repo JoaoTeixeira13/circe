@@ -12,6 +12,42 @@ main {
     height: 100vh;
 }
 
+.mainApp {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+}
+.logo {
+    font-size: 4.5rem;
+    margin: 25px 0 0;
+    color: #e17537;
+}
+
+.profileHeader a h2 {
+    margin: 45px 18px;
+}
+
+.profileHeader {
+    display: flex;
+    width: 90vw;
+    justify-content: space-between;
+    padding: 25px 5% 20px;
+    background-color: #adedad;
+}
+.profileHeader a {
+    color: #e17537;
+}
+.profileHeader a:hover {
+    color: #a11d16;
+}
+.navRight {
+    display: flex;
+}
+#logout {
+    margin-right: 60px;
+}
+
 /* plant search section */
 
 .plantExplorer {
@@ -23,12 +59,18 @@ main {
     display: flex;
     flex-direction: column;
     width: 40vw;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-    margin-top: auto;
-    margin-bottom: 20%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 85vh;
+    margin-top: 100px;
     align-content: center;
+}
+.plantList {
+    height: 60vh;
+    overflow-y: scroll;
+}
+.plantList h2 {
+    margin-bottom: 50px;
 }
 .singularPlant img {
     width: 400px;
@@ -74,3 +116,60 @@ button {
 h1 {
     font-size: 2.5rem;
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    justify-content: center;
+    align-items: flex-start;
+    height: 50vh;
+    margin-top: auto;
+    margin-bottom: 20%;
+}
+
+button:hover {
+    background-color: #a11d16;
+}
+
+.error {
+    color: #993333;
+    font-weight: bolder;
+}
+
+/* Welcome section */
+#welcome {
+    display: flex;
+    width: 100%;
+}
+
+.welcome-hero {
+    width: 60vw;
+    font-size: 4rem;
+    line-height: 0.95;
+}
+
+.welcome-paths {
+    background-color: #adedad;
+    color: #e17537;
+    width: 40vw;
+}
+.welcome-paths a {
+    color: #e17537;
+}
+.welcome-paths a:hover {
+    color: #a11d16;
+}
+.welcome-hero,
+.welcome-paths {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+/* login */
+
+.registration-link {
+    margin-top: auto;
+}
+

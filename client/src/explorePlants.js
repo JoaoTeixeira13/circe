@@ -8,17 +8,52 @@ export default function ExplorePlants() {
 
     useEffect(() => {
         console.log("Explore plants mounted!");
+        (async () => {
+            let abort = false;
+            if (input && !abort) {
+                try {
+                    const resp = await fetch("/api/plantSearch", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ input }),
+                    });
+                    const data = await resp.json();
+
+                    if (data.success) {
+                        console.log(
+                            "received data from server is",
+                            data.plantSearch
+                        );
+                        setPlantSearch(data.plantSearch);
+                        setError(false);
+                        console.log("plant search is,", plantSearch);
+                    } else {
+                        console.log(
+                            "something went wrong while fetching the data"
+                        );
+                        setError(true);
+                    }
+                } catch (err) {
+                    console.log("error in plant search ", err);
+                    setError(true);
+                }
+            }
+            return () => {
+                abort = true;
+            };
+        })();
 
         //do something here eventually
         //fetch initial data batch?
-    }, []);
+    }, [input]);
 
     const handleChange = (e) => {
         //set state
         setInput(e.target.value);
     };
-    const handleClick = async (e) => {
-        // setPlant(e.target.innerText);
+    const fetchOnePlant = async (e) => {
         const fetchPlant = e.target.innerText;
         console.log("user clicked on plant", fetchPlant);
         try {
@@ -44,34 +79,10 @@ export default function ExplorePlants() {
             console.log("error in plant search ", err);
             setError(true);
         }
-
-        // console.log(e.target.innerText);
     };
-    const handleSubmit = async () => {
-        console.log("user clicked submit!");
-        try {
-            const resp = await fetch("/api/plantSearch", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ input }),
-            });
-            const data = await resp.json();
 
-            if (data.success) {
-                console.log("received data from server is", data.plantSearch);
-                setPlantSearch(data.plantSearch);
-                setError(false);
-                console.log("plant search is,", plantSearch);
-            } else {
-                console.log("something went wrong while fetching the data");
-                setError(true);
-            }
-        } catch (err) {
-            console.log("error in plant search ", err);
-            setError(true);
-        }
+    const addToWishlist = () => {
+        console.log("user wants to add to wishlist: ", plant.display_pid);
     };
 
     return (
@@ -85,15 +96,13 @@ export default function ExplorePlants() {
                     onChange={(e) => handleChange(e)}
                 />
 
-                <button onClick={() => handleSubmit()}>Search</button>
-
-                <div>
-                    <p>Incoming data being mapped here</p>
+                {input && <h2>Search results for {input}</h2>}
+                <div className="plantList">
                     {plantSearch &&
                         plantSearch.map((plant) => {
                             return (
                                 <div className="plantCell" key={plant.pid}>
-                                    <h3 onClick={(e) => handleClick(e)}>
+                                    <h3 onClick={(e) => fetchOnePlant(e)}>
                                         {plant.display_pid}
                                     </h3>
                                 </div>
@@ -104,25 +113,31 @@ export default function ExplorePlants() {
             <div className="singularPlant">
                 {plant && (
                     <>
-                        <h2>{plant.display_pid}</h2>
+                        <h1>{plant.display_pid}</h1>
                         <img src={plant.image_url}></img>
                         <p>
-                            Light (lux units): {plant.min_light_lux} min,{" "}
-                            {plant.max_light_lux} max.
+                            <strong>Light (lux units): </strong>
+                            {plant.min_light_lux} min, {plant.max_light_lux}{" "}
+                            max.
                         </p>
                         <p>
-                            Humidity(%): {plant.min_env_humid} min,{" "}
-                            {plant.max_env_humid} max.
+                            <strong>Humidity (%): </strong>
+                            {plant.min_env_humid} min, {plant.max_env_humid}{" "}
+                            max.
                         </p>
                         <p>
-                            Temperature (celcius): {plant.min_temp} min,{" "}
-                            {plant.max_temp} max.
+                            <strong>Temperature (celcius): </strong>
+                            {plant.min_temp} min, {plant.max_temp} max.
                         </p>
                         <p>
-                            Soil (moisture): {plant.min_soil_moist} min,{" "}
-                            {plant.max_soil_moist} max, electrical condutivity:
+                            <strong>Soil (moisture): </strong>
+                            {plant.min_soil_moist} min, {plant.max_soil_moist}{" "}
+                            max, <strong>electrical condutivity: </strong>
                             {plant.min_soil_ec} min, {plant.max_soil_ec} max.
                         </p>
+                        <button onClick={() => addToWishlist()}>
+                            Add to wishlist
+                        </button>
                     </>
                 )}
             </div>

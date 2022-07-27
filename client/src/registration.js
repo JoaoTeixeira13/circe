@@ -20,9 +20,11 @@ export default function Registration() {
         //         });
     }, []);
     const handleChange = (e) => {
-        setInput(e.target.value);
+        setInput({ ...input, [e.target.name]: e.target.value });
     };
     const handleSubmit = async () => {
+        console.log("button clicked");
+        console.log("input is", input);
         try {
             let resp = await fetch("/registration", {
                 method: "POST",
@@ -66,7 +68,7 @@ export default function Registration() {
             <input
                 type="text"
                 name="location"
-                placeholder="Your location (city, town)"
+                placeholder="your location (city, town)"
                 onChange={(e) => handleChange(e)}
             />
             <input

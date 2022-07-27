@@ -15,12 +15,11 @@ import { init } from "./socket";
 // );
 
 (async () => {
-
     const response = await fetch("/user/id.json");
     const data = await response.json();
 
     if (!data.userId) {
-        ReactDOM.render(<ExplorePlants />, document.querySelector("main"));
+        ReactDOM.render(<Welcome />, document.querySelector("main"));
     } else {
         //initialize Websocket connection and pass the store to it
         // init(store);
@@ -31,5 +30,3 @@ import { init } from "./socket";
         );
     }
 })();
-
-

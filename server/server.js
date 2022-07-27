@@ -13,11 +13,7 @@ const cryptoRandomString = require("crypto-random-string");
 const multer = require("multer");
 const s3 = require("./s3");
 const uidSafe = require("uid-safe");
-const {
-    getToken,
-    searchPlant,
-    plantDetails,
-} = require("./plantApi");
+const { getToken, searchPlant, plantDetails } = require("./plantApi");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -43,21 +39,22 @@ app.get("/user/id.json", (req, res) => {
 });
 
 app.post("/registration", async (req, res) => {
+    console.log("requested body is,", req.body);
     if (
-        req.body.first &&
-        req.body.last &&
-        req.body.email &&
-        req.body.password &&
-        req.body.location
+        req.body.input.first &&
+        req.body.input.last &&
+        req.body.input.email &&
+        req.body.input.password &&
+        req.body.input.location
     ) {
         try {
-            const hashedPassword = await bcrypt.hash(req.body.password);
+            const hashedPassword = await bcrypt.hash(req.body.input.password);
 
             const result = await db.addUser(
-                req.body.first.replace(/\s\s+/g, " ").trim(),
-                req.body.last.replace(/\s\s+/g, " ").trim(),
-                req.body.location.replace(/\s\s+/g, " ").trim(),
-                req.body.email.trim(),
+                req.body.input.first.replace(/\s\s+/g, " ").trim(),
+                req.body.input.last.replace(/\s\s+/g, " ").trim(),
+                req.body.input.email.trim(),
+                req.body.input.location.replace(/\s\s+/g, " ").trim(),
                 hashedPassword
             );
 
@@ -70,45 +67,42 @@ app.post("/registration", async (req, res) => {
                 error: true,
             });
         }
-        
     }
 });
 
 //login route
 
-app.post("/login", (req, res) => {
-    if (req.body.email && req.body.password) {
-        db.emailVerification(req.body.email)
+app.post("/login", async (req, res) => {
+    if (req.body.input.email && req.body.input.password) {
+        try {
+            const result = await db.emailVerification(req.body.input.email);
+            console.log(
+                "result from email verification is comparison is,",
+                result.rows
+            );
 
-            .then((result) => {
-                return bcrypt
-                    .compare(req.body.password, result.rows[0].password)
-                    .then(function (hashComparison) {
-                        if (hashComparison) {
-                            req.session.userId = result.rows[0].id;
-                            res.json({ success: true });
-                        } else {
-                            res.json({
-                                success: false,
-                                error: true,
-                            });
-                        }
-                    })
-                    .catch((err) => {
-                        console.log("error in db. loging user in ", err);
-                        res.json({
-                            success: false,
-                            error: true,
-                        });
-                    });
-            })
-            .catch((err) => {
-                console.log("error in db. loging user in ", err);
+            const hashComparison = await bcrypt.compare(
+                req.body.input.password,
+                result.rows[0].password
+            );
+            console.log("hashComparison is,", hashComparison);
+
+            if (hashComparison) {
+                req.session.userId = result.rows[0].id;
+                res.json({ success: true });
+            } else {
                 res.json({
                     success: false,
                     error: true,
                 });
+            }
+        } catch (err) {
+            console.log("error in db ", err);
+            res.json({
+                success: false,
+                error: true,
             });
+        }
     } else {
         res.json({
             success: false,
@@ -119,83 +113,49 @@ app.post("/login", (req, res) => {
 
 //password reset
 
-app.post("/password/reset/start", (req, res) => {
-    db.emailVerification(req.body.email)
-        .then((result) => {
-            if (!result.rows.length) {
-                res.json({
-                    success: false,
-                    error: true,
-                });
-            } else {
-                const secretCode = cryptoRandomString({
-                    length: 6,
-                });
+app.post("/password/reset/start", async (req, res) => {
+    const result = await db.emailVerification(req.body.input.email);
 
-                db.saveCode(req.body.email, secretCode)
-                    .then(() => {
-                        sendEmail(secretCode, "Password Reset");
-                    })
-                    .then(res.json({ success: true }))
-                    .catch((err) => {
-                        console.log(
-                            "error in db. verifying user's email in ",
-                            err
-                        );
-                        res.json({
-                            success: false,
-                            error: true,
-                        });
-                    });
-            }
-        })
-        .catch((err) => {
+    if (!result.rows.length) {
+        res.json({
+            success: false,
+            error: true,
+        });
+    } else {
+        try {
+            const secretCode = cryptoRandomString({
+                length: 6,
+            });
+
+            await db.saveCode(req.body.input.email, secretCode);
+
+            await sendEmail(secretCode, "Password Reset");
+
+            res.json({ success: true });
+        } catch (err) {
             console.log("error in db. verifying user's email in ", err);
             res.json({
                 success: false,
                 error: true,
             });
-        });
+        }
+    }
 });
 
-app.post("/password/reset/verify", (req, res) => {
-    if (req.body.code && req.body.password) {
-        db.findCode(req.body.email).then((results) => {
-            if (req.body.code === results.rows[0].code) {
-                bcrypt
-                    .hash(req.body.password)
-                    .then(function (hash) {
-                        const hashedPassword = hash;
+app.post("/password/reset/verify", async (req, res) => {
+    if (req.body.input.code && req.body.input.password) {
+        const results = await db.findCode(req.body.input.email);
 
-                        // db.update Password must be returned in order to be handled in the catch
-
-                        return db
-                            .updatePassword(hashedPassword, req.body.email)
-                            .then(() => {
-                                res.json({ success: true });
-                            })
-                            .catch((err) => {
-                                console.log("error in db social network ", err);
-                                res.json({
-                                    success: false,
-                                    error: true,
-                                });
-                            });
-                    })
-                    .catch((err) => {
-                        console.log("error in db socialnetwork ", err);
-                        res.json({
-                            success: false,
-                            error: true,
-                        });
-                    });
-            } else {
-                res.json({
-                    success: false,
-                    error: true,
-                });
-            }
-        });
+        if (req.body.input.code === results.rows[0].code) {
+            const hashedPassword = await bcrypt.hash(req.body.input.password);
+            await db.updatePassword(hashedPassword, req.body.input.email);
+            res.json({ success: true });
+        } else {
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
     } else {
         res.json({
             success: false,
@@ -204,7 +164,7 @@ app.post("/password/reset/verify", (req, res) => {
     }
 });
 
-//plant search
+//plant search: plant list
 
 app.post("/api/plantSearch", async (req, res) => {
     try {
@@ -223,10 +183,15 @@ app.post("/api/plantSearch", async (req, res) => {
     }
 });
 
+//plant search: return one specific plant
+
 app.post("/api/singularPlant", async (req, res) => {
     try {
         const token = await getToken();
-        const singularPlant = await plantDetails(token, req.body.fetchPlant.toLowerCase());
+        const singularPlant = await plantDetails(
+            token,
+            req.body.fetchPlant.toLowerCase()
+        );
         res.json({
             success: true,
             singularPlant,
@@ -238,6 +203,11 @@ app.post("/api/singularPlant", async (req, res) => {
             error: true,
         });
     }
+});
+
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.json({ success: true });
 });
 
 app.get("*", function (req, res) {

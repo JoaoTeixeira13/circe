@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function ResetPassword() {
-    const [input, setInput] = useState({ first: "", last: "", email: "" });
+    const [input, setInput] = useState("");
     const [error, setError] = useState(false);
     const [view, setView] = useState(1);
 
@@ -22,6 +22,7 @@ export default function ResetPassword() {
     }, []);
     const handleChange = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
+        console.log("input is", input);
     };
     const verifyEmail = async () => {
         try {
@@ -30,7 +31,7 @@ export default function ResetPassword() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(this.state),
+                body: JSON.stringify({ input }),
             });
 
             const data = await resp.json();

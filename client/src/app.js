@@ -1,14 +1,8 @@
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-// import ProfilePicture from "./profilePicture";
-// import Uploader from "./uploader";
 import Logo from "./logo";
-// import Profile from "./profile";
-// import FindPeople from "./findPeople";
-// import OtherProfile from "./otherProfile";
-// import FriendsAndWannabees from "./friends-wannabees";
-// import ChatWindow from "./chatWindow";
+import ExplorePlants from "./explorePlants";
 
 export default function App() {
     useEffect(() => {
@@ -26,9 +20,40 @@ export default function App() {
         //         });
     }, []);
 
+    const logout = async () => {
+        try {
+            const resp = await fetch("/logout");
+            await resp.json();
+            location.reload();
+        } catch (err) {
+            console.log("error is ", err);
+        }
+    };
+
     return (
         <div className="mainApp">
-            <h1>Main App will go here</h1>
+            <BrowserRouter>
+                <nav className="profileHeader">
+                    <Logo />
+                    <div className="navRight">
+                        <Link to="/explore">
+                            <h2>Explore</h2>
+                        </Link>
+                        <Link to="/">
+                            <h2>Profile</h2>
+                        </Link>
+                        <Link to="/">
+                            <h2 onClick={() => logout()} id="logout">
+                                Logout{" "}
+                            </h2>
+                        </Link>
+                    </div>
+                </nav>
+                <Route exact path="/"></Route>
+                <Route path="/explore">
+                    <ExplorePlants />
+                </Route>
+            </BrowserRouter>
         </div>
     );
 }

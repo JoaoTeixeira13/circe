@@ -25,7 +25,7 @@ module.exports.addUser = (firstName, lastName, email, location, password) => {
 
 module.exports.emailVerification = (email) => {
     return db.query(
-        `SELECT users.*
+        `SELECT *
     FROM users
     WHERE email = $1`,
         [email]

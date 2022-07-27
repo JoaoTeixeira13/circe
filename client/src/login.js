@@ -1,7 +1,9 @@
-import { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Login() {
+    const [input, setInput] = useState("");
+    const [error, setError] = useState(false);
     useEffect(() => {
         console.log("Login component mounted!");
 
@@ -9,43 +11,38 @@ export default function Login() {
     }, []);
     const handleChange = (e) => {
         //set state
-        // this.setState({
-        //     [e.target.name]: e.target.value,
-        // });
+        setInput(e.target.value);
     };
     const handleSubmit = async () => {
-        fetch("/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(this.state),
-        })
-            .then((resp) => resp.json())
-            .then((data) => {
-                if (data.success) {
-                    location.replace("/");
-                } else {
-                    // this.setState({
-                    //     error: true,
-                    // });
-                }
-            })
-            .catch((err) => {
-                console.log("error in registration ", err);
-                // this.setState({
-                //     error: true,
-                // });
+        try {
+            const resp = await fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ input }),
             });
+
+            const data = await resp.json();
+
+            if (data.success) {
+                location.replace("/");
+            } else {
+                setError(true);
+            }
+        } catch (err) {
+            console.log("error in registration ", err);
+            setError(true);
+        }
     };
 
     return (
         <div className="form login">
-            {/* {this.state.error && (
-                    <p className="error">
-                        oooops! something went wrong.Please retry.
-                    </p>
-                )} */}
+            {error && (
+                <p className="error">
+                    oooops! something went wrong.Please retry.
+                </p>
+            )}
 
             <input
                 type="email"

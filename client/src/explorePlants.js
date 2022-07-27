@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function ExplorePlants() {
     const [input, setInput] = useState("");
+    const [plantSearch, setPlantSearch] = useState([]);
     const [plants, setPlants] = useState([]);
 
     useEffect(() => {
@@ -28,8 +29,9 @@ export default function ExplorePlants() {
             const data = await resp.json();
 
             if (data.success) {
-                console.log("received data from server is", data);
-                setPlants[data];
+                console.log("received data from server is", data.plantSearch);
+                setPlantSearch(data.plantSearch);
+                console.log("plant search is,", plantSearch);
             } else {
                 console.log("something went wrong while fetching the data");
             }
@@ -55,6 +57,16 @@ export default function ExplorePlants() {
 
             <div>
                 <p>Incoming data being mapped here</p>
+                {plantSearch &&
+                    plantSearch.map((plant) => {
+                        return (
+                            <div className="plantCell" key={plant.pid}>
+                                <h4 onClick={() => handleClick()}>
+                                    {plant.display_pid}
+                                </h4>
+                            </div>
+                        );
+                    })}
             </div>
         </div>
     );

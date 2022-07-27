@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 export default function Registration() {
     const [input, setInput] = useState("");
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         console.log("Registration mounted!");
@@ -28,32 +29,28 @@ export default function Registration() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(this.state),
+                body: JSON.stringify({ input }),
             });
             let data = await resp.json();
 
             if (data.success) {
                 location.reload();
             } else {
-                // this.setState({
-                //     error: true,
-                // });
+                setError(true);
             }
         } catch (err) {
             console.log("error in registration ", err);
-            // this.setState({
-            //     error: true,
-            // });
+            setError(true);
         }
     };
 
     return (
         <div className="form">
-            {/* {this.state.error && (
+            {error && (
                 <p className="error">
                     oooops! something went wrong. Please retry.
                 </p>
-            )} */}
+            )}
             <input
                 type="text"
                 name="first"
@@ -64,6 +61,12 @@ export default function Registration() {
                 type="text"
                 name="last"
                 placeholder="last"
+                onChange={(e) => handleChange(e)}
+            />
+            <input
+                type="text"
+                name="location"
+                placeholder="Your location (city, town)"
                 onChange={(e) => handleChange(e)}
             />
             <input

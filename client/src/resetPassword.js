@@ -1,7 +1,11 @@
-import { Component } from "react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function ResetPassword() {
+    const [input, setInput] = useState({ first: "", last: "", email: "" });
+    const [error, setError] = useState(false);
+    const [view, setView] = useState(1);
+
     useEffect(() => {
         console.log("Reset mounted!");
 
@@ -17,68 +21,56 @@ export default function ResetPassword() {
         //         });
     }, []);
     const handleChange = (e) => {
-        // this.setState({
-        //     [e.target.name]: e.target.value,
-        // });
+        setInput({ ...input, [e.target.name]: e.target.value });
     };
     const verifyEmail = async () => {
-        fetch("/password/reset/start", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(this.state),
-        })
-            .then((resp) => resp.json())
-            .then((data) => {
-                if (data.success) {
-                    // this.setState({
-                    //     view: 2,
-                    //     error: false,
-                    // });
-                } else {
-                    // this.setState({
-                    //     error: true,
-                    // });
-                }
-            })
-            .catch((err) => {
-                console.log("error in email verification ", err);
-                // this.setState({
-                //     error: true,
-                // });
+        try {
+            const resp = await fetch("/password/reset/start", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(this.state),
             });
+
+            const data = await resp.json();
+
+            if (data.success) {
+                setView(2);
+                setError(false);
+            } else {
+                setError(true);
+            }
+        } catch (err) {
+            console.log("error in reset password ", err);
+            setError(true);
+        }
     };
     const newPassword = async () => {
-        fetch("/password/reset/verify", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(this.state),
-        })
-            .then((resp) => resp.json())
-            .then((data) => {
-                if (data.success) {
-                    // this.setState({
-                    //     view: 3,
-                    //     error: false,
-                    // });
-                } else {
-                    // this.setState({
-                    //     error: true,
-                    // });
-                }
-            })
-            .catch((err) => {
-                console.log("error in email verification ", err);
-                // this.setState({
-                //     error: true,
-                // });
+        try {
+            const resp = await fetch("/password/reset/verify", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ input }),
             });
+
+            const data = await resp.json();
+
+            if (data.success) {
+                setView(3);
+                setError(false);
+            } else {
+                setError(true);
+            }
+        } catch (err) {
+            console.log("error in reset password ", err);
+            setError(true);
+        }
     };
     const determineViewToRender = () => {
-        if (state.view === 1) {
+        if (view === 1) {
             return (
                 <div className="form" key={"view1"}>
                     <p>
@@ -96,7 +88,7 @@ export default function ResetPassword() {
                     <button onClick={() => verifyEmail()}>Submit</button>
                 </div>
             );
-        } else if (state.view === 2) {
+        } else if (view === 2) {
             return (
                 <div key={"view2"}>
                     <p>
@@ -118,7 +110,7 @@ export default function ResetPassword() {
                     <button onClick={() => newPassword()}>Submit</button>
                 </div>
             );
-        } else if (state.view === 3) {
+        } else if (view === 3) {
             return (
                 <div key={"view1"}>
                     <p>
@@ -132,11 +124,11 @@ export default function ResetPassword() {
 
     return (
         <div className="form">
-            {/* {this.state.error && (
-                    <p className="error">
-                        Oooops! Something went wrong, please retry.
-                    </p>
-                )} */}
+            {error && (
+                <p className="error">
+                    Oooops! Something went wrong, please retry.
+                </p>
+            )}
             {determineViewToRender()}
 
             <Link to="/login">

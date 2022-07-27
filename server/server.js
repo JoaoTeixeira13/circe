@@ -39,7 +39,6 @@ app.get("/user/id.json", (req, res) => {
 });
 
 app.post("/registration", async (req, res) => {
-    console.log("requested body is,", req.body);
     if (
         req.body.input.first &&
         req.body.input.last &&
@@ -76,16 +75,11 @@ app.post("/login", async (req, res) => {
     if (req.body.input.email && req.body.input.password) {
         try {
             const result = await db.emailVerification(req.body.input.email);
-            console.log(
-                "result from email verification is comparison is,",
-                result.rows
-            );
 
             const hashComparison = await bcrypt.compare(
                 req.body.input.password,
                 result.rows[0].password
             );
-            console.log("hashComparison is,", hashComparison);
 
             if (hashComparison) {
                 req.session.userId = result.rows[0].id;
@@ -144,13 +138,23 @@ app.post("/password/reset/start", async (req, res) => {
 
 app.post("/password/reset/verify", async (req, res) => {
     if (req.body.input.code && req.body.input.password) {
-        const results = await db.findCode(req.body.input.email);
+        try {
+            const results = await db.findCode(req.body.input.email);
 
-        if (req.body.input.code === results.rows[0].code) {
-            const hashedPassword = await bcrypt.hash(req.body.input.password);
-            await db.updatePassword(hashedPassword, req.body.input.email);
-            res.json({ success: true });
-        } else {
+            if (req.body.input.code === results.rows[0].code) {
+                const hashedPassword = await bcrypt.hash(
+                    req.body.input.password
+                );
+                await db.updatePassword(hashedPassword, req.body.input.email);
+                res.json({ success: true });
+            } else {
+                res.json({
+                    success: false,
+                    error: true,
+                });
+            }
+        } catch (err) {
+            console.log("error in db. resetting user's email ", err);
             res.json({
                 success: false,
                 error: true,

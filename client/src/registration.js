@@ -1,30 +1,17 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Registration() {
+
     const [input, setInput] = useState("");
     const [error, setError] = useState(false);
 
-    useEffect(() => {
-        console.log("Registration mounted!");
-
-        //do something here eventually
-
-        // fetch("/api/user")
-        //         .then((resp) => resp.json())
-        //         .then((data) => {
-        //             console.log("data is", data)
-        //         })
-        //         .catch((err) => {
-        //             console.log("error is ", err);
-        //         });
-    }, []);
     const handleChange = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     };
+
     const handleSubmit = async () => {
-        console.log("button clicked");
-        console.log("input is", input);
+        
         try {
             let resp = await fetch("/registration", {
                 method: "POST",

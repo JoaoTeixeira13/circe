@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom";
 import Welcome from "./welcome";
 import App from "./app";
-import ExplorePlants from "./explorePlants";
 // import { createStore, applyMiddleware } from "redux";
 // import * as immutableState from "redux-immutable-state-invariant";
 // import { composeWithDevTools } from "redux-devtools-extension";

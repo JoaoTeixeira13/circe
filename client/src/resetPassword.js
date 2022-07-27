@@ -1,29 +1,17 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function ResetPassword() {
+
     const [input, setInput] = useState("");
     const [error, setError] = useState(false);
     const [view, setView] = useState(1);
 
-    useEffect(() => {
-        console.log("Reset mounted!");
-
-        //do something here eventually
-
-        // fetch("/api/user")
-        //         .then((resp) => resp.json())
-        //         .then((data) => {
-        //             console.log("data is", data)
-        //         })
-        //         .catch((err) => {
-        //             console.log("error is ", err);
-        //         });
-    }, []);
+    
     const handleChange = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
-        console.log("input is", input);
     };
+
     const verifyEmail = async () => {
         try {
             const resp = await fetch("/password/reset/start", {
@@ -113,7 +101,7 @@ export default function ResetPassword() {
             );
         } else if (view === 3) {
             return (
-                <div key={"view1"}>
+                <div key={"view3"}>
                     <p>
                         You have successfully updated your password! You may
                         proceed to login.

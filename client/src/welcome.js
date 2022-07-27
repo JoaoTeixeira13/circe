@@ -6,11 +6,6 @@ import { useState, useEffect } from "react";
 
 
 export default function Welcome() {
-    useEffect(() => {
-        console.log("Welcome component mounted!");
-
-        //do something here eventually
-    }, []);
 
     return (
         <div id="welcome">

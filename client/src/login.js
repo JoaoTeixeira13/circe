@@ -1,14 +1,10 @@
-import { Link, Redirect } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Login() {
     const [input, setInput] = useState("");
     const [error, setError] = useState(false);
-    useEffect(() => {
-        console.log("Login component mounted!");
-
-        //do something here eventually
-    }, []);
+    
     const handleChange = (e) => {
         //set state
         setInput({ ...input, [e.target.name]: e.target.value });

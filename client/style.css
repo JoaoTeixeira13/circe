@@ -30,7 +30,7 @@ main {
 
 .profileHeader {
     display: flex;
-    width: 90vw;
+    width: 95vw;
     justify-content: space-between;
     padding: 25px 5% 20px;
     background-color: #adedad;

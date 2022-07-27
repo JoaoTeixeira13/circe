@@ -14,10 +14,9 @@ const multer = require("multer");
 const s3 = require("./s3");
 const uidSafe = require("uid-safe");
 const {
-    getTokenAxios,
+    getToken,
     searchPlant,
     plantDetails,
-    searchPlantAxios,
 } = require("./plantApi");
 
 app.use(express.json());
@@ -71,42 +70,7 @@ app.post("/registration", async (req, res) => {
                 error: true,
             });
         }
-
-        // db.add user must be returned in order to be handled in the catch
-
-        // return db
-        //         .addUser(
-        //             req.body.first.replace(/\s\s+/g, " ").trim(),
-        //             req.body.last.replace(/\s\s+/g, " ").trim(),
-        //             req.body.location.replace(/\s\s+/g, " ").trim(),
-        //             req.body.email.trim(),
-        //             hashedPassword
-        //         )
-        //         .then((result) => {
-        //             req.session.userId = result.rows[0].id;
-
-        //             res.json({ success: true });
-        //         })
-        //         .catch((err) => {
-        //             console.log("error in db social network ", err);
-        //             res.json({
-        //                 success: false,
-        //                 error: true,
-        //             });
-        //         });
-        // })
-        // .catch((err) => {
-        //     console.log("error in db socialnetwork ", err);
-        //     res.json({
-        //         success: false,
-        //         error: true,
-        //     });
-        // });
-        // } else {
-        //     res.json({
-        //         success: false,
-        //         error: true,
-        //     });
+        
     }
 });
 
@@ -242,17 +206,38 @@ app.post("/password/reset/verify", (req, res) => {
 
 //plant search
 
-app.post("/plantSearch", async (req, res) => {
-    const token = await getTokenAxios();
-    console.log("token in server is,", token);
-    console.log("requested input is", req.body.input);
-    const plantSearch = await searchPlantAxios(token, req.body.input);
-    console.log("plant search on server is :", plantSearch);
-    // console.log("received data from client input is", req.body);
-    res.json({
-        success: true,
-        plantSearch,
-    });
+app.post("/api/plantSearch", async (req, res) => {
+    try {
+        const token = await getToken();
+        const plantSearch = await searchPlant(token, req.body.input);
+        res.json({
+            success: true,
+            plantSearch,
+        });
+    } catch (err) {
+        console.log("error in db social network ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
+
+app.post("/api/singularPlant", async (req, res) => {
+    try {
+        const token = await getToken();
+        const singularPlant = await plantDetails(token, req.body.fetchPlant.toLowerCase());
+        res.json({
+            success: true,
+            singularPlant,
+        });
+    } catch (err) {
+        console.log("error in db social network ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
 });
 
 app.get("*", function (req, res) {

@@ -13,7 +13,13 @@ main {
 }
 
 /* plant search section */
-.plantSearch {
+
+.plantExplorer {
+    display: flex;
+}
+
+.plantSearch,
+.singularPlant {
     display: flex;
     flex-direction: column;
     width: 40vw;
@@ -23,6 +29,11 @@ main {
     margin-top: auto;
     margin-bottom: 20%;
     align-content: center;
+}
+.singularPlant img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
 }
 input {
     width: 350px;
@@ -34,6 +45,10 @@ input {
     background-color: #f6ecea;
     outline: 0;
     color: #a11d16;
+}
+.plantCell h3:hover {
+    color: #a11d16;
+    cursor: pointer;
 }
 input::placeholder {
     color: #a11d16;

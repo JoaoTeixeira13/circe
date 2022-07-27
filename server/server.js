@@ -13,6 +13,7 @@ const cryptoRandomString = require("crypto-random-string");
 const multer = require("multer");
 const s3 = require("./s3");
 const uidSafe = require("uid-safe");
+const { getToken, searchPlant, plantDetails } = require("./plantApi");
 app.use(express.json());
 app.use(
     cookieSession({
@@ -37,6 +38,8 @@ app.get("/user/id.json", (req, res) => {
 //plant search
 
 app.post("/plantSearch", async (req, res) => {
+    // const token = await getToken();
+    // console.log("token is,", token);
     console.log("received data from client input is", req.body);
     res.json({
         success: true,

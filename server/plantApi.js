@@ -24,15 +24,15 @@ module.exports.getToken = () => {
         return token;
     });
 };
-module.exports.getToken();
+// console.log("results from calling function", module.exports.getToken());
 // example 2 seach plant GET request
 
 module.exports.searchPlant = (token, searchedPlant) => {
     const request = require("request");
     const options = {
         method: "GET",
-        url: `https://open.plantbook.io/api/v1/plant/search?alias=${searchedPlant}&limit=10&offset=20`,
-        // url: `https://open.plantbook.io/api/v1/plant/search?alias=acer&limit=10&offset=20`,
+        // url: `https://open.plantbook.io/api/v1/plant/search?alias=${searchedPlant}&limit=10&offset=20`,
+        url: `https://open.plantbook.io/api/v1/plant/search?alias=acer&limit=10&offset=20`,
 
         headers: {
             Authorization: "Bearer " + token,
@@ -53,10 +53,13 @@ module.exports.searchPlant();
 // 3. GET  Plant Details by Pid
 
 module.exports.plantDetails = (token, specificPlant) => {
+
     const request = require("request");
     const options = {
         method: "GET",
         url: `https://open.plantbook.io/api/v1/plant/detail/${specificPlant}/`,
+        // url: `https://open.plantbook.io/api/v1/plant/detail/acer palmatum/`,
+
         headers: {
             Authorization: "Bearer " + token,
         },

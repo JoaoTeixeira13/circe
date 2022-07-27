@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 
-// const { getToken } = require("../../server/plantApi");
-
 export default function ExplorePlants() {
     const [input, setInput] = useState("");
-    console.log("input is", input);
+    const [plants, setPlants] = useState([]);
 
     useEffect(() => {
         console.log("Explore plants mounted!");
@@ -31,6 +29,7 @@ export default function ExplorePlants() {
 
             if (data.success) {
                 console.log("received data from server is", data);
+                setPlants[data];
             } else {
                 console.log("something went wrong while fetching the data");
             }
@@ -43,7 +42,8 @@ export default function ExplorePlants() {
     };
 
     return (
-        <>
+        <div className="plantSearch">
+            <h1>🔎 Discover new plants!</h1>
             <input
                 type="text"
                 name="search"
@@ -52,7 +52,11 @@ export default function ExplorePlants() {
             />
 
             <button onClick={() => handleSubmit()}>Search</button>
-        </>
+
+            <div>
+                <p>Incoming data being mapped here</p>
+            </div>
+        </div>
     );
 }
 

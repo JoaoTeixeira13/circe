@@ -1,7 +1,9 @@
-import { Component } from "react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Registration() {
+    const [input, setInput] = useState("");
+
     useEffect(() => {
         console.log("Registration mounted!");
 
@@ -17,34 +19,32 @@ export default function Registration() {
         //         });
     }, []);
     const handleChange = (e) => {
-        // this.setState({
-        //     [e.target.name]: e.target.value,
-        // });
+        setInput(e.target.value);
     };
     const handleSubmit = async () => {
-        fetch("/registration", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(this.state),
-        })
-            .then((resp) => resp.json())
-            .then((data) => {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    // this.setState({
-                    //     error: true,
-                    // });
-                }
-            })
-            .catch((err) => {
-                console.log("error in registration ", err);
+        try {
+            let resp = await fetch("/registration", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(this.state),
+            });
+            let data = await resp.json();
+
+            if (data.success) {
+                location.reload();
+            } else {
                 // this.setState({
                 //     error: true,
                 // });
-            });
+            }
+        } catch (err) {
+            console.log("error in registration ", err);
+            // this.setState({
+            //     error: true,
+            // });
+        }
     };
 
     return (

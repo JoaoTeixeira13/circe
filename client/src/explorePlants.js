@@ -7,7 +7,6 @@ export default function ExplorePlants() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        console.log("Explore plants mounted!");
         (async () => {
             let abort = false;
             if (input && !abort) {
@@ -22,13 +21,10 @@ export default function ExplorePlants() {
                     const data = await resp.json();
 
                     if (data.success) {
-                        console.log(
-                            "received data from server is",
-                            data.plantSearch
-                        );
+                        
                         setPlantSearch(data.plantSearch);
                         setError(false);
-                        console.log("plant search is,", plantSearch);
+
                     } else {
                         console.log(
                             "something went wrong while fetching the data"
@@ -45,8 +41,7 @@ export default function ExplorePlants() {
             };
         })();
 
-        //do something here eventually
-        //fetch initial data batch?
+        
     }, [input]);
 
     const handleChange = (e) => {
@@ -54,8 +49,9 @@ export default function ExplorePlants() {
         setInput(e.target.value);
     };
     const fetchOnePlant = async (e) => {
+
         const fetchPlant = e.target.innerText;
-        console.log("user clicked on plant", fetchPlant);
+
         try {
             const resp = await fetch("/api/singularPlant", {
                 method: "POST",
@@ -67,10 +63,10 @@ export default function ExplorePlants() {
             const data = await resp.json();
 
             if (data.success) {
-                console.log("received data from server is", data);
+
                 setError(false);
                 setPlant(data.singularPlant);
-                console.log("plant  is,", plant);
+
             } else {
                 console.log("something went wrong while fetching the data");
                 setError(true);
@@ -145,4 +141,3 @@ export default function ExplorePlants() {
     );
 }
 
-// e

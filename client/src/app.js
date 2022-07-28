@@ -1,23 +1,29 @@
 import { BrowserRouter, Route, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loggedUser } from "./redux/user/slice";
+
+
 
 import Logo from "./logo";
 import ExplorePlants from "./explorePlants";
 
 export default function App() {
+    const dispatch = useDispatch();
     useEffect(() => {
         console.log("App mounted!");
 
-        //do something here eventually
+        (async () => {
+            try {
+                const resp = await fetch("/api/user");
+                const data = await resp.json();
 
-        // fetch("/api/user")
-        //         .then((resp) => resp.json())
-        //         .then((data) => {
-        //             console.log("data is", data)
-        //         })
-        //         .catch((err) => {
-        //             console.log("error is ", err);
-        //         });
+                dispatch(loggedUser(data.user));
+            } catch (err) {
+                console.log("error in posting users' relationship ", err);
+            }
+        })();
+
     }, []);
 
     const logout = async () => {

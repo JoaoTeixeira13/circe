@@ -300,6 +300,38 @@ app.post("/api/singularPlant", async (req, res) => {
     }
 });
 
+// handle wishlist
+
+const buttonValues = {
+    add: "Add to Wishlist",
+    remove: "Remove from Wishlist",
+};
+
+app.post("/api/handleWishlist", async (req, res) => {
+    if (req.body[0].button == buttonValues.add) {
+        try {
+            await db.addToWishlist(
+                req.session.userId,
+                req.body[1].plant.pid,
+                req.body[1].plant.display_pid,
+                req.body[1].plant.image_url
+            );
+            res.json({
+                success: true,
+                buttonText: buttonValues.remove,
+            });
+        } catch (err) {
+            console.log("error in db social network ", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
+    } else if (req.body[0].button == buttonValues.remove) {
+        res.json({ success: true, buttonText: buttonValues.add });
+    }
+});
+
 app.get("/logout", (req, res) => {
     req.session = null;
     res.json({ success: true });

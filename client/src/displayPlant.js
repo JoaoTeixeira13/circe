@@ -1,14 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function DisplayPlant(props) {
     const wishlist = useSelector((state) => state.wishlist);
+
     const buttonValues = {
         add: "Add to Wishlist",
         remove: "Remove from Wishlist",
     };
     const [button, setButton] = useState(buttonValues.add);
+
+    useEffect(() => {
+        wishlist.map((plant) => {
+            if (plant.pid == props.plant.pid) {
+                setButton[buttonValues.remove];
+            }
+        });
+    }, []);
 
     const handleWishlist = () => {
         console.log(
@@ -16,6 +25,23 @@ export default function DisplayPlant(props) {
             props.plant.display_pid,
             props.plant
         );
+
+        (async () => {
+            try {
+                const resp = await fetch("/api/handleWishlist", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify([{ button }, { plant: props.plant }]),
+                });
+                const data = await resp.json();
+                console.log("data on back from add wish list button is,", data);
+                setButton(data.buttonText);
+            } catch (err) {
+                console.log("error in posting users' relationship ", err);
+            }
+        })();
     };
 
     return (

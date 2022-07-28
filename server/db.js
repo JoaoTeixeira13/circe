@@ -103,6 +103,7 @@ module.exports.fetchWishlist = (user_id) => {
 module.exports.addToWishlist = (user_id, pid, display_pid, image_url) => {
     const q = `INSERT INTO wishlist(user_id, pid, display_pid, image_url)
      VALUES ($1, $2, $3, $4)
+     RETURNING *
     `;
     const param = [user_id, pid, display_pid, image_url];
     return db.query(q, param);

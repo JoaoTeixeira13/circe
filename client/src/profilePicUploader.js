@@ -5,6 +5,9 @@ import { toggleUploader } from "./redux/toggleUploader/slice";
 export default function Uploader() {
     const dispatch = useDispatch();
     const modalWindow = useSelector((state) => state.toggleUploader);
+    const closeModal = () => {
+        dispatch(toggleUploader(!modalWindow));
+    };
 
     const uploadProfilePic = async (e) => {
         e.preventDefault();
@@ -19,7 +22,7 @@ export default function Uploader() {
 
             console.log("data is", data);
             dispatch(uploadImageUser(data.payload.imageurl));
-            dispatch(toggleUploader(!modalWindow));
+            closeModal();
         } catch (err) {
             console.log("error in uploading user's picture ", err);
         }
@@ -41,10 +44,7 @@ export default function Uploader() {
                     />
                 </label>
                 <button>Submit</button>
-                <h2
-                    // onClick={ call function to close the modal}
-                    className="closeModal"
-                >
+                <h2 onClick={() => closeModal()} className="closeModal">
                     X
                 </h2>
             </form>

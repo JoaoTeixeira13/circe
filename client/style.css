@@ -115,6 +115,13 @@ label {
 }
 /* plant search section */
 
+.exploreElement {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: auto;
+}
+
 .plantExplorer {
     display: flex;
 }

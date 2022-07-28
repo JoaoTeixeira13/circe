@@ -6,7 +6,7 @@ import { toggleUploader } from "./redux/toggleUploader/slice";
 import { wishlistReceived } from "./redux/wishlist/slice";
 
 import Logo from "./logo";
-import ExplorePlants from "./explorePlants";
+import ExploreWindow from "./exploreWindow";
 import Profile from "./profile";
 import ProfilePicture from "./profilePic";
 import Uploader from "./profilePicUploader";
@@ -20,15 +20,15 @@ export default function App() {
             try {
                 const resp = await fetch("/api/user");
                 const data = await resp.json();
+                console.log("received data is,", data);
                 dispatch(loggedUser(data.user));
                 dispatch(toggleUploader(false));
+                dispatch(wishlistReceived(data.wishlist));
             } catch (err) {
                 console.log("error in fetching  logged user ", err);
             }
         })();
     }, []);
-
-    
 
     const logout = async () => {
         try {
@@ -65,7 +65,7 @@ export default function App() {
                 </Route>
                 {modalWindow && <Uploader />}
                 <Route path="/explore">
-                    <ExplorePlants />
+                    <ExploreWindow />
                 </Route>
             </BrowserRouter>
         </div>

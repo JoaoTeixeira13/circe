@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function ExplorePlants() {
+export default function ExplorePlants(props) {
+    const dispatch = useDispatch();
+
     const [input, setInput] = useState("");
     const [plantSearch, setPlantSearch] = useState([]);
-    const [plant, setPlant] = useState("");
+    // const [plant, setPlant] = useState("");
     const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -59,7 +62,7 @@ export default function ExplorePlants() {
 
             if (data.success) {
                 setError(false);
-                setPlant(data.singularPlant);
+                props.setPlant(data.singularPlant);
             } else {
                 console.log("something went wrong while fetching the data");
                 setError(true);
@@ -68,15 +71,6 @@ export default function ExplorePlants() {
             console.log("error in plant search ", err);
             setError(true);
         }
-    };
-
-    const handleWishlist = () => {
-        console.log(
-            "user wants to add to wishlist: ",
-            plant.display_pid,
-            "plant, ",
-            plant
-        );
     };
 
     return (
@@ -104,37 +98,7 @@ export default function ExplorePlants() {
                         })}
                 </div>
             </div>
-            <div className="singularPlant">
-                {plant && (
-                    <>
-                        <h1>{plant.display_pid}</h1>
-                        <img src={plant.image_url}></img>
-                        <p>
-                            <strong>Light (lux units): </strong>
-                            {plant.min_light_lux} min, {plant.max_light_lux}{" "}
-                            max.
-                        </p>
-                        <p>
-                            <strong>Humidity (%): </strong>
-                            {plant.min_env_humid} min, {plant.max_env_humid}{" "}
-                            max.
-                        </p>
-                        <p>
-                            <strong>Temperature (celcius): </strong>
-                            {plant.min_temp} min, {plant.max_temp} max.
-                        </p>
-                        <p>
-                            <strong>Soil (moisture): </strong>
-                            {plant.min_soil_moist} min, {plant.max_soil_moist}{" "}
-                            max, <strong>electrical condutivity: </strong>
-                            {plant.min_soil_ec} min, {plant.max_soil_ec} max.
-                        </p>
-                        <button onClick={() => handleWishlist()}>
-                            Add to wishlist
-                        </button>
-                    </>
-                )}
-            </div>
+            
         </div>
     );
 }

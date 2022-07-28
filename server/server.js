@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const server = require("http").Server(app);
 const compression = require("compression");
 const path = require("path");
 const db = require("./db");
@@ -14,10 +15,13 @@ const multer = require("multer");
 const s3 = require("./s3");
 const uidSafe = require("uid-safe");
 const { getToken, searchPlant, plantDetails } = require("./plantApi");
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
 
+app.use(compression());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
 app.use(
     cookieSession({
         secret: COOKIE_SECRET,
@@ -26,8 +30,17 @@ app.use(
     })
 );
 
-app.use(compression());
+const cookieSessionMiddleware = cookieSession({
+    secret: COOKIE_SECRET,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+    sameSite: true,
+});
 
+io.use((socket, next) => {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
 //fetch.start
@@ -168,6 +181,26 @@ app.post("/password/reset/verify", async (req, res) => {
     }
 });
 
+//fetch profile data
+
+app.get("/api/user", async (req, res) => {
+    
+    try {
+        const result = await db.fetchProfile(req.session.userId);
+        const user = result.rows[0];
+        res.json({
+            success: true,
+            user,
+        });
+    } catch (err) {
+        console.log("error in db. fetching user's profile ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
+
 //plant search: plant list
 
 app.post("/api/plantSearch", async (req, res) => {
@@ -218,6 +251,6 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });

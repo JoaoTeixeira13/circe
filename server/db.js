@@ -61,3 +61,15 @@ module.exports.updatePassword = (password, email) => {
     const param = [password, email];
     return db.query(q, param);
 };
+
+// fetching user's profile
+
+module.exports.fetchProfile = (id) => {
+    return db.query(
+        `SELECT users.id, users.first, users.last, users.location, users.imageUrl, users.bio
+    FROM users
+    WHERE id = $1
+    LIMIT 1`,
+        [id]
+    );
+};

@@ -2,28 +2,26 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedUser } from "./redux/user/slice";
-
-
+import { toggleUploader } from "./redux/toggleUploader/slice";
 
 import Logo from "./logo";
 import ExplorePlants from "./explorePlants";
+import Profile from "./profile";
 
 export default function App() {
     const dispatch = useDispatch();
-    useEffect(() => {
-        console.log("App mounted!");
 
+    useEffect(() => {
         (async () => {
             try {
                 const resp = await fetch("/api/user");
                 const data = await resp.json();
-
                 dispatch(loggedUser(data.user));
+                dispatch(toggleUploader(false));
             } catch (err) {
-                console.log("error in posting users' relationship ", err);
+                console.log("error in fetching  logged useruser ", err);
             }
         })();
-
     }, []);
 
     const logout = async () => {
@@ -55,7 +53,9 @@ export default function App() {
                         </Link>
                     </div>
                 </nav>
-                <Route exact path="/"></Route>
+                <Route exact path="/">
+                    <Profile />
+                </Route>
                 <Route path="/explore">
                     <ExplorePlants />
                 </Route>

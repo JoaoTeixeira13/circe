@@ -3,6 +3,10 @@ export default function userReducer(user = "", action) {
         user = action.payload.user;
     }
 
+    if (action.type === "user/uploadUrl") {
+        user = { ...user, imageurl: action.payload.url };
+    }
+
     return user;
 }
 
@@ -11,5 +15,11 @@ export function loggedUser(user) {
     return {
         type: "user/loggedUser",
         payload: { user },
+    };
+}
+export function uploadImageUser(url) {
+    return {
+        type: "user/uploadUrl",
+        payload: { url },
     };
 }

@@ -1,5 +1,6 @@
 
 DROP TABLE IF EXISTS reset_codes;
+DROP TABLE IF EXISTS wishlist;
 DROP TABLE IF EXISTS users;
 
 
@@ -20,3 +21,13 @@ CREATE TABLE users (
     code VARCHAR NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
+
+   CREATE TABLE wishlist(
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) NOT NULL,
+    pid VARCHAR NOT NULL,
+    display_pid VARCHAR NOT NULL,
+    image_url VARCHAR NOT NULL
+  );
+
+  

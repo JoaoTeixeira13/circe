@@ -1,20 +1,28 @@
+import { useDispatch, useSelector } from "react-redux";
+import { uploadImageUser } from "./redux/user/slice";
+import { toggleUploader } from "./redux/toggleUploader/slice";
+
 export default function Uploader() {
-    
+    const dispatch = useDispatch();
+    const modalWindow = useSelector((state) => state.toggleUploader);
+
     const uploadProfilePic = async (e) => {
         e.preventDefault();
 
-        const resp = fetch("/uploadProfilePic", {
-            method: "POST",
-            body: new FormData(e.target),
-        });
+        try {
+            const resp = await fetch("/uploadProfilePic", {
+                method: "POST",
+                body: new FormData(e.target),
+            });
 
-        const data = resp.json();
+            const data = await resp.json();
 
-        //set user state url to data.payload.imageurl
-        //call the function with the opposite of current toggle boolean
-
-        // this.props.settingProfilePic(data.payload.imageurl);
-        // this.props.modalCallback();
+            console.log("data is", data);
+            dispatch(uploadImageUser(data.payload.imageurl));
+            dispatch(toggleUploader(!modalWindow));
+        } catch (err) {
+            console.log("error in uploading user's picture ", err);
+        }
     };
 
     return (

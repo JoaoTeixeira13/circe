@@ -184,13 +184,19 @@ app.post("/password/reset/verify", async (req, res) => {
 //fetch profile data
 
 app.get("/api/user", async (req, res) => {
-    
     try {
         const result = await db.fetchProfile(req.session.userId);
         const user = result.rows[0];
+
+        const wishlistQuery = await db.fetchWishlist(req.session.userId);
+        console.log("list query is", wishlistQuery);
+        const wishlist = wishlistQuery.rows;
+        console.log("wishlist on server is, ", wishlist);
+
         res.json({
             success: true,
             user,
+            wishlist,
         });
     } catch (err) {
         console.log("error in db. fetching user's profile ", err);
@@ -201,6 +207,58 @@ app.get("/api/user", async (req, res) => {
     }
 });
 
+//profile picture upload
+
+const storage = multer.diskStorage({
+    destination(req, file, callback) {
+        callback(null, path.join(__dirname, "uploads"));
+    },
+    filename(req, file, callback) {
+        uidSafe(24).then((randomString) => {
+            //keep the original file extention
+
+            // use extname method to be found on the core path library
+            callback(null, `${randomString}${path.extname(file.originalname)}`);
+        });
+    },
+});
+const uploader = multer({
+    storage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
+
+app.post(
+    "/uploadProfilePic",
+    uploader.single("image"),
+    s3.upload,
+    async (req, res) => {
+        const url = "https://s3.amazonaws.com/spicedling/" + req.file.filename;
+
+        if (url) {
+            try {
+                const result = await db.uploadProfilePicture(
+                    url,
+                    req.session.userId
+                );
+
+                res.json({
+                    sucess: true,
+                    payload: result.rows[0],
+                });
+            } catch (err) {
+                console.log("error in db. fetching user's profile ", err);
+                res.json({
+                    success: false,
+                    error: true,
+                });
+            }
+        } else {
+            console.log("invalid url");
+        }
+    }
+);
 //plant search: plant list
 
 app.post("/api/plantSearch", async (req, res) => {

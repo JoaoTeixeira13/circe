@@ -21,10 +21,8 @@ export default function ExplorePlants() {
                     const data = await resp.json();
 
                     if (data.success) {
-                        
                         setPlantSearch(data.plantSearch);
                         setError(false);
-
                     } else {
                         console.log(
                             "something went wrong while fetching the data"
@@ -40,8 +38,6 @@ export default function ExplorePlants() {
                 abort = true;
             };
         })();
-
-        
     }, [input]);
 
     const handleChange = (e) => {
@@ -49,7 +45,6 @@ export default function ExplorePlants() {
         setInput(e.target.value);
     };
     const fetchOnePlant = async (e) => {
-
         const fetchPlant = e.target.innerText;
 
         try {
@@ -63,10 +58,8 @@ export default function ExplorePlants() {
             const data = await resp.json();
 
             if (data.success) {
-
                 setError(false);
                 setPlant(data.singularPlant);
-
             } else {
                 console.log("something went wrong while fetching the data");
                 setError(true);
@@ -77,8 +70,13 @@ export default function ExplorePlants() {
         }
     };
 
-    const addToWishlist = () => {
-        console.log("user wants to add to wishlist: ", plant.display_pid);
+    const handleWishlist = () => {
+        console.log(
+            "user wants to add to wishlist: ",
+            plant.display_pid,
+            "plant, ",
+            plant
+        );
     };
 
     return (
@@ -131,7 +129,7 @@ export default function ExplorePlants() {
                             max, <strong>electrical condutivity: </strong>
                             {plant.min_soil_ec} min, {plant.max_soil_ec} max.
                         </p>
-                        <button onClick={() => addToWishlist()}>
+                        <button onClick={() => handleWishlist()}>
                             Add to wishlist
                         </button>
                     </>
@@ -140,4 +138,3 @@ export default function ExplorePlants() {
         </div>
     );
 }
-

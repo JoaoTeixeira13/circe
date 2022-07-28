@@ -3,13 +3,17 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedUser } from "./redux/user/slice";
 import { toggleUploader } from "./redux/toggleUploader/slice";
+import { wishlistReceived } from "./redux/wishlist/slice";
 
 import Logo from "./logo";
 import ExplorePlants from "./explorePlants";
 import Profile from "./profile";
+import ProfilePicture from "./profilePic";
+import Uploader from "./profilePicUploader";
 
 export default function App() {
     const dispatch = useDispatch();
+    const modalWindow = useSelector((state) => state.toggleUploader);
 
     useEffect(() => {
         (async () => {
@@ -19,10 +23,12 @@ export default function App() {
                 dispatch(loggedUser(data.user));
                 dispatch(toggleUploader(false));
             } catch (err) {
-                console.log("error in fetching  logged useruser ", err);
+                console.log("error in fetching  logged user ", err);
             }
         })();
     }, []);
+
+    
 
     const logout = async () => {
         try {
@@ -51,11 +57,13 @@ export default function App() {
                                 Logout{" "}
                             </h2>
                         </Link>
+                        <ProfilePicture />
                     </div>
                 </nav>
                 <Route exact path="/">
                     <Profile />
                 </Route>
+                {modalWindow && <Uploader />}
                 <Route path="/explore">
                     <ExplorePlants />
                 </Route>

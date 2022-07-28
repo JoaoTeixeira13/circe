@@ -4,10 +4,10 @@ import { toggleUploader } from "./redux/toggleUploader/slice";
 export default function ProfilePicture() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
-    const toggle = useSelector((state) => state.toggleUploader);
+    const modalWindow = useSelector((state) => state.toggleUploader);
 
     const switchPic = () => {
-        dispatch(toggleUploader(!toggle));
+        dispatch(toggleUploader(!modalWindow));
     };
 
     return (

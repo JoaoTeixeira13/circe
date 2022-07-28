@@ -17,7 +17,7 @@ const db = spicedPg(
 // Logged out experience
 
 module.exports.addUser = (firstName, lastName, email, location, password) => {
-    const q = `INSERT INTO users(first, last, email, location, password) VALUES ($1, $2, $3, $4,$5)
+    const q = `INSERT INTO users(first, last, email, location, password) VALUES ($1, $2, $3, $4, $5)
     RETURNING id`;
     const param = [firstName, lastName, email, location, password];
     return db.query(q, param);
@@ -72,4 +72,38 @@ module.exports.fetchProfile = (id) => {
     LIMIT 1`,
         [id]
     );
+};
+
+//upload profilePicture
+
+module.exports.uploadProfilePicture = (url, userId) => {
+    const q = `UPDATE users
+    SET imageUrl = $1 
+    WHERE id = $2
+    RETURNING imageUrl`;
+
+    const param = [url, userId];
+    return db.query(q, param);
+};
+
+//get user's wishlist
+
+module.exports.fetchWishlist = (user_id) => {
+    return db.query(
+        `SELECT *
+    FROM wishlist
+    WHERE user_id = $1
+    `,
+        [user_id]
+    );
+};
+
+//add plants to wishlist
+
+module.exports.addToWishlist = (user_id, pid, display_pid, image_url) => {
+    const q = `INSERT INTO wishlist(user_id, pid, display_pid, image_url)
+     VALUES ($1, $2, $3, $4)
+    `;
+    const param = [user_id, pid, display_pid, image_url];
+    return db.query(q, param);
 };

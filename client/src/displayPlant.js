@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
-import { addToWishlist } from "./redux/wishlist/slice";
+import { addToWishlist, removeFromWishlist } from "./redux/wishlist/slice";
 
 export default function DisplayPlant(props) {
     const dispatch = useDispatch();
@@ -14,19 +14,26 @@ export default function DisplayPlant(props) {
     const [button, setButton] = useState(buttonValues.add);
 
     useEffect(() => {
-        wishlist.map((plant) => {
-            if (plant.pid == props.plant.pid) {
-                setButton[buttonValues.remove];
+        {
+            if (wishlist) {
+                for (let i = 0; i < wishlist.length; i++) {
+                    let plant = wishlist[i];
+                    
+                    if (plant.pid == props.plant.pid) {
+                        console.log(
+                            "equality condition met",
+                            buttonValues.remove
+                        );
+                        setButton(buttonValues.remove);
+                        return true;
+                    }
+                }
+                setButton(buttonValues.add);
             }
-        });
-    }, []);
+        }
+    }, [props.plant]);
 
     const handleWishlist = () => {
-        console.log(
-            "user wants to add to wishlist: ",
-            props.plant.display_pid,
-            props.plant
-        );
 
         (async () => {
             try {
@@ -39,8 +46,13 @@ export default function DisplayPlant(props) {
                 });
                 const data = await resp.json();
                 console.log("data on back from add wish list button is,", data);
+                if (button == buttonValues.add) {
+                    dispatch(addToWishlist(data.plant));
+                } else if (button == buttonValues.remove) {
+                    //dispatch delete from wishList action
+                    dispatch(removeFromWishlist(data.plant));
+                }
                 setButton(data.buttonText);
-                dispatch(addToWishlist(data.plant));
             } catch (err) {
                 console.log("error in posting users' relationship ", err);
             }

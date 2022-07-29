@@ -108,3 +108,12 @@ module.exports.addToWishlist = (user_id, pid, display_pid, image_url) => {
     const param = [user_id, pid, display_pid, image_url];
     return db.query(q, param);
 };
+
+module.exports.removeFromWishlist = (user, plant) => {
+    return db.query(
+        `DELETE FROM wishlist
+      WHERE (user_id = $1 AND pid = $2)
+      RETURNING id`,
+        [user, plant]
+    );
+};

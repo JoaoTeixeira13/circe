@@ -323,14 +323,29 @@ app.post("/api/handleWishlist", async (req, res) => {
                 plant,
             });
         } catch (err) {
-            console.log("error in db social network ", err);
+            console.log("error in db inserting into wishlist ", err);
             res.json({
                 success: false,
                 error: true,
             });
         }
     } else if (req.body[0].button == buttonValues.remove) {
-        res.json({ success: true, buttonText: buttonValues.add });
+        try {
+            const result = await db.removeFromWishlist(
+                req.session.userId,
+                req.body[1].plant.pid
+            );
+            const plant = result.rows[0];
+            
+
+            res.json({ success: true, buttonText: buttonValues.add, plant });
+        } catch (err) {
+            console.log("error in db removing from wishlist ", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
     }
 });
 

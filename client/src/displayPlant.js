@@ -20,10 +20,7 @@ export default function DisplayPlant(props) {
                     let plant = wishlist[i];
                     
                     if (plant.pid == props.plant.pid) {
-                        console.log(
-                            "equality condition met",
-                            buttonValues.remove
-                        );
+                        
                         setButton(buttonValues.remove);
                         return true;
                     }

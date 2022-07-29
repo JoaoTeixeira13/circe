@@ -10,6 +10,7 @@ import ExploreWindow from "./exploreWindow";
 import Profile from "./profile";
 import ProfilePicture from "./profilePic";
 import Uploader from "./profilePicUploader";
+import TradeWindow from "./tradeWindow";
 
 export default function App() {
     const dispatch = useDispatch();
@@ -46,6 +47,9 @@ export default function App() {
                 <nav className="profileHeader">
                     <Logo />
                     <div className="navRight">
+                        <Link to="/trade">
+                            <h2>Trade</h2>
+                        </Link>
                         <Link to="/explore">
                             <h2>Explore</h2>
                         </Link>
@@ -66,6 +70,9 @@ export default function App() {
                 {modalWindow && <Uploader />}
                 <Route path="/explore">
                     <ExploreWindow />
+                </Route>
+                <Route path="/trade">
+                    <TradeWindow />
                 </Route>
             </BrowserRouter>
         </div>

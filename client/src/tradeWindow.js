@@ -1,6 +1,8 @@
 import Wishlist from "./wishlist";
 import Matches from "./matches";
 import ToTrade from "./toTrade";
+import TradeUploader from "./tradeUploader";
+
 
 import { useState } from "react";
 
@@ -12,6 +14,7 @@ export default function TradeWindow() {
             <Wishlist setMatch={setMatch} />
             <Matches match={match} />
             <ToTrade />
+            <TradeUploader />
         </div>
     );
 }

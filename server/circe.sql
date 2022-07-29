@@ -1,6 +1,7 @@
 
 DROP TABLE IF EXISTS reset_codes;
 DROP TABLE IF EXISTS wishlist;
+DROP TABLE IF EXISTS to_trade;
 DROP TABLE IF EXISTS users;
 
 
@@ -27,6 +28,15 @@ CREATE TABLE users (
     user_id INT REFERENCES users(id) NOT NULL,
     pid VARCHAR NOT NULL,
     display_pid VARCHAR NOT NULL,
+    image_url VARCHAR NOT NULL
+  );
+
+   CREATE TABLE to_trade(
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) NOT NULL,
+    pid VARCHAR NOT NULL,
+    display_pid VARCHAR NOT NULL,
+    description VARCHAR NOT NULL,
     image_url VARCHAR NOT NULL
   );
 

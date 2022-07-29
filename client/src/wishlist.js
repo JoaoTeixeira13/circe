@@ -36,7 +36,7 @@ export default function Wishlist() {
 
     return (
         <div className="wishlist">
-            <h1>Wishlist Component here! </h1>
+            <h1>Wishlist Component </h1>
 
             <div className="plantList">
                 {wishlist &&

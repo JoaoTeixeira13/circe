@@ -6,7 +6,7 @@ export default function Matches() {
     }, []);
     return (
         <div className="matches">
-            <h1>Matches Component here! </h1>
+            <h1>Matches Component </h1>
         </div>
     );
 }

@@ -263,6 +263,13 @@ button:hover {
     display: flex;
     justify-content: space-between;
     width: 400px;
+    margin: 25px 0;
+    padding: 5px;
+}
+.plantCell:hover {
+    border: 2px solid #adedad;
+    border-radius: 5px;
+    color: #993333;
 }
 
 .wishlistIcon {

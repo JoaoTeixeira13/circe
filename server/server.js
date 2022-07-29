@@ -189,9 +189,7 @@ app.get("/api/user", async (req, res) => {
         const user = result.rows[0];
 
         const wishlistQuery = await db.fetchWishlist(req.session.userId);
-        console.log("list query is", wishlistQuery);
         const wishlist = wishlistQuery.rows;
-        console.log("wishlist on server is, ", wishlist);
 
         res.json({
             success: true,
@@ -336,7 +334,6 @@ app.post("/api/handleWishlist", async (req, res) => {
                 req.body[1].plant.pid
             );
             const plant = result.rows[0];
-            
 
             res.json({ success: true, buttonText: buttonValues.add, plant });
         } catch (err) {
@@ -349,6 +346,23 @@ app.post("/api/handleWishlist", async (req, res) => {
     }
 });
 
+app.post("/api/deleteFromWishlist", async (req, res) => {
+    try {
+        const result = await db.removeFromWishlist(
+            req.session.userId,
+            req.body.plant
+        );
+        const plant = result.rows[0];
+
+        res.json({ success: true, plant });
+    } catch (err) {
+        console.log("error in db removing from wishlist ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
 app.get("/logout", (req, res) => {
     req.session = null;
     res.json({ success: true });

@@ -5,7 +5,7 @@ export default function Matches() {
         console.log("Matches component mounted!");
     }, []);
     return (
-        <div>
+        <div className="matches">
             <h1>Matches Component here! </h1>
         </div>
     );

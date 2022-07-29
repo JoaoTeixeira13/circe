@@ -103,52 +103,6 @@ label {
     display: none;
 }
 
-/* profile */
-
-.userProfile .profilePicture,
-.imageSection img {
-    width: 500px;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 0;
-    border: 0;
-}
-/* plant search section */
-
-.exploreElement {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin: auto;
-}
-
-.plantExplorer {
-    display: flex;
-}
-
-.plantSearch,
-.singularPlant {
-    display: flex;
-    flex-direction: column;
-    width: 40vw;
-    justify-content: flex-start;
-    align-items: flex-start;
-    height: 85vh;
-    margin-top: 100px;
-    align-content: center;
-}
-.plantList {
-    height: 60vh;
-    overflow-y: scroll;
-}
-.plantList h2 {
-    margin-bottom: 50px;
-}
-.singularPlant img {
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
-}
 input {
     width: 350px;
     height: 40px;
@@ -160,10 +114,7 @@ input {
     outline: 0;
     color: #a11d16;
 }
-.plantCell h3:hover {
-    color: #a11d16;
-    cursor: pointer;
-}
+
 input::placeholder {
     color: #a11d16;
 }
@@ -243,4 +194,86 @@ button:hover {
 
 .registration-link {
     margin-top: auto;
+}
+
+/* profile */
+
+.userProfile .profilePicture,
+.imageSection img {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 0;
+    border: 0;
+}
+/* plant search section */
+
+.exploreElement {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: auto;
+}
+
+.plantExplorer {
+    display: flex;
+}
+
+.plantSearch,
+.singularPlant,
+.matches,
+.toTrade,
+.wishlist {
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 85vh;
+    margin-top: 100px;
+    align-content: center;
+}
+
+.plantList {
+    height: 60vh;
+    overflow-y: scroll;
+}
+.plantList h2 {
+    margin-bottom: 50px;
+}
+.singularPlant img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+}
+.plantCell h3:hover {
+    color: #a11d16;
+    cursor: pointer;
+}
+
+/* wishlist */
+
+.matches,
+.toTrade,
+.wishlist {
+    width: 30vw;
+}
+
+.plantCell {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.wishlistIcon {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #adedad;
+    margin-right: 20px;
+}
+
+.plantCell input {
+    width: 20px;
 }

@@ -5,7 +5,7 @@ export default function ToTrade() {
         console.log("To Trade component mounted!");
     }, []);
     return (
-        <div>
+        <div className="toTrade">
             <h1>To trade Component here! </h1>
         </div>
     );

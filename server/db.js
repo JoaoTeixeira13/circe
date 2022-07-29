@@ -117,3 +117,39 @@ module.exports.removeFromWishlist = (user, plant) => {
         [user, plant]
     );
 };
+
+//trade list
+
+module.exports.fetchTradelist = (user_id) => {
+    return db.query(
+        `SELECT *
+    FROM to_trade
+    WHERE user_id = $1
+    `,
+        [user_id]
+    );
+};
+
+module.exports.addToTradeList = (
+    user_id,
+    pid,
+    display_pid,
+    description,
+    image_url
+) => {
+    const q = `INSERT INTO to_trade(user_id, pid, display_pid, description, image_url)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING *
+    `;
+    const param = [user_id, pid, display_pid, description, image_url];
+    return db.query(q, param);
+};
+
+module.exports.removeFromTradeList = (user, plant) => {
+    return db.query(
+        `DELETE FROM to_trade
+      WHERE (user_id = $1 AND pid = $2)
+      RETURNING id`,
+        [user, plant]
+    );
+};

@@ -39,7 +39,7 @@ export default function TradeUploader() {
                     >
                         {" "}
                         <label htmlFor="input-tag">
-                            Browse
+                            Browse picture
                             <input
                                 name="image"
                                 type="file"

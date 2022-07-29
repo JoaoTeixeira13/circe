@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-
 import { useState, useEffect } from "react";
 
+import { addToWishlist } from "./redux/wishlist/slice";
+
 export default function DisplayPlant(props) {
+    const dispatch = useDispatch();
     const wishlist = useSelector((state) => state.wishlist);
 
     const buttonValues = {
@@ -38,6 +40,7 @@ export default function DisplayPlant(props) {
                 const data = await resp.json();
                 console.log("data on back from add wish list button is,", data);
                 setButton(data.buttonText);
+                dispatch(addToWishlist(data.plant));
             } catch (err) {
                 console.log("error in posting users' relationship ", err);
             }

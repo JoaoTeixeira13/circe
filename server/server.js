@@ -310,15 +310,17 @@ const buttonValues = {
 app.post("/api/handleWishlist", async (req, res) => {
     if (req.body[0].button == buttonValues.add) {
         try {
-            await db.addToWishlist(
+            const result = await db.addToWishlist(
                 req.session.userId,
                 req.body[1].plant.pid,
                 req.body[1].plant.display_pid,
                 req.body[1].plant.image_url
             );
+            const plant = result.rows[0];
             res.json({
                 success: true,
                 buttonText: buttonValues.remove,
+                plant,
             });
         } catch (err) {
             console.log("error in db social network ", err);

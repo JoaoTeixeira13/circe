@@ -18,7 +18,7 @@ export default function ToTrade() {
 
     return (
         <div className="toTrade">
-            <h1>ToTrade Component </h1>
+            <h1>What I'm offering</h1>
             <ToTradeList />
 
             <button onClick={() => uploadPlant()}>Add</button>

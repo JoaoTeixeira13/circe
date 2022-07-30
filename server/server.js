@@ -428,16 +428,36 @@ app.post("/api/deleteFromTradeList", async (req, res) => {
 //fetch matches
 
 app.get("/api/fetchMatches", async (req, res) => {
-    console.log("server ready to request data for matches");
     try {
+        let fullMatches = [];
+        console.log("full matches before query,", fullMatches);
         const result = await db.getMatches(req.session.userId);
 
         const matches = result.rows;
-        console.log("matches are,", matches);
 
+        if (matches.length) {
+            const idMatches = matches.map((each) => {
+                return each.user_id;
+            });
+            let uniq = [...new Set(idMatches)];
+
+            const fullResult = await db.getFullMatches(
+                req.session.userId,
+                idMatches
+            );
+            fullMatches = fullResult.rows;
+            
+        }
+        console.log(
+            "for user ",
+            req.session.userId,
+            " full matches after query are are,",
+            fullMatches
+        );
         res.json({
             sucess: true,
             matches,
+            fullMatches,
         });
     } catch (err) {
         console.log("error in db fetching matches ", err);

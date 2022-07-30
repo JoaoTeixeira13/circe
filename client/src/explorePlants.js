@@ -82,7 +82,7 @@ export default function ExplorePlants(props) {
 
                 {input && <h2>Search results for {input}</h2>}
                 <div className="plantList">
-                    {plantSearch &&
+                    {plantSearch.length !== 0 &&
                         plantSearch.map((plant) => {
                             return (
                                 <div className="plantCell" key={plant.pid}>

@@ -33,7 +33,7 @@ export default function Wishlist() {
 
     return (
         <div className="wishlist">
-            <h1>Wishlist Component </h1>
+            <h1>Wishlist</h1>
 
             <div className="plantList">
                 {wishlist &&
@@ -44,10 +44,7 @@ export default function Wishlist() {
                                     type="checkbox"
                                     onClick={() => handleCheckbox(plant.pid)}
                                 ></input>
-                                <h4 onClick={() => findMatch(plant.pid)}>
-                                    SWAP
-                                </h4>
-                                {/* <h4 onClick={(e) => fetchOnePlant(e)}> in case plant display will exist */}
+
                                 <h4>{plant.display_pid}</h4>
                                 <img
                                     className="wishlistIcon"

@@ -164,7 +164,20 @@ module.exports.getMatches = (loggedUser) => {
     ON (to_trade.user_id = users.id)
     JOIN wishlist
     ON (to_trade.pid = wishlist.pid AND wishlist.user_id = $1)
+    
      `,
         [loggedUser]
+    );
+};
+
+module.exports.getFullMatches = (loggedUser, tradingPartners) => {
+    return db.query(
+        `SELECT wishlist.id, wishlist.user_id, wishlist.pid, wishlist.display_pid, to_trade.image_url
+    FROM wishlist
+    JOIN to_trade
+    ON (to_trade.pid = wishlist.pid AND to_trade.user_id = $1 AND wishlist.user_id = ANY($2))
+    
+     `,
+        [loggedUser, tradingPartners]
     );
 };

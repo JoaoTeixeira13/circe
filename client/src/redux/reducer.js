@@ -5,6 +5,7 @@ import toggleTradeUploaderReducer from "./toggleTradeUploader/slice";
 import wishlistReducer from "./wishlist/slice";
 import plantsToTradeReducer from "./plantsToTrade/slice";
 import matchesReducer from "./matches/slice";
+import fullMatchesReducer from "./fullMatch/slice";
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     wishlist: wishlistReducer,
     plantsToTrade: plantsToTradeReducer,
     matches: matchesReducer,
+    fullMatches: fullMatchesReducer,
 });
 
 export default rootReducer;

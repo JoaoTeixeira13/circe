@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loggedUser } from "./redux/user/slice";
 import { toggleUploader } from "./redux/toggleUploader/slice";
 import { wishlistReceived } from "./redux/wishlist/slice";
+import { plantsToTradeReceived } from "./redux/plantsToTrade/slice";
 
 import Logo from "./logo";
 import ExploreWindow from "./exploreWindow";
@@ -25,6 +26,7 @@ export default function App() {
                 dispatch(loggedUser(data.user));
                 dispatch(toggleUploader(false));
                 dispatch(wishlistReceived(data.wishlist));
+                dispatch(plantsToTradeReceived(data.plantsToTrade));
             } catch (err) {
                 console.log("error in fetching  logged user ", err);
             }

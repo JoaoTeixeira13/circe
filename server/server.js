@@ -191,10 +191,14 @@ app.get("/api/user", async (req, res) => {
         const wishlistQuery = await db.fetchWishlist(req.session.userId);
         const wishlist = wishlistQuery.rows;
 
+        const plantsToTradeQuery = await db.fetchTradelist(req.session.userId);
+        const plantsToTrade = plantsToTradeQuery.rows;
+
         res.json({
             success: true,
             user,
             wishlist,
+            plantsToTrade,
         });
     } catch (err) {
         console.log("error in db. fetching user's profile ", err);
@@ -363,6 +367,64 @@ app.post("/api/deleteFromWishlist", async (req, res) => {
         });
     }
 });
+
+// upload plants to trade
+
+app.post(
+    "/uploadPlant",
+    uploader.single("image"),
+    s3.upload,
+    async (req, res) => {
+        const url = "https://s3.amazonaws.com/spicedling/" + req.file.filename;
+        const pid = req.body.plant.toLowerCase();
+
+        if (url) {
+            try {
+                const result = await db.addToTradeList(
+                    req.session.userId,
+                    pid,
+                    req.body.plant,
+                    req.body.description,
+                    url
+                );
+
+                res.json({
+                    sucess: true,
+                    plant: result.rows[0],
+                });
+            } catch (err) {
+                console.log("error in db. fetching user's profile ", err);
+                res.json({
+                    success: false,
+                    error: true,
+                });
+            }
+        } else {
+            console.log("invalid url");
+        }
+    }
+);
+
+//delete from trade list
+
+app.post("/api/deleteFromTradeList", async (req, res) => {
+    try {
+        const result = await db.removeFromTradeList(
+            req.session.userId,
+            req.body.plant
+        );
+        const plant = result.rows[0];
+
+        res.json({ success: true, plant });
+    } catch (err) {
+        console.log("error in db removing from wishlist ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
+
 app.get("/logout", (req, res) => {
     req.session = null;
     res.json({ success: true });

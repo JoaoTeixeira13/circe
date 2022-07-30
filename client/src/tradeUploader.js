@@ -21,7 +21,7 @@ export default function TradeUploader() {
             const data = await resp.json();
 
             console.log("data is", data);
-            dispatch(addToPlantsToTrade(data.payload.plant));
+            dispatch(addToPlantsToTrade(data.plant));
             closeModal();
         } catch (err) {
             console.log("error in uploading user's picture ", err);
@@ -38,6 +38,18 @@ export default function TradeUploader() {
                         className="modalForm"
                     >
                         {" "}
+                        <input
+                            name="plant"
+                            type="text"
+                            placeholder="botanical nomenclature (ex: Ficus elastica)"
+                            required
+                        />
+                        <input
+                            name="description"
+                            type="text"
+                            placeholder="description"
+                            required
+                        />
                         <label htmlFor="input-tag">
                             Browse picture
                             <input

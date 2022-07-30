@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromWishlist } from "./redux/wishlist/slice";
+import { useState, useEffect } from "react";
 
-export default function Wishlist() {
-    const wishlist = useSelector((state) => state.wishlist);
+import { removeFromPlantsToTrade } from "./redux/plantsToTrade/slice";
+
+export default function ToTradeList() {
     const dispatch = useDispatch();
+    const plantsToTrade = useSelector((state) => state.plantsToTrade);
 
     useEffect(() => {
-        console.log("Wishlist component mounted!");
+        console.log("toTradeList just mounted!");
     }, []);
 
     const handleCheckbox = async (id) => {
         try {
-            const resp = await fetch("/api/deleteFromWishlist", {
+            const resp = await fetch("/api/deleteFromTradeList", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -21,26 +22,23 @@ export default function Wishlist() {
             });
             const data = await resp.json();
 
-            dispatch(removeFromWishlist(data.plant));
+            dispatch(removeFromPlantsToTrade(data.plant));
         } catch (err) {
             console.log("error in posting users' relationship ", err);
         }
     };
 
     return (
-        <div className="wishlist">
-            <h1>Wishlist Component </h1>
-
+        <div className="PlantsToTrade">
             <div className="plantList">
-                {wishlist &&
-                    wishlist.map((plant) => {
+                {plantsToTrade &&
+                    plantsToTrade.map((plant) => {
                         return (
                             <div className="plantCell" key={plant.id}>
                                 <input
                                     type="checkbox"
                                     onClick={() => handleCheckbox(plant.pid)}
                                 ></input>
-                                {/* <h4 onClick={(e) => fetchOnePlant(e)}> in case plant display will exist */}
                                 <h4>{plant.display_pid}</h4>
                                 <img
                                     className="wishlistIcon"

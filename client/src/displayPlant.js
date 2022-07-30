@@ -42,11 +42,10 @@ export default function DisplayPlant(props) {
                     body: JSON.stringify([{ button }, { plant: props.plant }]),
                 });
                 const data = await resp.json();
-                console.log("data on back from add wish list button is,", data);
+
                 if (button == buttonValues.add) {
                     dispatch(addToWishlist(data.plant));
                 } else if (button == buttonValues.remove) {
-                    //dispatch delete from wishList action
                     dispatch(removeFromWishlist(data.plant));
                 }
                 setButton(data.buttonText);

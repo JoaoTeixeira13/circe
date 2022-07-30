@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 export default function ExplorePlants(props) {
     const [input, setInput] = useState("");
     const [plantSearch, setPlantSearch] = useState([]);
-    // const [plant, setPlant] = useState("");
     const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -42,7 +41,6 @@ export default function ExplorePlants(props) {
     }, [input]);
 
     const handleChange = (e) => {
-        //set state
         setInput(e.target.value);
     };
     const fetchOnePlant = async (e) => {

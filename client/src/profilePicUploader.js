@@ -20,7 +20,6 @@ export default function Uploader() {
 
             const data = await resp.json();
 
-            console.log("data is", data);
             dispatch(uploadImageUser(data.payload.imageurl));
             closeModal();
         } catch (err) {

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { toggleTradeUploader } from "./redux/toggleTradeUploader/slice";
 import { useSelector, useDispatch } from "react-redux";
 
+import ToTradeList from "./toTradeList";
 
 export default function ToTrade() {
     const dispatch = useDispatch();
@@ -18,7 +19,8 @@ export default function ToTrade() {
     return (
         <div className="toTrade">
             <h1>ToTrade Component </h1>
-            
+            <ToTradeList />
+
             <button onClick={() => uploadPlant()}>Add</button>
         </div>
     );

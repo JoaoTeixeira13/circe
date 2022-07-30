@@ -425,6 +425,28 @@ app.post("/api/deleteFromTradeList", async (req, res) => {
     }
 });
 
+//fetch matches
+
+app.get("/api/fetchMatches", async (req, res) => {
+    console.log("server ready to request data for matches");
+    try {
+        const result = await db.getMatches(req.session.userId);
+
+        const matches = result.rows;
+        console.log("matches are,", matches);
+
+        res.json({
+            sucess: true,
+            matches,
+        });
+    } catch (err) {
+        console.log("error in db fetching matches ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
 app.get("/logout", (req, res) => {
     req.session = null;
     res.json({ success: true });

@@ -153,3 +153,18 @@ module.exports.removeFromTradeList = (user, plant) => {
         [user, plant]
     );
 };
+
+//matches
+
+module.exports.getMatches = (loggedUser) => {
+    return db.query(
+        `SELECT to_trade.id, to_trade.user_id, to_trade.pid, to_trade.display_pid, to_trade.description, to_trade.image_url, users.first
+    FROM to_trade
+    JOIN users
+    ON (to_trade.user_id = users.id)
+    JOIN wishlist
+    ON (to_trade.pid = wishlist.pid AND wishlist.user_id = $1)
+     `,
+        [loggedUser]
+    );
+};

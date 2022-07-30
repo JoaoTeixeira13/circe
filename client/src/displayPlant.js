@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
 import { addToWishlist, removeFromWishlist } from "./redux/wishlist/slice";
+import { addToMatches, removeFromMatches } from "./redux/matches/slice";
 
 export default function DisplayPlant(props) {
     const dispatch = useDispatch();
@@ -18,9 +19,8 @@ export default function DisplayPlant(props) {
             if (wishlist) {
                 for (let i = 0; i < wishlist.length; i++) {
                     let plant = wishlist[i];
-                    
+
                     if (plant.pid == props.plant.pid) {
-                        
                         setButton(buttonValues.remove);
                         return true;
                     }
@@ -31,7 +31,6 @@ export default function DisplayPlant(props) {
     }, [props.plant]);
 
     const handleWishlist = () => {
-
         (async () => {
             try {
                 const resp = await fetch("/api/handleWishlist", {
@@ -45,8 +44,10 @@ export default function DisplayPlant(props) {
 
                 if (button == buttonValues.add) {
                     dispatch(addToWishlist(data.plant));
+                    dispatch(addToMatches(data.plant));
                 } else if (button == buttonValues.remove) {
                     dispatch(removeFromWishlist(data.plant));
+                    dispatch(removeFromMatches(data.plant));
                 }
                 setButton(data.buttonText);
             } catch (err) {

@@ -27,6 +27,10 @@ export default function Wishlist() {
         }
     };
 
+    const findMatch = (id) => {
+        console.log("user wants to find match for plant with id, ", id);
+    };
+
     return (
         <div className="wishlist">
             <h1>Wishlist Component </h1>
@@ -40,6 +44,9 @@ export default function Wishlist() {
                                     type="checkbox"
                                     onClick={() => handleCheckbox(plant.pid)}
                                 ></input>
+                                <h4 onClick={() => findMatch(plant.pid)}>
+                                    SWAP
+                                </h4>
                                 {/* <h4 onClick={(e) => fetchOnePlant(e)}> in case plant display will exist */}
                                 <h4>{plant.display_pid}</h4>
                                 <img

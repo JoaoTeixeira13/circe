@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { toggleMatchModal } from "./redux/toggleMatchModal/slice";
 
-export default function MatchModal() {
+export default function MatchModal(props) {
+    console.log("props inside match modal are", props);
     const dispatch = useDispatch();
     const modalWindow = useSelector((state) => state.toggleMatchModal);
     const closeModal = () => {
@@ -35,12 +36,21 @@ export default function MatchModal() {
     return (
         <>
             {modalWindow && (
-                <div className="modalWindow">
-                    <h2> They have something you want, reach out to them!</h2>
-                    <button>Submit</button>
-                    <h2 onClick={() => closeModal()} className="closeModal">
-                        X
-                    </h2>
+                <div className="modalWindow matchModal">
+                    <img src={props.matchDisplay.image_url}></img>
+                    <div className="matchInfo">
+                        <h2>
+                            {" "}
+                            {props.matchDisplay.first} has a{" "}
+                            {props.matchDisplay.display_pid} you are looking
+                            for.
+                        </h2>
+                        <h3>Description: {props.matchDisplay.description}</h3>
+                        <button>Contact details</button>
+                        <h2 onClick={() => closeModal()} className="closeModal">
+                            X
+                        </h2>
+                    </div>
                 </div>
             )}
         </>

@@ -7,15 +7,15 @@ import MatchModal from "./matchModal";
 import { useState } from "react";
 
 export default function TradeWindow() {
-    const [match, setMatch] = useState("");
+    const [matchDisplay, setMatchDisplay] = useState("");
 
     return (
         <div className="exploreElement">
-            <Wishlist setMatch={setMatch} />
-            <Matches match={match} />
+            <Wishlist />
+            <Matches setMatchDisplay={setMatchDisplay} />
             <ToTrade />
             <TradeUploader />
-            <MatchModal />
+            <MatchModal matchDisplay={matchDisplay} />
         </div>
     );
 }

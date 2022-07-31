@@ -171,15 +171,29 @@ module.exports.getMatches = (loggedUser) => {
     );
 };
 
-module.exports.getFullMatches = (loggedUser, tradingPartners) => {
+module.exports.getThirdMatches = (tradingPartners, loggedUser) => {
     return db.query(
-        `SELECT wishlist.id, wishlist.user_id, wishlist.pid, wishlist.display_pid, to_trade.image_url
+        `SELECT wishlist.id, wishlist.user_id as other_user_id, wishlist.pid, wishlist.display_pid
     FROM wishlist
     JOIN to_trade
     ON (to_trade.pid = wishlist.pid)
-    WHERE to_trade.user_id = $1 AND wishlist.user_id = ANY($2)
+    WHERE wishlist.user_id = ANY($1) AND to_trade.user_id = $2
+
+
+
     
      `,
-        [loggedUser, tradingPartners]
+        [tradingPartners, loggedUser]
+    );
+};
+
+module.exports.getLastMatch = (loggedUser, plantsToTrade) => {
+    return db.query(
+        `SELECT to_trade.id, to_trade.user_id, to_trade.pid, to_trade.display_pid, to_trade.image_url
+    FROM to_trade 
+     
+    WHERE to_trade.user_id =($1) and  to_trade.pid = ANY($2)
+     `,
+        [loggedUser, plantsToTrade]
     );
 };

@@ -35,11 +35,15 @@ export default function ToTradeList() {
                     plantsToTrade.map((plant) => {
                         return (
                             <div className="plantCell" key={plant.id}>
-                                <input
-                                    type="checkbox"
-                                    onClick={() => handleCheckbox(plant.pid)}
-                                ></input>
-                                <h4>{plant.display_pid}</h4>
+                                <div className="wishlistCheck">
+                                    <input
+                                        type="checkbox"
+                                        onClick={() =>
+                                            handleCheckbox(plant.pid)
+                                        }
+                                    ></input>
+                                    <h4>{plant.display_pid}</h4>
+                                </div>
                                 <img
                                     className="wishlistIcon"
                                     src={plant.image_url}

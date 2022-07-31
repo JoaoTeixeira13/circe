@@ -209,6 +209,43 @@ app.get("/api/user", async (req, res) => {
     }
 });
 
+//other users
+app.get("/api/user/:id", async (req, res) => {
+    if (!isNaN(req.params.id)) {
+        if (req.session.userId == req.params.id) {
+            res.json({
+                ownProfile: true,
+            });
+        } else {
+            try {
+                const results = await db.fetchProfile(req.params.id);
+
+                const profile = results.rows[0];
+                if (!profile) {
+                    res.json({
+                        noMatch: true,
+                    });
+                } else {
+                    res.json({
+                        success: true,
+                        profile,
+                    });
+                }
+            } catch (error) {
+                console.log("error in fetching user's profile ", err);
+                res.json({
+                    success: false,
+                    error: true,
+                });
+            }
+        }
+    } else {
+        res.json({
+            ownProfile: true,
+        });
+    }
+});
+
 //profile picture upload
 
 const storage = multer.diskStorage({
@@ -430,11 +467,9 @@ app.post("/api/deleteFromTradeList", async (req, res) => {
 app.get("/api/fetchMatches", async (req, res) => {
     try {
         let fullMatches = [];
-        // console.log("full matches before query,", fullMatches);
         const result = await db.getMatches(req.session.userId);
 
         const matches = result.rows;
-        // console.log("matches from first query are", matches);
 
         if (matches.length) {
             const idMatches = matches.map((each) => {
@@ -446,17 +481,7 @@ app.get("/api/fetchMatches", async (req, res) => {
                 req.session.userId
             );
             fullMatches = thirdResult.rows;
-            // console.log("third results are,", thirdMatches);
-            // const tradingPlants = thirdMatches.map(({ pid }) => pid);
-
-            // const lastMatch = await db.getLastMatch(
-            //     req.session.userId,
-            //     tradingPlants
-            // );
-
-            // console.log("last match is,", lastMatch.rows);
-            // fullMatches = lastMatch.rows;
-            console.log("full matches are", fullMatches);
+            
         }
 
         res.json({
@@ -472,6 +497,8 @@ app.get("/api/fetchMatches", async (req, res) => {
         });
     }
 });
+
+
 app.get("/logout", (req, res) => {
     req.session = null;
     res.json({ success: true });

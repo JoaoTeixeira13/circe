@@ -42,6 +42,15 @@ export default function Matches(props) {
                                 className="plantCell"
                                 key={match.id}
                             >
+                                <img
+                                    className="wishlistIcon"
+                                    src={match.image_url}
+                                    alt={match.display_pid}
+                                />
+                                <h3>
+                                    {match.first} has a {match.display_pid}!
+                                </h3>
+
                                 {fullMatches.length !== 0 &&
                                     fullMatches.map((each) => {
                                         if (
@@ -56,15 +65,6 @@ export default function Matches(props) {
                                             );
                                         }
                                     })}
-
-                                <img
-                                    className="wishlistIcon"
-                                    src={match.image_url}
-                                    alt={match.display_pid}
-                                />
-                                <h3>
-                                    {match.first} has a {match.display_pid}!
-                                </h3>
                             </div>
                         );
                     })}

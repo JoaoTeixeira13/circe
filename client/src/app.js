@@ -10,6 +10,8 @@ import Logo from "./logo";
 import ExploreWindow from "./exploreWindow";
 import Profile from "./profile";
 import ProfilePicture from "./profilePic";
+import OtherProfile from "./otherProfile";
+
 import Uploader from "./profilePicUploader";
 import TradeWindow from "./tradeWindow";
 
@@ -75,6 +77,9 @@ export default function App() {
                 </Route>
                 <Route path="/trade">
                     <TradeWindow />
+                </Route>
+                <Route path="/user/:otherUserId">
+                    <OtherProfile />
                 </Route>
             </BrowserRouter>
         </div>

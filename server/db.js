@@ -165,6 +165,7 @@ module.exports.getMatches = (loggedUser) => {
     JOIN wishlist
     ON (to_trade.pid = wishlist.pid AND wishlist.user_id = $1)
     
+    
      `,
         [loggedUser]
     );
@@ -175,7 +176,8 @@ module.exports.getFullMatches = (loggedUser, tradingPartners) => {
         `SELECT wishlist.id, wishlist.user_id, wishlist.pid, wishlist.display_pid, to_trade.image_url
     FROM wishlist
     JOIN to_trade
-    ON (to_trade.pid = wishlist.pid AND to_trade.user_id = $1 AND wishlist.user_id = ANY($2))
+    ON (to_trade.pid = wishlist.pid)
+    WHERE to_trade.user_id = $1 AND wishlist.user_id = ANY($2)
     
      `,
         [loggedUser, tradingPartners]

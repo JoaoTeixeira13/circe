@@ -6,7 +6,6 @@ export default function toggleTradeUploaderReducer(toggleTradeUploader = false, 
     return toggleTradeUploader;
 }
 
-//Action creators
 export function toggleTradeUploader(boolean) {
     return {
         type: "toggleTradeUploader/toggle",

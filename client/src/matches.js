@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { matchesReceived } from "./redux/matches/slice";
 import { fullMatchesReceived } from "./redux/fullMatch/slice";
+import { toggleMatchModal } from "./redux/toggleMatchModal/slice";
 
 export default function Matches() {
     const matches = useSelector((state) => state.matches);
     const fullMatches = useSelector((state) => state.fullMatches);
-    
-
     const dispatch = useDispatch();
+
+    const modalWindow = useSelector((state) => state.toggleMatchModal);
+
+    const openMatch = () => {
+        console.log("user wants to open match window ");
+        dispatch(toggleMatchModal(!modalWindow));
+    };
     useEffect(() => {
         (async () => {
             try {
@@ -22,6 +28,7 @@ export default function Matches() {
             }
         })();
     }, []);
+
     return (
         <div className="matches">
             <h1>Matches!</h1>
@@ -29,20 +36,30 @@ export default function Matches() {
                 {matches.length !== 0 &&
                     matches.map((match) => {
                         return (
-                            <div className="plantCell" key={match.id}>
+                            <div
+                                onClick={() => openMatch()}
+                                className="plantCell"
+                                key={match.id}
+                            >
                                 <h4>
                                     {match.first} has a {match.display_pid}!
                                 </h4>
-                                {fullMatches.length !== 0 &&
-                                    fullMatches.map((each) => {
-                                        return (
-                                            <h4 key={each.id}>
-                                                You have a {each.display_pid}{" "}
-                                                they are looking for, reach out
-                                                to them!
-                                            </h4>
-                                        );
-                                    })}
+
+                                {/* {fullMatches.length !== 0 && (
+                                    // fullMatches.map((each) => {
+                                    //     return (
+                                    //         <h4 key={each.id}>
+                                    //             You have a {each.display_pid}{" "}
+                                    //             they are looking for, reach out
+                                    //             to them!
+                                    //         </h4>
+                                    //     );
+                                    // })
+                                    <h4>
+                                        You have something they ant on your
+                                        offers!
+                                    </h4>
+                                )} */}
                                 {/* {fullMatches[i] && (
                                     <h4>
                                         You have a {fullMatches[i].display_pid}{" "}

@@ -11,7 +11,7 @@ export default function OtherWishlist(props) {
                 {props.userWishlist &&
                     props.userWishlist.map((plant) => {
                         return (
-                            <div className="plantCell" key={plant.id}>
+                            <div className="plantCell otherWishlist" key={plant.id}>
                                 <div className="wishlistCheck">
                                     <h4>{plant.display_pid}</h4>
                                 </div>
@@ -21,17 +21,15 @@ export default function OtherWishlist(props) {
                                         if (each.pid === plant.pid) {
                                             return (
                                                 <h4 key={each.id}>
-                                                    You have this to trade.
+                                                    <span className="fullMatch">
+                                                        You have this to trade.
+                                                    </span>
                                                 </h4>
                                             );
                                         }
                                     })}
 
-                                <img
-                                    className="wishlistIcon"
-                                    src={plant.image_url}
-                                    alt={plant.display_pid}
-                                />
+                                
                             </div>
                         );
                     })}

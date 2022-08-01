@@ -5,7 +5,6 @@ export default function Wishlist(props) {
     const wishlist = useSelector((state) => state.wishlist);
     const dispatch = useDispatch();
 
-
     const handleCheckbox = async (id) => {
         try {
             const resp = await fetch("/api/deleteFromWishlist", {
@@ -49,11 +48,13 @@ export default function Wishlist(props) {
                                     <h4>{plant.display_pid}</h4>
                                 </div>
 
-                                <img
-                                    className="wishlistIcon"
-                                    src={plant.image_url}
-                                    alt={plant.display_pid}
-                                />
+                                {props.tradeManager && (
+                                    <img
+                                        className="wishlistIcon"
+                                        src={plant.image_url}
+                                        alt={plant.display_pid}
+                                    />
+                                )}
                             </div>
                         );
                     })}

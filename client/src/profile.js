@@ -11,17 +11,18 @@ export default function Profile() {
             <div className="userSection">
                 <h1>
                     {" "}
-                    Welcome, {user.first}! It's a nice day in{" "}
+                    Welcome, {user.first}! <br /> It's a nice day in{" "}
                     {user.location}.
                 </h1>
                 <div className="imageSection">
                     <ProfilePicture />
                 </div>
-                <div className="profileInfo">{/* <Bio /> */}</div>
+                <div className="profileInfo"> </div>
             </div>
 
             <div className="profilePlants">
                 <Wishlist />
+
                 <ToTrade />
             </div>
         </div>

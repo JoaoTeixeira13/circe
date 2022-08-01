@@ -43,7 +43,7 @@ a {
     color: #e17537;
 }
 .profileHeader a:hover {
-    color: #a11d16;
+    color: #063203;
 }
 .navRight {
     display: flex;
@@ -58,6 +58,9 @@ a {
     object-fit: cover;
     border-radius: 50%;
     border: 6px solid #e17537;
+}
+.profilePicture:hover {
+    border: 6px solid #063203;
 }
 /* modal */
 .modalForm,
@@ -185,7 +188,7 @@ button:hover {
     color: #e17537;
 }
 .welcome-paths a:hover {
-    color: #a11d16;
+    color: #063203;
 }
 .welcome-hero,
 .welcome-paths {
@@ -210,11 +213,44 @@ button:hover {
     border-radius: 50%;
     border: #adedad 5px solid;
 }
+.userProfile .profilePicture:hover {
+    border: #063203 6px solid;
+}
+
 .userProfile,
 .profilePlants {
     display: flex;
     justify-content: space-evenly;
 }
+.userProfile {
+    width: 90vw;
+    margin: auto;
+}
+.userSection {
+    width: 20vw;
+}
+.profilePlants .wishlist {
+    width: 250px;
+}
+.profilePlants .wishlist .plantCell {
+    width: 200px;
+    margin: 0;
+}
+.profilePlants {
+    width: 55vw;
+    justify-content: space-between;
+}
+.userProfile .toTrade {
+    width: 30vw;
+}
+/* other profile */
+
+.plantCell.otherWishlist {
+    display: flex;
+    flex-direction: column;
+}
+
+
 /* plant search section */
 
 .exploreElement {
@@ -323,9 +359,7 @@ button:hover {
     line-height: 1.5;
     padding: 30px;
 }
-/* .plantCell h3:hover {
-    color: #a11d16;
-} */
+
 .matches .plantCell:hover {
     cursor: pointer;
 }
@@ -378,7 +412,7 @@ button:hover {
 .plantCell:hover {
     border: 2px solid #e1eda4;
     border-radius: 5px;
-    color: #993333;
+    color: #063203;
 }
 
 .wishlistIcon {

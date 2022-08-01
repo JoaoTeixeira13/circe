@@ -46,7 +46,11 @@ export default function Matches(props) {
                                     alt={match.display_pid}
                                 />
                                 <h3>
-                                    {match.first} has a {match.display_pid}!
+                                    {match.first} has a{" "}
+                                    <span className="halfMatch">
+                                        {match.display_pid}
+                                    </span>
+                                    !
                                 </h3>
 
                                 {fullMatches.length !== 0 &&
@@ -56,7 +60,10 @@ export default function Matches(props) {
                                         ) {
                                             return (
                                                 <h3 key={each.id}>
-                                                    FULL MATCH! You have a{" "}
+                                                    <span className="fullMatch">
+                                                        FULL MATCH!{" "}
+                                                    </span>
+                                                    You have a{" "}
                                                     {each.display_pid} they are
                                                     looking for!
                                                 </h3>

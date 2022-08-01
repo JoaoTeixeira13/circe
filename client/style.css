@@ -1,6 +1,6 @@
 body {
     background-color: #4ba14b;
-    color: #f0faf0;
+    color: #ece2d6;
     font-family: Helvetica, Arial, sans-serif;
     box-sizing: border-box;
     margin: 0;
@@ -248,6 +248,12 @@ button:hover {
     border-radius: 15px;
     padding: 20px;
 }
+.plantSearch:hover,
+.singularPlant:hover,
+.toTrade:hover,
+.wishlist:hover {
+    border: #e1eda4 6px solid;
+}
 .plantSearch {
     width: 25vw;
     align-items: flex-start;
@@ -267,6 +273,17 @@ button:hover {
 .matches {
     border: none;
 }
+/* #full_match {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    align-self: flex-start;
+} */
+
+.fullMatch {
+    color: #a11d16;
+}
 
 .matches h1,
 .toTrade h1,
@@ -281,7 +298,8 @@ button:hover {
 .plantList h2 {
     margin-bottom: 50px;
 }
-.toTrade button, .wishlist button {
+.toTrade button,
+.wishlist button {
     width: 200px;
     height: 40px;
     align-self: center;
@@ -293,9 +311,9 @@ button:hover {
     height: 400px;
     object-fit: cover;
 }
-.plantCell h3:hover {
+/* .plantCell h3:hover {
     color: #a11d16;
-}
+} */
 .matches .plantCell:hover {
     cursor: pointer;
 }
@@ -305,7 +323,7 @@ button:hover {
     width: 350px;
     height: 350px;
     object-fit: cover;
-    border-radius: 0;
+    border-radius: 15px;
 }
 .matches h1 {
     margin-top: 0;
@@ -320,7 +338,6 @@ button:hover {
 .matches {
     width: 40vw;
     height: 70vh;
-
 }
 .matches .plantCell {
     flex-direction: column;
@@ -331,8 +348,12 @@ button:hover {
     padding: 20px;
 }
 .matches .plantCell:hover {
-    border: #e1eda4 8px solid;
+    border: #e1eda4 9px solid;
     border-radius: 15px;
+    color: #ece2d6;
+}
+.matches h1 {
+    font-size: 2.6rem;
 }
 
 .plantCell {
@@ -343,7 +364,7 @@ button:hover {
     padding: 5px;
 }
 .plantCell:hover {
-    border: 2px solid #adedad;
+    border: 2px solid #e1eda4;
     border-radius: 5px;
     color: #993333;
 }
@@ -375,7 +396,6 @@ button:hover {
     height: 60vh;
 }
 
-
 /* match modal */
 
 .modalWindow.matchModal {
@@ -393,6 +413,7 @@ button:hover {
     object-fit: cover;
     height: 400px;
     width: 400px;
+    border-radius: 15px;
 }
 
 .matchInfo {

@@ -1,8 +1,10 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function OtherWishlist(props) {
-    useEffect(() => {
-    }, []);
+    const myOffers = useSelector((state) => state.plantsToTrade);
+
+    useEffect(() => {}, []);
 
     return (
         <div className="wishlist">
@@ -16,6 +18,17 @@ export default function OtherWishlist(props) {
                                 <div className="wishlistCheck">
                                     <h4>{plant.display_pid}</h4>
                                 </div>
+
+                                {myOffers.length !== 0 &&
+                                    myOffers.map((each) => {
+                                        if (each.pid === plant.pid) {
+                                            return (
+                                                <h4 key={each.id}>
+                                                    You have this to trade.
+                                                </h4>
+                                            );
+                                        }
+                                    })}
 
                                 <img
                                     className="wishlistIcon"

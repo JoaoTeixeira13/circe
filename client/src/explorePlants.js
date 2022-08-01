@@ -76,7 +76,7 @@ export default function ExplorePlants(props) {
                 <input
                     type="text"
                     name="search"
-                    placeholder="Plant search"
+                    placeholder="nomenclature (ex: Epipremnum pinnatum)"
                     onChange={(e) => handleChange(e)}
                 />
 

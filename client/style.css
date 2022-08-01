@@ -204,15 +204,16 @@ button:hover {
 
 .userProfile .profilePicture,
 .imageSection img {
-    width: 500px;
-    height: 500px;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
-    border-radius: 0;
-    border: 0;
+    border-radius: 50%;
+    border: #adedad 5px solid;
 }
 .userProfile,
 .profilePlants {
     display: flex;
+    justify-content: space-evenly;
 }
 /* plant search section */
 

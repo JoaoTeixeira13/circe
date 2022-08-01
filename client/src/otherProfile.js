@@ -47,7 +47,7 @@ export default function OtherProfile() {
             {/* {!user && <NotFound />} */}
             {otherUser && (
                 <div className="userProfile">
-                    <div>
+                    <div className="userSection">
                         <div className="imageSection">
                             <img
                                 src={otherUser.imageurl || "/default.png"}

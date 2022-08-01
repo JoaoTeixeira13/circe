@@ -1,8 +1,9 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function OtherPlantsToTrade(props) {
-    useEffect(() => {
-    }, []);
+    const myWishlist = useSelector((state) => state.wishlist);
+    useEffect(() => {}, []);
 
     return (
         <div className="wishlist">
@@ -16,6 +17,17 @@ export default function OtherPlantsToTrade(props) {
                                 <div className="wishlistCheck">
                                     <h4>{plant.display_pid}</h4>
                                 </div>
+
+                                {myWishlist.length !== 0 &&
+                                    myWishlist.map((each) => {
+                                        if (each.pid === plant.pid) {
+                                            return (
+                                                <h4 key={each.id}>
+                                                    You are looking for this!
+                                                </h4>
+                                            );
+                                        }
+                                    })}
 
                                 <img
                                     className="wishlistIcon"

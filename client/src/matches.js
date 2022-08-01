@@ -20,7 +20,6 @@ export default function Matches(props) {
             try {
                 const resp = await fetch("/api/fetchMatches");
                 const data = await resp.json();
-                console.log("matches with",data.matches)
                 dispatch(matchesReceived(data.matches));
                 dispatch(fullMatchesReceived(data.fullMatches));
             } catch (err) {

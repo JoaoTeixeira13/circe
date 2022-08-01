@@ -220,7 +220,7 @@ button:hover {
 .exploreElement {
     display: flex;
     justify-content: space-evenly;
-    align-items: flex-start;
+    align-items: center;
     margin: auto;
     width: 100vw;
 }
@@ -281,11 +281,13 @@ button:hover {
 .plantList h2 {
     margin-bottom: 50px;
 }
-.toTrade button {
+.toTrade button, .wishlist button {
     width: 200px;
     height: 40px;
     align-self: center;
+    margin-top: 20px;
 }
+
 .singularPlant img {
     width: 400px;
     height: 400px;
@@ -300,8 +302,8 @@ button:hover {
 
 .matches img {
     margin-top: 15px;
-    width: 250px;
-    height: 250px;
+    width: 350px;
+    height: 350px;
     object-fit: cover;
     border-radius: 0;
 }
@@ -309,21 +311,27 @@ button:hover {
     margin-top: 0;
 }
 
-/* wishlist */
+/* trade route */
 
-.matches,
 .toTrade,
 .wishlist {
-    width: 25vw;
+    width: 20vw;
+}
+.matches {
+    width: 40vw;
+    height: 70vh;
+
 }
 .matches .plantCell {
     flex-direction: column;
     align-items: center;
-    border: #adedad 5px solid;
+    border: #adedad 8px solid;
     border-radius: 15px;
+    width: 500px;
+    padding: 20px;
 }
 .matches .plantCell:hover {
-    border: #e1eda4 5px solid;
+    border: #e1eda4 8px solid;
     border-radius: 15px;
 }
 
@@ -361,8 +369,14 @@ button:hover {
 }
 .wishlist .plantCell,
 .toTrade .plantCell {
-    width: 350px;
+    width: 300px;
 }
+.matches .plantList {
+    height: 60vh;
+}
+
+
+/* match modal */
 
 .modalWindow.matchModal {
     flex-direction: row;

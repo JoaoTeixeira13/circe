@@ -26,8 +26,8 @@ export default function Wishlist(props) {
         }
     };
 
-    const findMatch = (id) => {
-        console.log("user wants to find match for plant with id, ", id);
+    const addToWishlist = () => {
+        console.log("user wants to add new plant to wishlist, ");
     };
 
     return (
@@ -61,6 +61,9 @@ export default function Wishlist(props) {
                         );
                     })}
             </div>
+            {props.tradeManager && (
+                <button onClick={() => addToWishlist()}>Add</button>
+            )}
         </div>
     );
 }

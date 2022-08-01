@@ -24,7 +24,6 @@ export default function App() {
             try {
                 const resp = await fetch("/api/user");
                 const data = await resp.json();
-                console.log("received data is,", data);
                 dispatch(loggedUser(data.user));
                 dispatch(toggleUploader(false));
                 dispatch(wishlistReceived(data.wishlist));

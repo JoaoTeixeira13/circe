@@ -1,4 +1,6 @@
 import ProfilePicture from "./profilePic";
+import Wishlist from "./wishlist";
+import ToTrade from "./toTrade";
 // import Bio from "./bio";
 import { useSelector } from "react-redux";
 
@@ -18,6 +20,8 @@ export default function Profile() {
 
                 {/* <Bio /> */}
             </div>
+            <Wishlist/>
+            <ToTrade/>
         </div>
     );
 }

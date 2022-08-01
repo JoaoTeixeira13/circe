@@ -5,7 +5,6 @@ import { fullMatchesReceived } from "./redux/fullMatch/slice";
 import { toggleMatchModal } from "./redux/toggleMatchModal/slice";
 
 export default function Matches(props) {
-    console.log("props inside modal component are", props);
     const matches = useSelector((state) => state.matches);
     const fullMatches = useSelector((state) => state.fullMatches);
     const dispatch = useDispatch();
@@ -21,7 +20,6 @@ export default function Matches(props) {
             try {
                 const resp = await fetch("/api/fetchMatches");
                 const data = await resp.json();
-                console.log("received match data is,", data);
                 dispatch(matchesReceived(data.matches));
                 dispatch(fullMatchesReceived(data.fullMatches));
             } catch (err) {

@@ -8,12 +8,13 @@ import { useState } from "react";
 
 export default function TradeWindow() {
     const [matchDisplay, setMatchDisplay] = useState("");
+    const tradeManager = true;
 
     return (
         <div className="exploreElement">
-            <Wishlist />
+            <Wishlist tradeManager={tradeManager} />
             <Matches setMatchDisplay={setMatchDisplay} />
-            <ToTrade />
+            <ToTrade tradeManager={tradeManager} />
             <TradeUploader />
             <MatchModal matchDisplay={matchDisplay} />
         </div>

@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 
 import { removeFromPlantsToTrade } from "./redux/plantsToTrade/slice";
 
-export default function ToTradeList() {
+export default function ToTradeList(props) {
+    console.log("props inside to trade list are,", props);
     const dispatch = useDispatch();
     const plantsToTrade = useSelector((state) => state.plantsToTrade);
 
@@ -36,12 +37,15 @@ export default function ToTradeList() {
                         return (
                             <div className="plantCell" key={plant.id}>
                                 <div className="wishlistCheck">
-                                    <input
-                                        type="checkbox"
-                                        onClick={() =>
-                                            handleCheckbox(plant.pid)
-                                        }
-                                    ></input>
+                                    {props.checkbox && (
+                                        <input
+                                            type="checkbox"
+                                            onClick={() =>
+                                                handleCheckbox(plant.pid)
+                                            }
+                                        ></input>
+                                    )}
+
                                     <h4>{plant.display_pid}</h4>
                                 </div>
                                 <img

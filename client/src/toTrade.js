@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import ToTradeList from "./toTradeList";
 
-export default function ToTrade() {
+export default function ToTrade(props) {
     const dispatch = useDispatch();
 
     const modalWindow = useSelector((state) => state.toggleTradeUploader);
@@ -19,9 +19,11 @@ export default function ToTrade() {
     return (
         <div className="toTrade">
             <h1>What I'm offering</h1>
-            <ToTradeList />
+            <ToTradeList checkbox={props.tradeManager} />
 
-            <button onClick={() => uploadPlant()}>Add</button>
+            {props.tradeManager && (
+                <button onClick={() => uploadPlant()}>Add</button>
+            )}
         </div>
     );
 }

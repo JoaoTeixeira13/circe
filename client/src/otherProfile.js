@@ -17,6 +17,7 @@ export default function OtherProfile() {
                 if (!abort) {
                     const resp = await fetch(`/api/user/${otherUserId}`);
                     const data = await resp.json();
+                    console.log("received user data is", data);
 
                     if (data.ownProfile) {
                         history.push("/");

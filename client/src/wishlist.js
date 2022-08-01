@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromWishlist } from "./redux/wishlist/slice";
 
-export default function Wishlist() {
+export default function Wishlist(props) {
+    console.log("props inside wish list are:", props);
     const wishlist = useSelector((state) => state.wishlist);
     const dispatch = useDispatch();
 
@@ -41,12 +42,14 @@ export default function Wishlist() {
                         return (
                             <div className="plantCell" key={plant.id}>
                                 <div className="wishlistCheck">
-                                    <input
-                                        type="checkbox"
-                                        onClick={() =>
-                                            handleCheckbox(plant.pid)
-                                        }
-                                    ></input>
+                                    {props.tradeManager && (
+                                        <input
+                                            type="checkbox"
+                                            onClick={() =>
+                                                handleCheckbox(plant.pid)
+                                            }
+                                        ></input>
+                                    )}
 
                                     <h4>{plant.display_pid}</h4>
                                 </div>

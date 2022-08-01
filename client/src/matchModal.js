@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { toggleMatchModal } from "./redux/toggleMatchModal/slice";
 
 export default function MatchModal(props) {
-    console.log("props inside match modal are", props);
     const dispatch = useDispatch();
     const modalWindow = useSelector((state) => state.toggleMatchModal);
     const closeModal = () => {

@@ -219,8 +219,13 @@ app.get("/api/user/:id", async (req, res) => {
         } else {
             try {
                 const results = await db.fetchProfile(req.params.id);
-
                 const profile = results.rows[0];
+
+                const wishlistQuery = await db.fetchWishlist(req.params.id);
+                const userWishlist = wishlistQuery.rows;
+
+                const plantsQuery = await db.fetchTradelist(req.params.id);
+                const userPlants = plantsQuery.rows;
                 if (!profile) {
                     res.json({
                         noMatch: true,
@@ -229,6 +234,8 @@ app.get("/api/user/:id", async (req, res) => {
                     res.json({
                         success: true,
                         profile,
+                        userWishlist,
+                        userPlants,
                     });
                 }
             } catch (error) {
@@ -481,7 +488,6 @@ app.get("/api/fetchMatches", async (req, res) => {
                 req.session.userId
             );
             fullMatches = thirdResult.rows;
-            
         }
 
         res.json({
@@ -497,7 +503,6 @@ app.get("/api/fetchMatches", async (req, res) => {
         });
     }
 });
-
 
 app.get("/logout", (req, res) => {
     req.session = null;

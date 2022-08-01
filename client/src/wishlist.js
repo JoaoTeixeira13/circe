@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromWishlist } from "./redux/wishlist/slice";
 
@@ -6,8 +5,6 @@ export default function Wishlist(props) {
     const wishlist = useSelector((state) => state.wishlist);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-    }, []);
 
     const handleCheckbox = async (id) => {
         try {

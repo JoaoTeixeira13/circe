@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { toggleTradeUploader } from "./redux/toggleTradeUploader/slice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -12,8 +11,7 @@ export default function ToTrade(props) {
     const uploadPlant = () => {
         dispatch(toggleTradeUploader(!modalWindow));
     };
-    useEffect(() => {
-    }, []);
+    
 
     return (
         <div className="toTrade">

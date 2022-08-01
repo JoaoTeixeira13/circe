@@ -1,14 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
 
 import { removeFromPlantsToTrade } from "./redux/plantsToTrade/slice";
 
 export default function ToTradeList(props) {
     const dispatch = useDispatch();
     const plantsToTrade = useSelector((state) => state.plantsToTrade);
-
-    useEffect(() => {
-    }, []);
 
     const handleCheckbox = async (id) => {
         try {

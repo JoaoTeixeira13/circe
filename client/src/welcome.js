@@ -2,7 +2,6 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Registration from "./registration";
 import Login from "./login";
 import ResetPassword from "./resetPassword";
-import { useState, useEffect } from "react";
 
 
 export default function Welcome() {

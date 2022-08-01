@@ -1,10 +1,7 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export default function OtherWishlist(props) {
     const myOffers = useSelector((state) => state.plantsToTrade);
-
-    useEffect(() => {}, []);
 
     return (
         <div className="wishlist">

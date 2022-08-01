@@ -6,7 +6,6 @@ export default function Login() {
     const [error, setError] = useState(false);
     
     const handleChange = (e) => {
-        //set state
         setInput({ ...input, [e.target.name]: e.target.value });
     };
     const handleSubmit = async () => {

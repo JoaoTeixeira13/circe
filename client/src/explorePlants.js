@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 
 export default function ExplorePlants(props) {
     const [input, setInput] = useState("");
@@ -72,7 +71,7 @@ export default function ExplorePlants(props) {
     return (
         <div className="plantExplorer">
             <div className="plantSearch">
-                <h1>🔎 Discover new plants!</h1>
+                <h1>🔎 Find new plants!</h1>
                 <input
                     type="text"
                     name="search"

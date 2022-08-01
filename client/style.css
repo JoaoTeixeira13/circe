@@ -79,7 +79,7 @@ a {
     border: 8px solid #f6ecea;
     border-radius: 15px;
     top: 25%;
-    background-color: rgb(126, 60, 21, 0.94);
+    background-color: rgba(6, 50, 3, 0.94);
     margin: auto;
 }
 .closeModal {
@@ -311,6 +311,18 @@ button:hover {
     height: 400px;
     object-fit: cover;
 }
+.noSingularPlant {
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+        url("/background.jpg") no-repeat;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.noSingularPlant h1 {
+    font-size: 5rem;
+    line-height: 1.5;
+    padding: 30px;
+}
 /* .plantCell h3:hover {
     color: #a11d16;
 } */
@@ -415,7 +427,22 @@ button:hover {
     width: 400px;
     border-radius: 15px;
 }
+#modalUser {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    border: #adedad 5px solid;
+}
+#modalUser:hover {
+    border: #e1eda4 6px solid;
+    cursor: pointer;
+}
 
 .matchInfo {
+    height: 80%;
     width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }

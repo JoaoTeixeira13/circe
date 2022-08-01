@@ -58,7 +58,7 @@ export default function DisplayPlant(props) {
 
     return (
         <div className="singularPlant">
-            {props.plant && (
+            {(props.plant && (
                 <div className="singularPlantDisplay">
                     <div>
                         <h1>{props.plant.display_pid}</h1>
@@ -93,6 +93,10 @@ export default function DisplayPlant(props) {
                             {button}
                         </button>
                     </div>
+                </div>
+            )) || (
+                <div className="noSingularPlant">
+                    <h1>Discover a world of botanical curiosities. </h1>
                 </div>
             )}
         </div>

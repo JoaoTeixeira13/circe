@@ -55,7 +55,6 @@ export default function OtherProfile() {
                             />
                         </div>
                         <div className="profileInfo">
-                            <h1>{otherUser.first}'s profile</h1>
                             <h2>
                                 {otherUser.first} {otherUser.last}
                             </h2>

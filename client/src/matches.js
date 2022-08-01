@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { matchesReceived } from "./redux/matches/slice";
 import { fullMatchesReceived } from "./redux/fullMatch/slice";

@@ -20,7 +20,6 @@ export default function TradeUploader() {
 
             const data = await resp.json();
 
-            console.log("data is", data);
             dispatch(addToPlantsToTrade(data.plant));
             closeModal();
         } catch (err) {

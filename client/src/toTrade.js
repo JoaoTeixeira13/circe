@@ -13,7 +13,6 @@ export default function ToTrade(props) {
         dispatch(toggleTradeUploader(!modalWindow));
     };
     useEffect(() => {
-        console.log("To Trade component mounted!");
     }, []);
 
     return (

@@ -210,6 +210,10 @@ button:hover {
     border-radius: 0;
     border: 0;
 }
+.userProfile,
+.profilePlants {
+    display: flex;
+}
 /* plant search section */
 
 .exploreElement {

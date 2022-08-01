@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
+import OtherWishlist from "./otherWishlist";
+import OtherPlantsToTrade from "./otherPlantsToTrade";
 // import FriendButton from "./friendButton";
 // import NotFound from "./404notFound";
 // import Friends from "./friends";
 
 export default function OtherProfile() {
     const [otherUser, setOtherUser] = useState({});
+    const [userWishlist, setUserWishlist] = useState([]);
+    const [userPlants, setUserPlants] = useState([]);
+
     const { otherUserId } = useParams();
     const history = useHistory();
 
@@ -25,6 +30,8 @@ export default function OtherProfile() {
                         setOtherUser(false);
                     } else {
                         setOtherUser(data.profile);
+                        setUserWishlist(data.userWishlist);
+                        setUserPlants(data.userPlants);
                     }
                 }
                 return () => {
@@ -40,24 +47,27 @@ export default function OtherProfile() {
             {/* {!user && <NotFound />} */}
             {otherUser && (
                 <div className="userProfile">
-                    <div className="imageSection">
-                        <img
-                            src={otherUser.imageurl || "/default.png"}
-                            alt={`${otherUser.first} ${otherUser.last}`}
-                        />
-                    </div>
-                    <div className="profileInfo">
-                        <h1>{otherUser.first}'s profile</h1>
-                        <h2>
-                            {otherUser.first} {otherUser.last}
-                        </h2>
-                        <h3>{otherUser.bio}</h3>
-                        {/* <FriendButton viewedUser={otherUserId} /> */}
+                    <div>
+                        <div className="imageSection">
+                            <img
+                                src={otherUser.imageurl || "/default.png"}
+                                alt={`${otherUser.first} ${otherUser.last}`}
+                            />
+                        </div>
+                        <div className="profileInfo">
+                            <h1>{otherUser.first}'s profile</h1>
+                            <h2>
+                                {otherUser.first} {otherUser.last}
+                            </h2>
+                            <h3>📍 {otherUser.location}</h3>
+                            <h3>{otherUser.bio}</h3>
+                        </div>
                     </div>
 
-                    {/* <div className="profileInfo iconDisplay">
-                        {otherUserId && <Friends id={otherUserId} />}
-                    </div> */}
+                    <div className="profilePlants">
+                        <OtherWishlist userWishlist={userWishlist} />
+                        <OtherPlantsToTrade userPlants={userPlants} />
+                    </div>
                 </div>
             )}
         </>

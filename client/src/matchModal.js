@@ -9,9 +9,7 @@ export default function MatchModal(props) {
         dispatch(toggleMatchModal(!modalWindow));
     };
 
-    useEffect(() => {
-        console.log("Match Modal component just mounted!");
-    }, []);
+    useEffect(() => {}, []);
 
     // const uploadPlant = async (e) => {
     //     e.preventDefault();
@@ -36,6 +34,7 @@ export default function MatchModal(props) {
         <>
             {modalWindow && (
                 <div className="modalWindow matchModal">
+                    <img src={props.matchDisplay.user_pic} />
                     <img src={props.matchDisplay.image_url}></img>
                     <div className="matchInfo">
                         <h2>

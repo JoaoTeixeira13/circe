@@ -4,12 +4,10 @@ import { useState, useEffect } from "react";
 import { removeFromPlantsToTrade } from "./redux/plantsToTrade/slice";
 
 export default function ToTradeList(props) {
-    console.log("props inside to trade list are,", props);
     const dispatch = useDispatch();
     const plantsToTrade = useSelector((state) => state.plantsToTrade);
 
     useEffect(() => {
-        console.log("toTradeList just mounted!");
     }, []);
 
     const handleCheckbox = async (id) => {

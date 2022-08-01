@@ -8,20 +8,25 @@ export default function Profile() {
     const user = useSelector((state) => state.user);
     return (
         <div className="userProfile">
-            <div className="imageSection">
-                <ProfilePicture />
-            </div>
-            <div className="profileInfo">
-                <h1>
-                    {" "}
-                    Welcome to your profile, {user.first}! It's a nice day in{" "}
-                    {user.location}.
-                </h1>
+            <div>
+                <div className="imageSection">
+                    <ProfilePicture />
+                </div>
+                <div className="profileInfo">
+                    <h1>
+                        {" "}
+                        Welcome to your profile, {user.first}! It's a nice day
+                        in {user.location}.
+                    </h1>
 
-                {/* <Bio /> */}
+                    {/* <Bio /> */}
+                </div>
             </div>
-            <Wishlist/>
-            <ToTrade/>
+
+            <div className="profilePlants">
+                <Wishlist />
+                <ToTrade />
+            </div>
         </div>
     );
 }

@@ -158,7 +158,7 @@ module.exports.removeFromTradeList = (user, plant) => {
 
 module.exports.getMatches = (loggedUser) => {
     return db.query(
-        `SELECT to_trade.id, to_trade.user_id, to_trade.pid, to_trade.display_pid, to_trade.description, to_trade.image_url, users.first
+        `SELECT to_trade.id, to_trade.user_id, to_trade.pid, to_trade.display_pid, to_trade.description, to_trade.image_url, users.first, users.imageUrl AS user_pic
     FROM to_trade
     JOIN users
     ON (to_trade.user_id = users.id)

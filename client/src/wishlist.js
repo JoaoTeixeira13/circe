@@ -3,12 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromWishlist } from "./redux/wishlist/slice";
 
 export default function Wishlist(props) {
-    console.log("props inside wish list are:", props);
     const wishlist = useSelector((state) => state.wishlist);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("Wishlist component mounted!");
     }, []);
 
     const handleCheckbox = async (id) => {

@@ -228,6 +228,10 @@ button:hover {
 }
 .userSection {
     width: 20vw;
+    height: 55vh;
+}
+.userSection button {
+    margin-top: auto;
 }
 .profilePlants .wishlist {
     width: 250px;
@@ -250,6 +254,15 @@ button:hover {
     height: 55vh;
 }
 
+.userSection button {
+    width: 250px;
+}
+.userSection textarea {
+    width: 250px;
+    height: 100px;
+    margin: 20px 0;
+}
+
 .toTrade .plantCell.tradeCell {
     flex-direction: column-reverse;
     align-items: center;
@@ -266,6 +279,9 @@ button:hover {
     height: 250px;
     border-radius: 15px;
     margin: 20px;
+}
+.wishlistCheck .fullMatch {
+    margin-left: 20px;
 }
 /* other profile */
 
@@ -351,7 +367,7 @@ button:hover {
 }
 
 .plantList {
-    height: 40vh;
+    height: 35vh;
     overflow-y: scroll;
 }
 .plantList h2 {

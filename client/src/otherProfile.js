@@ -12,7 +12,7 @@ export default function OtherProfile() {
     const [userWishlist, setUserWishlist] = useState([]);
     const [userPlants, setUserPlants] = useState([]);
     const tradeProfile = true;
-
+    const [message, setMessage] = useState(false);
     const { otherUserId } = useParams();
     const history = useHistory();
 
@@ -43,6 +43,10 @@ export default function OtherProfile() {
             }
         })();
     }, []);
+
+    const messageUser = () => {
+        setMessage(!message);
+    };
     return (
         <>
             {/* {!user && <NotFound />} */}
@@ -62,6 +66,15 @@ export default function OtherProfile() {
                             <h3>📍 {otherUser.location}</h3>
                             <h3>{otherUser.bio}</h3>
                         </div>
+                        <button onClick={() => messageUser()}>Contact</button>
+                        {message && (
+                            <div>
+                                <textarea placeholder="Type your message here"></textarea>
+                                <button onClick={() => messageUser()}>
+                                    Submit
+                                </button>
+                            </div>
+                        )}
                     </div>
 
                     <div className="profilePlants">

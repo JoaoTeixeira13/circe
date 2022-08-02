@@ -25,7 +25,7 @@ export default function OtherWishlist(props) {
                                                         className="fullMatch"
                                                         key={each.id}
                                                     >
-                                                        You have this to trade.
+                                                        You have this!
                                                     </h4>
                                                 );
                                             }

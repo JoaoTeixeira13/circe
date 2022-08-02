@@ -4,14 +4,23 @@ export default function OtherPlantsToTrade(props) {
     const myWishlist = useSelector((state) => state.wishlist);
 
     return (
-        <div className="wishlist">
+        <div
+            className={`plantsToTrade${
+                props.tradeProfile ? " tradeCell" : ""
+            } toTrade`}
+        >
             <h1>Trading</h1>
 
             <div className="plantList">
                 {props.userPlants &&
                     props.userPlants.map((plant) => {
                         return (
-                            <div className="plantCell" key={plant.id}>
+                            <div
+                                className={`plantCell${
+                                    props.tradeProfile ? " tradeCell" : ""
+                                }`}
+                                key={plant.id}
+                            >
                                 <div className="wishlistCheck">
                                     <h4>{plant.display_pid}</h4>
                                 </div>
@@ -21,7 +30,10 @@ export default function OtherPlantsToTrade(props) {
                                         if (each.pid === plant.pid) {
                                             return (
                                                 <h4 key={each.id}>
-                                                    You are looking for this!
+                                                    <span className="fullMatch">
+                                                        You are looking for
+                                                        this!
+                                                    </span>
                                                 </h4>
                                             );
                                         }

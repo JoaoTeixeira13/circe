@@ -16,7 +16,7 @@ export default function ToTrade(props) {
     return (
         <div className="toTrade">
             <h1>What I'm offering</h1>
-            <ToTradeList checkbox={props.tradeManager} />
+            <ToTradeList checkbox={props.tradeManager} tradeProfile={props.tradeProfile}/>
 
             {props.tradeManager && (
                 <button onClick={() => uploadPlant()}>Add</button>

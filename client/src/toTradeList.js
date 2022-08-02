@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromPlantsToTrade } from "./redux/plantsToTrade/slice";
 
 export default function ToTradeList(props) {
+    console.log("props inside trade list are,", props);
     const dispatch = useDispatch();
     const plantsToTrade = useSelector((state) => state.plantsToTrade);
 
@@ -24,12 +25,19 @@ export default function ToTradeList(props) {
     };
 
     return (
-        <div className="PlantsToTrade">
+        <div
+            className={`plantsToTrade${props.tradeProfile ? " tradeCell" : ""}`}
+        >
             <div className="plantList">
                 {plantsToTrade &&
                     plantsToTrade.map((plant) => {
                         return (
-                            <div className="plantCell" key={plant.id}>
+                            <div
+                                className={`plantCell${
+                                    props.tradeProfile ? " tradeCell" : ""
+                                }`}
+                                key={plant.id}
+                            >
                                 <div className="wishlistCheck">
                                     {props.checkbox && (
                                         <input

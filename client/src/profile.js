@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 export default function Profile() {
     const user = useSelector((state) => state.user);
+    const tradeProfile = true;
     return (
         <div className="userProfile">
             <div className="userSection">
@@ -23,7 +24,7 @@ export default function Profile() {
             <div className="profilePlants">
                 <Wishlist />
 
-                <ToTrade />
+                <ToTrade tradeProfile={tradeProfile}/>
             </div>
         </div>
     );

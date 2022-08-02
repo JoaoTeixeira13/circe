@@ -11,6 +11,7 @@ export default function OtherProfile() {
     const [otherUser, setOtherUser] = useState({});
     const [userWishlist, setUserWishlist] = useState([]);
     const [userPlants, setUserPlants] = useState([]);
+    const tradeProfile = true;
 
     const { otherUserId } = useParams();
     const history = useHistory();
@@ -65,7 +66,10 @@ export default function OtherProfile() {
 
                     <div className="profilePlants">
                         <OtherWishlist userWishlist={userWishlist} />
-                        <OtherPlantsToTrade userPlants={userPlants} />
+                        <OtherPlantsToTrade
+                            userPlants={userPlants}
+                            tradeProfile={tradeProfile}
+                        />
                     </div>
                 </div>
             )}

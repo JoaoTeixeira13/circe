@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromPlantsToTrade } from "./redux/plantsToTrade/slice";
 
 export default function ToTradeList(props) {
-    console.log("props inside trade list are,", props);
     const dispatch = useDispatch();
     const plantsToTrade = useSelector((state) => state.plantsToTrade);
 

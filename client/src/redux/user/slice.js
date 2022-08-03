@@ -7,6 +7,10 @@ export default function userReducer(user = "", action) {
         user = { ...user, imageurl: action.payload.url };
     }
 
+    if (action.type === "user/bio") {
+        user = { ...user, bio: action.payload.bio };
+    }
+
     return user;
 }
 
@@ -21,5 +25,13 @@ export function uploadImageUser(url) {
     return {
         type: "user/uploadUrl",
         payload: { url },
+    };
+}
+
+export function uploadBio(bio) {
+    console.log("redux bio payload is: ", bio);
+    return {
+        type: "user/bio",
+        payload: { bio },
     };
 }

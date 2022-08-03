@@ -86,6 +86,18 @@ module.exports.uploadProfilePicture = (url, userId) => {
     return db.query(q, param);
 };
 
+//bio component 
+
+module.exports.updateBio = (bio, userId) => {
+    const q = `UPDATE users
+    SET bio = $1 
+    WHERE id = $2
+    RETURNING bio`;
+
+    const param = [bio, userId];
+    return db.query(q, param);
+};
+
 //get user's wishlist
 
 module.exports.fetchWishlist = (user_id) => {

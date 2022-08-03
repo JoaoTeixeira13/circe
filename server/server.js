@@ -305,6 +305,26 @@ app.post(
         }
     }
 );
+
+// update biography route
+
+app.post("/updateBio", async (req, res) => {
+    try {
+        result = await db.updateBio(req.body.bio, req.session.userId);
+
+        res.json({
+            success: true,
+            payload: result.rows[0],
+        });
+    } catch (err) {
+        console.log("error in updting user's bio ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
+
 //plant search: plant list
 
 app.post("/api/plantSearch", async (req, res) => {

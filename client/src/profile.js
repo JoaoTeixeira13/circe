@@ -1,7 +1,7 @@
 import ProfilePicture from "./profilePic";
 import Wishlist from "./wishlist";
 import ToTrade from "./toTrade";
-// import Bio from "./bio";
+import Bio from "./bio";
 import { useSelector } from "react-redux";
 
 export default function Profile() {
@@ -18,13 +18,14 @@ export default function Profile() {
                 <div className="imageSection">
                     <ProfilePicture />
                 </div>
-                <div className="profileInfo"> </div>
+                <Bio />
+                
             </div>
 
             <div className="profilePlants">
                 <Wishlist />
 
-                <ToTrade tradeProfile={tradeProfile}/>
+                <ToTrade tradeProfile={tradeProfile} />
             </div>
         </div>
     );

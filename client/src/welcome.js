@@ -3,9 +3,7 @@ import Registration from "./registration";
 import Login from "./login";
 import ResetPassword from "./resetPassword";
 
-
 export default function Welcome() {
-
     return (
         <div id="welcome">
             <BrowserRouter>

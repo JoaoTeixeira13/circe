@@ -5,7 +5,9 @@ import { fullMatchesReceived } from "./redux/fullMatch/slice";
 import { toggleMatchModal } from "./redux/toggleMatchModal/slice";
 
 export default function Matches(props) {
+    
     const matches = useSelector((state) => state.matches);
+    const plantsToTrade = useSelector((state) => state.plantsToTrade);
     const fullMatches = useSelector((state) => state.fullMatches);
     const dispatch = useDispatch();
 
@@ -26,7 +28,7 @@ export default function Matches(props) {
                 console.log("error in fetching  matches ", err);
             }
         })();
-    }, []);
+    }, [plantsToTrade]);
 
     return (
         <div className="matches">

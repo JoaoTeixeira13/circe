@@ -22,7 +22,6 @@ export default function TradeUploader() {
             const data = await resp.json();
 
             dispatch(addToPlantsToTrade(data.plant));
-            dispatch(addToFullMatches(data.plant));
             closeModal();
         } catch (err) {
             console.log("error in uploading user's picture ", err);

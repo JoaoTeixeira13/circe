@@ -29,7 +29,6 @@ export function uploadImageUser(url) {
 }
 
 export function uploadBio(bio) {
-    console.log("redux bio payload is: ", bio);
     return {
         type: "user/bio",
         payload: { bio },

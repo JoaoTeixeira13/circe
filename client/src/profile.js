@@ -2,6 +2,7 @@ import ProfilePicture from "./profilePic";
 import Wishlist from "./wishlist";
 import ToTrade from "./toTrade";
 import Bio from "./bio";
+import Weather from "./weather";
 import { useSelector } from "react-redux";
 
 export default function Profile() {
@@ -15,11 +16,11 @@ export default function Profile() {
                     Welcome, {user.first}! <br /> It's a nice day in{" "}
                     {user.location}.
                 </h1>
+                <Weather />
                 <div className="imageSection">
                     <ProfilePicture />
                 </div>
                 <Bio />
-                
             </div>
 
             <div className="profilePlants">

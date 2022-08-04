@@ -19,6 +19,7 @@ const io = require("socket.io")(server, {
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
+const https = require("https");
 
 app.use(compression());
 app.use(express.json());
@@ -318,6 +319,52 @@ app.post("/updateBio", async (req, res) => {
         });
     } catch (err) {
         console.log("error in updting user's bio ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
+
+// profile weather component
+
+app.post("/api/weather", async (req, res) => {
+    try {
+        const query = req.body.location;
+        const apiKey = require("./secrets.json").WEATHER_API_KEY;
+        const unit = "metric";
+
+        const url =
+            "https://api.openweathermap.org/data/2.5/weather?q=" +
+            query +
+            "&units=" +
+            unit +
+            "&appid=" +
+            apiKey;
+
+        https.get(url, (response) => {
+            response.on("data", (data) => {
+                const weatherData = JSON.parse(data);
+                const temp = weatherData.main.temp;
+                const humidity = weatherData.main.humidity;
+                const weatherDescription = weatherData.weather[0].description;
+                const weatherIcon = weatherData.weather[0].icon;
+                const imgURL =
+                    "http://openweathermap.org/img/wn/" +
+                    weatherIcon +
+                    "@2x.png";
+
+                res.json({
+                    success: true,
+                    temp,
+                    humidity,
+                    weatherDescription,
+                    imgURL,
+                });
+            });
+        });
+    } catch (err) {
+        console.log("error in fetching weather ", err);
         res.json({
             success: false,
             error: true,

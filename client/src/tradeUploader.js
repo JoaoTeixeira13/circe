@@ -3,7 +3,6 @@ import { addToPlantsToTrade } from "./redux/plantsToTrade/slice";
 import { toggleTradeUploader } from "./redux/toggleTradeUploader/slice";
 
 export default function TradeUploader() {
-
     const dispatch = useDispatch();
     const modalWindow = useSelector((state) => state.toggleTradeUploader);
     const closeModal = () => {
@@ -41,7 +40,7 @@ export default function TradeUploader() {
                         <input
                             name="plant"
                             type="text"
-                            placeholder="botanical nomenclature (ex: Ficus elastica)"
+                            placeholder="nomenclature (ex: Ficus elastica)"
                             required
                         />
                         <input

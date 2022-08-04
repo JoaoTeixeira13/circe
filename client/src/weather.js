@@ -1,14 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Weather() {
     const user = useSelector((state) => state.user);
-    console.log("current weather user location is", user.location);
+    const [temp, setTemp] = useState("");
+    const [humidity, setHumidity] = useState("");
+    const [weatherDesc, setWeatherDesc] = useState("");
+    const [imgUrl, setImgUrl] = useState("");
 
     useEffect(() => {
         user &&
             (async () => {
-                console.log("Weather component mounted!");
                 try {
                     let resp = await fetch("/api/weather", {
                         method: "POST",
@@ -21,8 +23,14 @@ export default function Weather() {
 
                     if (data.success) {
                         console.log("received data is,", data);
+                        setTemp(data.temp);
+                        setHumidity(data.humidity);
+                        setWeatherDesc(data.weatherDescription);
+                        setImgUrl(data.imgURL);
                     } else {
-                        console.log("no data from post request");
+                        setWeatherDesc(
+                            "Weather API is down, please look outside your window to check the weather."
+                        );
                     }
                 } catch (err) {
                     console.log("error in registration ", err);
@@ -32,7 +40,15 @@ export default function Weather() {
 
     return (
         <div>
-            <h3>Weather Component goes here</h3>
+            <h3>{user.location}</h3>{" "}
+            {imgUrl && <img src={imgUrl} alt="weatherIcon" />}
+            {console.log("img url is", imgUrl)}
+            {temp && (
+                <h4>
+                    {temp} °C, {weatherDesc}.
+                </h4>
+            )}
+            {humidity && <h4>{humidity}% humidity</h4>}
         </div>
     );
 }

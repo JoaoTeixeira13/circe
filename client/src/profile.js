@@ -11,11 +11,7 @@ export default function Profile() {
     return (
         <div className="userProfile">
             <div className="userSection">
-                <h1>
-                    {" "}
-                    Welcome, {user.first}! <br /> It's a nice day in{" "}
-                    {user.location}.
-                </h1>
+                <h1> Welcome, {user.first}!</h1>
                 <Weather />
                 <div className="imageSection">
                     <ProfilePicture />

@@ -12,16 +12,13 @@ export default function Profile() {
         <div className="userProfile">
             <div className="userSection">
                 <h1> Welcome, {user.first}!</h1>
-                <Weather />
-                <div className="imageSection">
-                    <ProfilePicture />
-                </div>
+                <ProfilePicture />
                 <Bio />
+                <Weather />
             </div>
 
             <div className="profilePlants">
                 <Wishlist />
-
                 <ToTrade tradeProfile={tradeProfile} />
             </div>
         </div>

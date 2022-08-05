@@ -13,7 +13,7 @@ export default function ProfilePicture() {
     return (
         <div>
             <img
-                className="profilePicture"
+                className="profilePicture ownProfile"
                 onClick={() => switchPic()}
                 src={user.imageurl || "/default.png"}
                 alt={`${user.first} ${user.last}`}

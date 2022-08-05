@@ -60,7 +60,7 @@ export default function Bio() {
             )}
             {!showTextArea && user.bio && (
                 <div>
-                    <h3>{user.bio}</h3>
+                    <h4>{user.bio}</h4>
                     <button onClick={() => activateEdit()}>Edit Bio</button>
                 </div>
             )}

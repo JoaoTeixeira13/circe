@@ -7,10 +7,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-x: hidden;
 }
-main {
+/* main {
     height: 100vh;
-}
+} */
 
 a {
     text-decoration: none;
@@ -213,6 +214,15 @@ button:hover {
     border-radius: 50%;
     border: #adedad 5px solid;
 }
+.userProfile .profilePicture.ownProfile {
+    width: 250px;
+    height: 250px;
+}
+.ownProfile img {
+    width: 250px;
+    height: 250px;
+}
+
 .userProfile .profilePicture:hover {
     border: #063203 6px solid;
 }
@@ -230,9 +240,7 @@ button:hover {
     width: 20vw;
     height: 55vh;
 }
-.userSection button {
-    margin-top: auto;
-}
+
 .profilePlants .wishlist {
     width: 250px;
 }
@@ -255,7 +263,9 @@ button:hover {
 }
 
 .userSection button {
-    width: 250px;
+    width: 200px;
+    height: 35px;
+    font-size: 18px;
 }
 .userSection textarea {
     width: 250px;

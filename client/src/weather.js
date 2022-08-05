@@ -41,7 +41,7 @@ export default function Weather() {
 
     return (
         <div>
-            <h3>{user.location}</h3>{" "}
+            <h3>📍 {user.location}</h3>{" "}
             {(noWeather && (
                 <h4>
                     Weather API is down, please look outside the window for
@@ -61,7 +61,9 @@ export default function Weather() {
                             {temp} °C, {weatherDesc}.
                         </h4>
                     )}
-                    {temp > 30 && <h4>It's hot! Don't forget to water the plants!</h4>}
+                    {temp > 30 && (
+                        <h4>It's hot! Don't forget to water the plants!</h4>
+                    )}
                     {humidity && <h4>{humidity}% humidity</h4>}
                     {humidity < 40 && (
                         <h4>

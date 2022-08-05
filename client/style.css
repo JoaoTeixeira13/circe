@@ -266,9 +266,13 @@ button:hover {
 .toTrade .plantCell.tradeCell {
     flex-direction: column-reverse;
     align-items: center;
-    /* border: #adedad 3px solid; */
     border-radius: 15px;
     width: 450px;
+}
+
+.weatherIcon {
+    float: right;
+    width: 75px;
 }
 .plantCell.tradeCell:hover {
     border: #e1eda4 4px solid;

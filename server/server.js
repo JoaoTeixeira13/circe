@@ -347,6 +347,7 @@ app.post("/api/weather", async (req, res) => {
                 const weatherData = JSON.parse(data);
                 const temp = Math.round(weatherData.main.temp);
                 const humidity = weatherData.main.humidity;
+                const weatherId = weatherData.weather[0].id;
                 const weatherDescription = weatherData.weather[0].description;
                 const weatherIcon = weatherData.weather[0].icon;
                 const imgURL =
@@ -359,6 +360,7 @@ app.post("/api/weather", async (req, res) => {
                     temp,
                     humidity,
                     weatherDescription,
+                    weatherId,
                     imgURL,
                 });
             });

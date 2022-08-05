@@ -6,7 +6,9 @@ export default function Weather() {
     const [temp, setTemp] = useState("");
     const [humidity, setHumidity] = useState("");
     const [weatherDesc, setWeatherDesc] = useState("");
+    const [weatherId, setWeatherId] = useState("");
     const [imgUrl, setImgUrl] = useState("");
+    const [noWeather, setNoWeather] = useState(false);
 
     useEffect(() => {
         user &&
@@ -27,10 +29,9 @@ export default function Weather() {
                         setHumidity(data.humidity);
                         setWeatherDesc(data.weatherDescription);
                         setImgUrl(data.imgURL);
+                        setWeatherId(data.weatherId);
                     } else {
-                        setWeatherDesc(
-                            "Weather API is down, please look outside your window to check the weather."
-                        );
+                        setNoWeather(true);
                     }
                 } catch (err) {
                     console.log("error in registration ", err);
@@ -41,14 +42,45 @@ export default function Weather() {
     return (
         <div>
             <h3>{user.location}</h3>{" "}
-            {imgUrl && <img src={imgUrl} alt="weatherIcon" />}
-            {console.log("img url is", imgUrl)}
-            {temp && (
+            {(noWeather && (
                 <h4>
-                    {temp} °C, {weatherDesc}.
+                    Weather API is down, please look outside the window for
+                    weather updates.
                 </h4>
+            )) || (
+                <div className="weatherInfo">
+                    {imgUrl && (
+                        <img
+                            src={imgUrl}
+                            alt="weatherIcon"
+                            className="weatherIcon"
+                        />
+                    )}
+                    {temp && (
+                        <h4>
+                            {temp} °C, {weatherDesc}.
+                        </h4>
+                    )}
+                    {temp > 30 && <h4>It's hot! Don't forget to water the plants!</h4>}
+                    {humidity && <h4>{humidity}% humidity</h4>}
+                    {humidity < 40 && (
+                        <h4>
+                            Your indoor plants would enjoy an extra humidity
+                            boost today.
+                        </h4>
+                    )}
+                    {humidity > 45 && (
+                        <h4>
+                            Indoor plants would enjoy today's humidity levels,
+                            consider leaving your windows open .{" "}
+                        </h4>
+                    )}
+                    {((weatherId >= 500 && weatherId <= 531) ||
+                        (weatherId >= 200 && weatherId <= 232)) && (
+                        <h4>Outdoors plants are enjoying the rain.</h4>
+                    )}
+                </div>
             )}
-            {humidity && <h4>{humidity}% humidity</h4>}
         </div>
     );
 }

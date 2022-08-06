@@ -463,6 +463,42 @@ app.post("/api/handleWishlist", async (req, res) => {
     }
 });
 
+//add to wishlist from Trade manager route
+
+app.post("/api/addToWishlist", async (req, res) => {
+   
+    if (req.body.plant.plant_id) {
+        try {
+            const pid = req.body.plant.plant_id.toLowerCase();
+
+            const result = await db.addToWishlist(
+                req.session.userId,
+                pid,
+                req.body.plant.plant_id,
+                req.body.plant.image_url || null
+            );
+            const plant = result.rows[0];
+
+            res.json({
+                success: true,
+                plant,
+            });
+        } catch (err) {
+            console.log("error in db adding to wishlist ", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
+    } else {
+        console.log("error in db adding to wishlist ");
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
+
 app.post("/api/deleteFromWishlist", async (req, res) => {
     try {
         const result = await db.removeFromWishlist(

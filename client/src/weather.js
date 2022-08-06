@@ -24,7 +24,6 @@ export default function Weather() {
                     let data = await resp.json();
 
                     if (data.success) {
-                        console.log("received data is,", data);
                         setTemp(data.temp);
                         setHumidity(data.humidity);
                         setWeatherDesc(data.weatherDescription);

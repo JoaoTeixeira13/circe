@@ -1,8 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromWishlist } from "./redux/wishlist/slice";
+import { toggleWishlistModal } from "./redux/toggleWishlistUploader/slice";
 
 export default function Wishlist(props) {
     const wishlist = useSelector((state) => state.wishlist);
+    const modalWindow = useSelector((state) => state.toggleWishlistModal);
+
     const dispatch = useDispatch();
 
     const handleCheckbox = async (id) => {
@@ -22,8 +25,8 @@ export default function Wishlist(props) {
         }
     };
 
-    const addToWishlist = () => {
-        console.log("user wants to add new plant to wishlist, ");
+    const handleModal = () => {
+        dispatch(toggleWishlistModal(!modalWindow));
     };
 
     return (
@@ -42,7 +45,7 @@ export default function Wishlist(props) {
                                             onClick={() =>
                                                 handleCheckbox(plant.pid)
                                             }
-                                        ></input>
+                                        />
                                     )}
 
                                     <h4>{plant.display_pid}</h4>
@@ -51,7 +54,7 @@ export default function Wishlist(props) {
                                 {props.tradeManager && (
                                     <img
                                         className="wishlistIcon"
-                                        src={plant.image_url}
+                                        src={plant.image_url || "/default.png"}
                                         alt={plant.display_pid}
                                     />
                                 )}
@@ -60,7 +63,7 @@ export default function Wishlist(props) {
                     })}
             </div>
             {props.tradeManager && (
-                <button onClick={() => addToWishlist()}>Add</button>
+                <button onClick={() => handleModal()}>Add</button>
             )}
         </div>
     );

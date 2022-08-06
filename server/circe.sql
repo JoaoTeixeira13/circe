@@ -28,7 +28,7 @@ CREATE TABLE users (
     user_id INT REFERENCES users(id) NOT NULL,
     pid VARCHAR NOT NULL,
     display_pid VARCHAR NOT NULL,
-    image_url VARCHAR NOT NULL
+    image_url VARCHAR
   );
 
    CREATE TABLE to_trade(

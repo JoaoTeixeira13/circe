@@ -40,13 +40,13 @@ export default function TradeUploader() {
                         <input
                             name="plant"
                             type="text"
-                            placeholder="nomenclature (ex: Ficus elastica)"
+                            placeholder="nomenclature (ex: Ficus elastica)*"
                             required
                         />
                         <input
                             name="description"
                             type="text"
-                            placeholder="description"
+                            placeholder="description*"
                             required
                         />
                         <label htmlFor="input-tag">

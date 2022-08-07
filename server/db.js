@@ -200,8 +200,11 @@ module.exports.getThirdMatches = (tradingPartners, loggedUser) => {
 
 module.exports.newestPlants = (userId) => {
     return db.query(
-        `SELECT *
+        `SELECT to_trade.description, to_trade.display_pid, to_trade.id, to_trade.image_url, to_trade.pid, to_trade.user_id,
+        users.first AS user, users.location, users.imageUrl AS user_pic
     FROM to_trade
+    JOIN users
+    ON (to_trade.user_id = users.id)
     WHERE  user_id != $1
     ORDER BY id DESC   
     LIMIT 6 `,

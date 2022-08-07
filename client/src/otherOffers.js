@@ -21,6 +21,22 @@ export default function OtherOffers() {
     return (
         <div>
             <h2>Other offers go here.</h2>
+            {latestPlants &&
+                latestPlants.map((plant) => {
+                    return (
+                        <div className="plantCell" key={plant.id}>
+                            <h4>{plant.location}</h4>
+                            <img
+                                className="wishlistIcon"
+                                src={plant.image_url}
+                                alt={plant.display_pid}
+                            />
+                            <h4>
+                                {plant.user} is trading a {plant.display_pid}!
+                            </h4>
+                        </div>
+                    );
+                })}
         </div>
     );
 }

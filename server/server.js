@@ -466,7 +466,6 @@ app.post("/api/handleWishlist", async (req, res) => {
 //add to wishlist from Trade manager route
 
 app.post("/api/addToWishlist", async (req, res) => {
-   
     if (req.body.plant.plant_id) {
         try {
             const pid = req.body.plant.plant_id.toLowerCase();
@@ -602,6 +601,23 @@ app.get("/api/fetchMatches", async (req, res) => {
         });
     } catch (err) {
         console.log("error in db fetching matches ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
+
+//latest plants
+
+app.get("/api/latestPlants", async (req, res) => {
+    
+    try {
+        const results = await db.newestPlants(req.session.userId);
+        const plants = results.rows;
+        res.json({ success: true, plants });
+    } catch (err) {
+        console.log("error in db fetching newest plants ", err);
         res.json({
             success: false,
             error: true,

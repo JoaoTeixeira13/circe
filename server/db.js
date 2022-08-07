@@ -86,7 +86,7 @@ module.exports.uploadProfilePicture = (url, userId) => {
     return db.query(q, param);
 };
 
-//bio component 
+//bio component
 
 module.exports.updateBio = (bio, userId) => {
     const q = `UPDATE users
@@ -196,3 +196,15 @@ module.exports.getThirdMatches = (tradingPartners, loggedUser) => {
     );
 };
 
+//latest plants
+
+module.exports.newestPlants = (userId) => {
+    return db.query(
+        `SELECT *
+    FROM to_trade
+    WHERE  user_id != $1
+    ORDER BY id DESC   
+    LIMIT 6 `,
+        [userId]
+    );
+};

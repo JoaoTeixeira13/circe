@@ -70,12 +70,14 @@ export default function Weather() {
                             boost today.
                         </h4>
                     )}
-                    {humidity > 45 && (
-                        <h4>
-                            Indoor plants would enjoy today's humidity levels,
-                            consider leaving your windows open .{" "}
-                        </h4>
-                    )}
+                    {humidity > 45 &&
+                        temp >
+                            15 &&(
+                                <h4>
+                                    Indoor plants would enjoy today's humidity
+                                    levels, consider leaving your windows open .{" "}
+                                </h4>
+                            )}
                     {((weatherId >= 500 && weatherId <= 531) ||
                         (weatherId >= 200 && weatherId <= 232)) && (
                         <h4>Outdoors plants are enjoying the rain.</h4>

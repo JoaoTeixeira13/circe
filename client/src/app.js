@@ -11,6 +11,7 @@ import ExploreWindow from "./exploreWindow";
 import Profile from "./profile";
 import ProfilePicture from "./profilePic";
 import OtherProfile from "./otherProfile";
+import LatestActivity from "./latestActivity";
 
 import Uploader from "./profilePicUploader";
 import TradeWindow from "./tradeWindow";
@@ -50,6 +51,9 @@ export default function App() {
                 <nav className="profileHeader">
                     <Logo />
                     <div className="navRight">
+                        <Link to="/news">
+                            <h2>News</h2>
+                        </Link>
                         <Link to="/trade">
                             <h2>Trade</h2>
                         </Link>
@@ -76,6 +80,9 @@ export default function App() {
                 </Route>
                 <Route path="/trade">
                     <TradeWindow />
+                </Route>
+                <Route path="/news">
+                    <LatestActivity />
                 </Route>
                 <Route path="/user/:otherUserId">
                     <OtherProfile />

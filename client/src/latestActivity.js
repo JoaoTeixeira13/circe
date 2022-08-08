@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import OtherOffers from "./otherOffers";
+import LatestOtherOffers from "./latestOtherOffers";
 
 export default function LatestActivity() {
     useEffect(() => {
@@ -9,7 +9,7 @@ export default function LatestActivity() {
     return (
         <div>
             <h1>Latest Activity Window</h1>
-            <OtherOffers />
+            <LatestOtherOffers />
         </div>
     );
 }

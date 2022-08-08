@@ -534,3 +534,29 @@ button:hover {
     justify-content: space-between;
     align-items: center;
 }
+
+/* news route (latest plants and users) */
+
+.latestPlants {
+    display: flex;
+    width: 90vw;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.latestPlants .plantCell {
+    flex-direction: column;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 10px 25px;
+    padding: 20px;
+}
+.latestPlants img {
+    width: 250px;
+    height: 250px;
+    margin: 0 0 25px;
+}
+.latestPlants .plantCell h4 {
+    margin: 10px 0px;
+}

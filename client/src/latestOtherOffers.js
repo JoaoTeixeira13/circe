@@ -33,7 +33,21 @@ export default function LatestOtherOffers() {
     }, [searchInput]);
 
     return (
-        <div>
+        <div className="searchContainer">
+            <div className="searchInfo">
+                {(!searchInput && <h2>Latest plants!</h2>) ||
+                    (searchInput && <h2>Search results for {searchInput}:</h2>)}
+                <div>
+                    <h3>Looking for a specific plant?</h3>
+                    <input
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        name="plantSearch"
+                        type="text"
+                        placeholder="ex: Monstera friedrichsthalii"
+                        value={searchInput}
+                    />
+                </div>
+            </div>
             <div className="latestPlants">
                 {latestPlants.length !== 0 &&
                     latestPlants.map((plant) => {
@@ -68,17 +82,6 @@ export default function LatestOtherOffers() {
                             </div>
                         );
                     })}
-            </div>
-
-            <div>
-                <h3>Looking for a specific plant?</h3>
-                <input
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    name="plantSearch"
-                    type="text"
-                    placeholder="nomenclature"
-                    value={searchInput}
-                />
             </div>
         </div>
     );

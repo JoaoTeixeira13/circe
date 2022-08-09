@@ -537,20 +537,37 @@ button:hover {
 
 /* news route (latest plants and users) */
 
+.searchContainer {
+    width: 90vw;
+    display: flex;
+    margin-top: 50px;
+}
+
 .latestPlants {
     display: flex;
-    width: 90vw;
+    width: 70vw;
     overflow-x: auto;
     white-space: nowrap;
 }
 
-.latestPlants .plantCell {
+.searchInfo input {
+    width: 250px;
+}
+
+.latestPlants .plantCell,
+.searchInfo {
     flex-direction: column;
     word-wrap: break-word;
     white-space: pre-wrap;
     word-break: break-word;
     margin: 10px 25px;
     padding: 20px;
+}
+.searchInfo {
+    display: flex;
+    width: 350px;
+    margin: 0;
+    padding-right: 0;
 }
 .latestPlants img {
     width: 250px;

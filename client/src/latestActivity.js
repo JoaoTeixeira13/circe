@@ -8,7 +8,6 @@ export default function LatestActivity() {
 
     return (
         <div>
-            <h1>Latest Activity Window</h1>
             <LatestOtherOffers />
         </div>
     );

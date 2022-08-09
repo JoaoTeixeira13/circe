@@ -611,17 +611,33 @@ app.get("/api/fetchMatches", async (req, res) => {
 //latest plants
 
 app.get("/api/latestPlants", async (req, res) => {
-    
-    try {
-        const results = await db.newestPlants(req.session.userId);
-        const plants = results.rows;
-        res.json({ success: true, plants });
-    } catch (err) {
-        console.log("error in db fetching newest plants ", err);
-        res.json({
-            success: false,
-            error: true,
-        });
+    if (req.query.plantSearch) {
+        try {
+            const results = await db.matchingPlants(
+                req.query.plantSearch,
+                req.session.userId
+            );
+            const plants = results.rows;
+            res.json({ success: true, plants });
+        } catch (err) {
+            console.log("error in db fetching matching plants ", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
+    } else {
+        try {
+            const results = await db.newestPlants(req.session.userId);
+            const plants = results.rows;
+            res.json({ success: true, plants });
+        } catch (err) {
+            console.log("error in db fetching newest plants ", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
     }
 });
 

@@ -211,3 +211,16 @@ module.exports.newestPlants = (userId) => {
         [userId]
     );
 };
+
+module.exports.matchingPlants = (val, userId) => {
+    return db.query(
+        `SELECT to_trade.description, to_trade.display_pid, to_trade.id, to_trade.image_url, to_trade.pid, to_trade.user_id,
+        users.first AS user, users.location, users.imageUrl AS user_pic
+    FROM to_trade
+    JOIN users
+    ON (to_trade.user_id = users.id)
+     WHERE to_trade.pid ILIKE $1
+     AND to_trade.user_id != $2;`,
+        [val + "%", userId]
+    );
+};

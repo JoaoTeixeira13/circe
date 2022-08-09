@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import NotFound from "./404notFound";
 
 export default function LatestOtherOffers() {
     const myWishlist = useSelector((state) => state.wishlist);
@@ -82,6 +83,12 @@ export default function LatestOtherOffers() {
                             </div>
                         );
                     })}
+                {latestPlants.length === 0 && searchInput && (
+                    <div className="notFoundContainer">
+                        <NotFound />
+                        <h2> Plant not found. </h2>
+                    </div>
+                )}
             </div>
         </div>
     );

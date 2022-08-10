@@ -224,3 +224,26 @@ module.exports.matchingPlants = (val, userId) => {
         [val + "%", userId]
     );
 };
+
+//latest users
+
+module.exports.newestUsers = (userId) => {
+    return db.query(
+        `SELECT id, first, last, location, imageUrl
+    FROM users
+    WHERE id != $1
+    ORDER BY id DESC   
+    LIMIT 6 `,
+        [userId]
+    );
+};
+
+module.exports.matchingUsers = (val, userId) => {
+    return db.query(
+        `SELECT id, first, last, location, imageUrl
+     FROM users
+     WHERE first ILIKE $1 OR last ILIKE $1
+     AND id != $2;`,
+        [val + "%", userId]
+    );
+};

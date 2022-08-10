@@ -586,3 +586,27 @@ button:hover {
 .notFound img {
     border-radius: 15px;
 }
+.userCell img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0;
+}
+.userCell img:hover {
+    border: #e1eda4 6px solid;
+}
+.userCell.plantCell {
+    margin: 0;
+    width: 200px;
+}
+.noUser img {
+    width: 400px;
+    height: 150px;
+    object-fit: cover;
+}
+.noUser {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

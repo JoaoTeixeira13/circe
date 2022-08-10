@@ -608,7 +608,7 @@ app.get("/api/fetchMatches", async (req, res) => {
     }
 });
 
-//latest plants
+//latest plants / offers search
 
 app.get("/api/latestPlants", async (req, res) => {
     if (req.query.plantSearch) {
@@ -633,6 +633,40 @@ app.get("/api/latestPlants", async (req, res) => {
             res.json({ success: true, plants });
         } catch (err) {
             console.log("error in db fetching newest plants ", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
+    }
+});
+
+//latest users / user search 
+
+
+app.get("/api/latestUsers", async (req, res) => {
+    if (req.query.userSearch) {
+        try {
+            const results = await db.matchingUsers(
+                req.query.userSearch,
+                req.session.userId
+            );
+            const users = results.rows;
+            res.json({ success: true, users });
+        } catch (err) {
+            console.log("error in db fetching matching users ", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
+    } else {
+        try {
+            const results = await db.newestUsers(req.session.userId);
+            const users = results.rows;
+            res.json({ success: true, users });
+        } catch (err) {
+            console.log("error in db fetching newest users ", err);
             res.json({
                 success: false,
                 error: true,

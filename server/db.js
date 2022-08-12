@@ -242,8 +242,8 @@ module.exports.matchingUsers = (val, userId) => {
     return db.query(
         `SELECT id, first, last, location, imageUrl
      FROM users
-     WHERE first ILIKE $1 OR last ILIKE $1
-     AND id != $2;`,
+     WHERE (first ILIKE $1 AND id != $2) OR (last ILIKE $1
+     AND id != $2);`,
         [val + "%", userId]
     );
 };

@@ -60,7 +60,8 @@ export default function LatestUsers() {
                                 </Link>
 
                                 <h4>
-                                    {user.first} , 📍 {user.location}
+                                    {user.first} {user.last}, <br /> 📍{" "}
+                                    {user.location}
                                 </h4>
                             </div>
                         );

@@ -28,7 +28,7 @@ This is a single-page application website made with React that allows users to t
 
 <br>
 
-**_Exploring New Plants_**
+**_Exploring New Plants_** <br>
 <img src="client/public/explore-window-1.gif">
 
 <br>
@@ -41,7 +41,7 @@ This is a single-page application website made with React that allows users to t
 
 <br>
 
-**_Trading: matches_**
+**_Trading: matches_** <br>
 <img src="client/public/trade-window-2.gif">
 
 <br>

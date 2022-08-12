@@ -22,3 +22,34 @@ This is a single-page application website made with React that allows users to t
 -   JavaScript, AWS S3, Node.js, Express.js, PostgreSQL, Socket.IO, React & Redux
 
 ## Preview
+
+**_Profile Page and Weather API_**
+<img src="public/profile-page.gif">
+
+<br>
+
+**_Exploring New Plants_**
+<img src="public/explore-window-1.gif">
+
+<br>
+<img src="public/explore-window-2.gif">
+
+<br>
+
+**_Trading: wishlist and plants to trade_**
+<img src="public/trade-window-1.gif">
+
+<br>
+
+**_Trading: matches_**
+<img src="public/trade-window-2.gif">
+
+<br>
+
+**_Latest plants and users_**
+<img src="public/news1.gif">
+
+<br>
+<img src="public/news2.gif">
+
+<br>

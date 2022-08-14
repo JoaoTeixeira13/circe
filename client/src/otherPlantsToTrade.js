@@ -1,7 +1,16 @@
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 export default function OtherPlantsToTrade(props) {
     const myWishlist = useSelector((state) => state.wishlist);
+
+    const containerRef = useRef();
+
+    useEffect(() => {
+        containerRef.current.scrollTop =
+            containerRef.current.scrollHeight -
+            containerRef.current.clientHeight;
+    }, [props.userPlants]);
 
     return (
         <div
@@ -11,7 +20,7 @@ export default function OtherPlantsToTrade(props) {
         >
             <h1>Trading</h1>
 
-            <div className="plantList">
+            <div className="plantList" ref={containerRef}>
                 {props.userPlants &&
                     props.userPlants.map((plant) => {
                         return (

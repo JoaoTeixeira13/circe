@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { matchesReceived } from "./redux/matches/slice";
 import { fullMatchesReceived } from "./redux/fullMatch/slice";
@@ -30,10 +30,18 @@ export default function Matches(props) {
         })();
     }, [plantsToTrade, wishlist]);
 
+    const containerRef = useRef();
+
+    useEffect(() => {
+        containerRef.current.scrollTop =
+            containerRef.current.scrollHeight -
+            containerRef.current.clientHeight;
+    }, [matches]);
+
     return (
         <div className="matches">
             <h1>Matches!</h1>
-            <div className="plantList">
+            <div className="plantList" ref={containerRef}>
                 {matches.length !== 0 &&
                     matches.map((match) => {
                         return (

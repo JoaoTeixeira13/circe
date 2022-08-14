@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { removeFromPlantsToTrade } from "./redux/plantsToTrade/slice";
@@ -5,6 +6,14 @@ import { removeFromPlantsToTrade } from "./redux/plantsToTrade/slice";
 export default function ToTradeList(props) {
     const dispatch = useDispatch();
     const plantsToTrade = useSelector((state) => state.plantsToTrade);
+
+    const containerRef = useRef();
+
+    useEffect(() => {
+        containerRef.current.scrollTop =
+            containerRef.current.scrollHeight -
+            containerRef.current.clientHeight;
+    }, [plantsToTrade]);
 
     const handleCheckbox = async (id) => {
         try {
@@ -27,7 +36,7 @@ export default function ToTradeList(props) {
         <div
             className={`plantsToTrade${props.tradeProfile ? " tradeCell" : ""}`}
         >
-            <div className="plantList">
+            <div className="plantList" ref={containerRef}>
                 {plantsToTrade &&
                     plantsToTrade.map((plant) => {
                         return (

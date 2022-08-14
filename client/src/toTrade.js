@@ -5,7 +5,6 @@ import ToTradeList from "./toTradeList";
 
 export default function ToTrade(props) {
     const dispatch = useDispatch();
-
     const modalWindow = useSelector((state) => state.toggleTradeUploader);
 
     const uploadPlant = () => {

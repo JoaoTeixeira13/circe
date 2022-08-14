@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromWishlist } from "./redux/wishlist/slice";
 import { toggleWishlistModal } from "./redux/toggleWishlistUploader/slice";
@@ -5,8 +6,15 @@ import { toggleWishlistModal } from "./redux/toggleWishlistUploader/slice";
 export default function Wishlist(props) {
     const wishlist = useSelector((state) => state.wishlist);
     const modalWindow = useSelector((state) => state.toggleWishlistModal);
-
     const dispatch = useDispatch();
+
+    const containerRef = useRef();
+
+    useEffect(() => {
+        containerRef.current.scrollTop =
+            containerRef.current.scrollHeight -
+            containerRef.current.clientHeight;
+    }, [wishlist]);
 
     const handleCheckbox = async (id) => {
         try {
@@ -33,7 +41,7 @@ export default function Wishlist(props) {
         <div className="wishlist">
             <h1>Wishlist</h1>
 
-            <div className="plantList">
+            <div className="plantList" ref={containerRef}>
                 {wishlist &&
                     wishlist.map((plant) => {
                         return (

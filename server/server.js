@@ -641,8 +641,7 @@ app.get("/api/latestPlants", async (req, res) => {
     }
 });
 
-//latest users / user search 
-
+//latest users / user search
 
 app.get("/api/latestUsers", async (req, res) => {
     if (req.query.userSearch) {
@@ -672,6 +671,122 @@ app.get("/api/latestUsers", async (req, res) => {
                 error: true,
             });
         }
+    }
+});
+
+// followers
+
+const followButton = {
+    follow: "Follow",
+    followBack: "Follow Back",
+    unfollow: "Unfollow",
+};
+
+//fetching the type of relation between two users
+
+app.get("/api/relation/:viewedUser", async (req, res) => {
+    
+    const otherUser = parseInt(req.params.viewedUser);
+
+    try {
+        const results = await db.followRelation(req.session.userId, otherUser);
+        const userRelation = results.rows[0];
+
+        if (!userRelation) {
+            res.json({
+                buttonText: followButton.follow,
+            });
+        } else {
+            if (userRelation.leader_id == req.session.userId) {
+                try {
+                    const result = await db.followBack(
+                        req.session.userId,
+                        otherUser
+                    );
+
+                    const followBack = result.rows[0];
+
+                    if (!followBack) {
+                        res.json({
+                            buttonText: followButton.followBack,
+                        });
+                    } else {
+                        res.json({
+                            buttonText: followButton.unfollow,
+                        });
+                    }
+                } catch (err) {
+                    console.log("error in fetching users' relation ", err);
+                    res.json({
+                        success: false,
+                        error: true,
+                    });
+                }
+            } else if (userRelation.follower_id === req.session.userId) {
+                res.json({
+                    buttonText: followButton.unfollow,
+                });
+            }
+        }
+    } catch (err) {
+        console.log("error in fetching users' relation ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
+
+// handle follow / unfollw requests
+
+app.post("/api/requestHandle/:viewedUser", async (req, res) => {
+    const otherUser = parseInt(req.params.viewedUser);
+    
+    if (
+        req.body.buttonText === followButton.follow ||
+        req.body.buttonText === followButton.followBack
+    ) {
+        try {
+            await db.followUser(req.session.userId, otherUser);
+            res.json({
+                buttonText: followButton.unfollow,
+            });
+        } catch (err) {
+            console.log("error in fetching users' relation ", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
+    } else if (req.body.buttonText === followButton.unfollow) {
+        try {
+
+            await db.unfollowUser(req.session.userId, otherUser);
+            const result = await db.followBack(otherUser, req.session.userId);
+
+            const followBack = result.rows[0];
+
+            if (!followBack) {
+                res.json({
+                    buttonText: followButton.follow,
+                });
+            } else {
+                res.json({
+                    buttonText: followButton.followBack,
+                });
+            }
+        } catch (err) {
+            console.log("error in fetching users' relation ", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
+    } else {
+        res.json({
+            success: false,
+            error: true,
+        });
     }
 });
 

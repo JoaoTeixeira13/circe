@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import OtherWishlist from "./otherWishlist";
 import OtherPlantsToTrade from "./otherPlantsToTrade";
-// import FriendButton from "./friendButton";
+import FollowButton from "./followButton";
 // import NotFound from "./404notFound";
 // import Friends from "./friends";
 
@@ -65,6 +65,7 @@ export default function OtherProfile() {
                             <h3>📍 {otherUser.location}</h3>
                             <h3>{otherUser.bio}</h3>
                         </div>
+                        <FollowButton viewedUser={otherUserId}/>
                         <button onClick={() => messageUser()}>Contact</button>
                         {message && (
                             <div>

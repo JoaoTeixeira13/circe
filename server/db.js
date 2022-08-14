@@ -247,3 +247,40 @@ module.exports.matchingUsers = (val, userId) => {
         [val + "%", userId]
     );
 };
+
+// following 
+
+module.exports.followRelation = (loggedUser, viewedUser) => {
+    const q = `SELECT * FROM followers
+     WHERE (leader_id = $1 AND follower_id = $2)
+     OR (leader_id = $2 AND follower_id = $1)`;
+
+    const param = [loggedUser, viewedUser];
+    return db.query(q, param);
+};
+
+module.exports.followBack = (loggedUser, viewedUser) => {
+    const q = `SELECT * FROM followers
+     WHERE leader_id = $2 AND follower_id = $1 `;
+
+    const param = [loggedUser, viewedUser];
+    return db.query(q, param);
+};
+
+module.exports.followUser = (follower, leader) => {
+    const q = `INSERT INTO followers (follower_id, leader_id)
+     VALUES ($1, $2)
+    `;
+    const param = [follower, leader];
+    return db.query(q, param);
+};
+
+module.exports.unfollowUser = (follower, leader) => {
+    const q = `DELETE FROM followers
+     WHERE follower_id = $1 AND leader_id = $2
+    `;
+    const param = [follower, leader];
+    return db.query(q, param);
+};
+
+

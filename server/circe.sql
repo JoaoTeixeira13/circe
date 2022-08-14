@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS reset_codes;
 DROP TABLE IF EXISTS wishlist;
 DROP TABLE IF EXISTS to_trade;
+DROP TABLE IF EXISTS followers;
 DROP TABLE IF EXISTS users;
 
 
@@ -39,5 +40,13 @@ CREATE TABLE users (
     description VARCHAR NOT NULL,
     image_url VARCHAR NOT NULL
   );
+
+  CREATE TABLE followers(
+    id SERIAL PRIMARY KEY,
+    leader_id INT REFERENCES users(id) NOT NULL,
+    follower_id INT REFERENCES users(id) NOT NULL 
+  );
+
+
 
   

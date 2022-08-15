@@ -748,8 +748,14 @@ app.post("/api/requestHandle/:viewedUser", async (req, res) => {
     ) {
         try {
             await db.followUser(req.session.userId, otherUser);
+            let { rows: user } = await db.fetchNewFollow(
+                req.session.userId,
+                otherUser
+            );
+            user = user[0];
             res.json({
                 buttonText: followButton.unfollow,
+                user,
             });
         } catch (err) {
             console.log("error in fetching users' relation ", err);
@@ -760,7 +766,12 @@ app.post("/api/requestHandle/:viewedUser", async (req, res) => {
         }
     } else if (req.body.buttonText === followButton.unfollow) {
         try {
-            await db.unfollowUser(req.session.userId, otherUser);
+            let { rows: user } = await db.unfollowUser(
+                req.session.userId,
+                otherUser
+            );
+            user = user[0];
+
             const result = await db.followBack(otherUser, req.session.userId);
 
             const followBack = result.rows[0];
@@ -768,10 +779,12 @@ app.post("/api/requestHandle/:viewedUser", async (req, res) => {
             if (!followBack) {
                 res.json({
                     buttonText: followButton.follow,
+                    user,
                 });
             } else {
                 res.json({
                     buttonText: followButton.followBack,
+                    user,
                 });
             }
         } catch (err) {

@@ -3,11 +3,11 @@ export default function followingReducer(following = [], action) {
         following = action.payload.following;
     }
     if (action.type === "following/addToList") {
-        following = [...following, action.payload.user.id];
+        following = [...following, action.payload.user];
     }
     if (action.type === "following/removeFromList") {
         following = following.filter((user) => {
-            if (user.id !== action.payload.user.id) {
+            if (user.leader_id !== action.payload.user.leader_id) {
                 return user;
             }
         });
@@ -22,7 +22,6 @@ export function followingReceived(following) {
     };
 }
 export function addToFollowing(user) {
-    console.log("user inside add following useraction is,", user);
 
     return {
         type: "following/addToList",
@@ -31,7 +30,6 @@ export function addToFollowing(user) {
 }
 
 export function removeFromFollowing(user) {
-    console.log("user inside remove following action is,", user);
     return {
         type: "following/removeFromList",
         payload: { user },

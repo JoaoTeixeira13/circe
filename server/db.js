@@ -278,6 +278,7 @@ module.exports.followUser = (follower, leader) => {
 module.exports.unfollowUser = (follower, leader) => {
     const q = `DELETE FROM followers
      WHERE follower_id = $1 AND leader_id = $2
+     RETURNING leader_id
     `;
     const param = [follower, leader];
     return db.query(q, param);
@@ -306,5 +307,17 @@ module.exports.fetchFollowing = (userId) => {
     WHERE  followers.follower_id = $1
      `,
         [userId]
+    );
+};
+
+module.exports.fetchNewFollow = (userId, leader) => {
+    return db.query(
+        `SELECT followers.id, followers.leader_id, users.first, users.imageUrl
+    FROM followers
+    JOIN users
+    ON (followers.leader_id = users.id)
+    WHERE  followers.follower_id = $1 AND followers.leader_id = $2
+     `,
+        [userId, leader]
     );
 };

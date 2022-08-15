@@ -1,13 +1,17 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import ProfilePicture from "./profilePic";
 import Wishlist from "./wishlist";
 import ToTrade from "./toTrade";
 import Bio from "./bio";
 import Weather from "./weather";
-import { useSelector } from "react-redux";
+import MyGarden from "./myGarden";
 
 export default function Profile() {
     const user = useSelector((state) => state.user);
+    const [myGarden, setMyGarden] = useState(false);
     const tradeProfile = true;
+
     return (
         <div className="userProfile">
             <div className="userSection">
@@ -16,11 +20,30 @@ export default function Profile() {
                 <Bio />
                 <Weather />
             </div>
-
-            <div className="profilePlants">
-                <Wishlist />
-                <ToTrade tradeProfile={tradeProfile} />
+            <div>
+                <div>
+                    <button onClick={() => setMyGarden(false)}>
+                        Wish & Offerings
+                    </button>
+                    <button onClick={() => setMyGarden(true)}>
+                        Collection
+                    </button>
+                </div>
+                {!myGarden && (
+                    <div className="profilePlants">
+                        <Wishlist />
+                        <ToTrade tradeProfile={tradeProfile} />
+                    </div>
+                )}
+                {myGarden && (
+                    <div className="profilePlants">
+                        <MyGarden />
+                    </div>
+                )}
             </div>
+            {/* <button onClick={() => handleClick()} className="switch">
+                SWITCH
+            </button> */}
         </div>
     );
 }

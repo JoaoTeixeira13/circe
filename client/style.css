@@ -610,3 +610,10 @@ button:hover {
     justify-content: center;
     align-items: center;
 }
+
+/* garden collections element */
+
+.switch {
+    width: 100px;
+    float:right;
+}

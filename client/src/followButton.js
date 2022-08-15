@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 export default function FollowButton({ viewedUser }) {
     const [buttonText, setButtonText] = useState("");
-    console.log("viewed user is,", viewedUser);
 
     useEffect(() => {
         (async () => {
@@ -10,7 +9,6 @@ export default function FollowButton({ viewedUser }) {
             try {
                 const resp = await fetch(`/api/relation/${viewedUser}`);
                 const data = await resp.json();
-                console.log("data received back from server is", data);
 
                 setButtonText(data.buttonText);
             } catch (err) {
@@ -30,7 +28,6 @@ export default function FollowButton({ viewedUser }) {
                     body: JSON.stringify({ buttonText }),
                 });
                 const data = await resp.json();
-                console.log("data received back is", data);
                 setButtonText(data.buttonText);
             } catch (err) {
                 console.log("error in posting users' relationship ", err);

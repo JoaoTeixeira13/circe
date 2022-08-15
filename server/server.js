@@ -189,17 +189,22 @@ app.get("/api/user", async (req, res) => {
         const result = await db.fetchProfile(req.session.userId);
         const user = result.rows[0];
 
-        const wishlistQuery = await db.fetchWishlist(req.session.userId);
-        const wishlist = wishlistQuery.rows;
+        const { rows: wishlist } = await db.fetchWishlist(req.session.userId);
 
-        const plantsToTradeQuery = await db.fetchTradelist(req.session.userId);
-        const plantsToTrade = plantsToTradeQuery.rows;
+        const { rows: plantsToTrade } = await db.fetchTradelist(
+            req.session.userId
+        );
+
+        const { rows: followers } = await db.fetchFollowers(req.session.userId);
+        const { rows: following } = await db.fetchFollowing(req.session.userId);
 
         res.json({
             success: true,
             user,
             wishlist,
             plantsToTrade,
+            followers,
+            following,
         });
     } catch (err) {
         console.log("error in db. fetching user's profile ", err);
@@ -222,11 +227,13 @@ app.get("/api/user/:id", async (req, res) => {
                 const results = await db.fetchProfile(req.params.id);
                 const profile = results.rows[0];
 
-                const wishlistQuery = await db.fetchWishlist(req.params.id);
-                const userWishlist = wishlistQuery.rows;
+                const { rows: userWishlist } = await db.fetchWishlist(
+                    req.params.id
+                );
 
-                const plantsQuery = await db.fetchTradelist(req.params.id);
-                const userPlants = plantsQuery.rows;
+                const { rows: userPlants } = await db.fetchTradelist(
+                    req.params.id
+                );
                 if (!profile) {
                     res.json({
                         noMatch: true,
@@ -578,9 +585,7 @@ app.post("/api/deleteFromTradeList", async (req, res) => {
 app.get("/api/fetchMatches", async (req, res) => {
     try {
         let fullMatches = [];
-        const result = await db.getMatches(req.session.userId);
-
-        const matches = result.rows;
+        const { rows: matches } = await db.getMatches(req.session.userId);
 
         if (matches.length) {
             const idMatches = matches.map((each) => {
@@ -613,11 +618,10 @@ app.get("/api/fetchMatches", async (req, res) => {
 app.get("/api/latestPlants", async (req, res) => {
     if (req.query.plantSearch) {
         try {
-            const results = await db.matchingPlants(
+            const { rows: plants } = await db.matchingPlants(
                 req.query.plantSearch,
                 req.session.userId
             );
-            const plants = results.rows;
             res.json({ success: true, plants });
         } catch (err) {
             console.log("error in db fetching matching plants ", err);
@@ -628,8 +632,7 @@ app.get("/api/latestPlants", async (req, res) => {
         }
     } else {
         try {
-            const results = await db.newestPlants(req.session.userId);
-            const plants = results.rows;
+            const { rows: plants } = await db.newestPlants(req.session.userId);
             res.json({ success: true, plants });
         } catch (err) {
             console.log("error in db fetching newest plants ", err);
@@ -646,11 +649,10 @@ app.get("/api/latestPlants", async (req, res) => {
 app.get("/api/latestUsers", async (req, res) => {
     if (req.query.userSearch) {
         try {
-            const results = await db.matchingUsers(
+            const { rows: users } = await db.matchingUsers(
                 req.query.userSearch,
                 req.session.userId
             );
-            const users = results.rows;
             res.json({ success: true, users });
         } catch (err) {
             console.log("error in db fetching matching users ", err);
@@ -661,8 +663,7 @@ app.get("/api/latestUsers", async (req, res) => {
         }
     } else {
         try {
-            const results = await db.newestUsers(req.session.userId);
-            const users = results.rows;
+            const { rows: users } = await db.newestUsers(req.session.userId);
             res.json({ success: true, users });
         } catch (err) {
             console.log("error in db fetching newest users ", err);
@@ -685,7 +686,6 @@ const followButton = {
 //fetching the type of relation between two users
 
 app.get("/api/relation/:viewedUser", async (req, res) => {
-    
     const otherUser = parseInt(req.params.viewedUser);
 
     try {
@@ -741,7 +741,7 @@ app.get("/api/relation/:viewedUser", async (req, res) => {
 
 app.post("/api/requestHandle/:viewedUser", async (req, res) => {
     const otherUser = parseInt(req.params.viewedUser);
-    
+
     if (
         req.body.buttonText === followButton.follow ||
         req.body.buttonText === followButton.followBack
@@ -760,7 +760,6 @@ app.post("/api/requestHandle/:viewedUser", async (req, res) => {
         }
     } else if (req.body.buttonText === followButton.unfollow) {
         try {
-
             await db.unfollowUser(req.session.userId, otherUser);
             const result = await db.followBack(otherUser, req.session.userId);
 

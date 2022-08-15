@@ -612,11 +612,50 @@ button:hover {
 }
 .toggleButtons button {
     margin: 30px 0;
+    box-shadow: 0px 5px 13px rgb(0 0 0 / 50%);
 }
-.gardenCollection {
+.garden {
     width: 55vw;
     height: 60vh;
     border: #adedad 5px solid;
     border-radius: 15px;
     padding: 20px;
+}
+
+.gardenNav,
+.gardenStats {
+    display: flex;
+    justify-content: space-between;
+}
+.gardenNav {
+    width: 100%;
+    height: 80px;
+}
+.gardenStats {
+    width: 40%;
+}
+.uploadButton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.breakBar {
+    border: #adedad 1px solid;
+    margin: 0 -20px;
+}
+.gardenStats div {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.gardenStats div h4 {
+    margin: 5px 0;
+}
+
+.toggleButtons button.pressed {
+    box-shadow: none;
+    margin-top: 35px;
+    width: 195px;
 }

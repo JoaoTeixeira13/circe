@@ -22,10 +22,16 @@ export default function Profile() {
             </div>
             <div>
                 <div className="toggleButtons">
-                    <button onClick={() => setMyGarden(false)}>
+                    <button
+                        onClick={() => setMyGarden(false)}
+                        className={`${!myGarden ? " pressed" : ""}`}
+                    >
                         Trading
                     </button>
-                    <button onClick={() => setMyGarden(true)}>
+                    <button
+                        onClick={() => setMyGarden(true)}
+                        className={`${myGarden ? " pressed" : ""}`}
+                    >
                         Your Garden
                     </button>
                 </div>
@@ -41,7 +47,6 @@ export default function Profile() {
                     </div>
                 )}
             </div>
-            
         </div>
     );
 }

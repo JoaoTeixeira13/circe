@@ -248,7 +248,7 @@ module.exports.matchingUsers = (val, userId) => {
     );
 };
 
-// following 
+// following
 
 module.exports.followRelation = (loggedUser, viewedUser) => {
     const q = `SELECT * FROM followers
@@ -283,4 +283,28 @@ module.exports.unfollowUser = (follower, leader) => {
     return db.query(q, param);
 };
 
+// get followers / following
 
+module.exports.fetchFollowers = (userId) => {
+    return db.query(
+        `SELECT followers.id, followers.follower_id, users.first, users.imageUrl
+    FROM followers
+    JOIN users
+    ON (followers.follower_id = users.id)
+    WHERE  followers.leader_id = $1
+     `,
+        [userId]
+    );
+};
+
+module.exports.fetchFollowing = (userId) => {
+    return db.query(
+        `SELECT followers.id, followers.leader_id, users.first, users.imageUrl
+    FROM followers
+    JOIN users
+    ON (followers.leader_id = users.id)
+    WHERE  followers.follower_id = $1
+     `,
+        [userId]
+    );
+};

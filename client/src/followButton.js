@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 
+
 export default function FollowButton({ viewedUser }) {
+
     const [buttonText, setButtonText] = useState("");
 
     useEffect(() => {
         (async () => {
-            console.log("friend button just mounted");
             try {
                 const resp = await fetch(`/api/relation/${viewedUser}`);
                 const data = await resp.json();
@@ -28,6 +29,14 @@ export default function FollowButton({ viewedUser }) {
                     body: JSON.stringify({ buttonText }),
                 });
                 const data = await resp.json();
+                // if (
+                //     data.buttonText === "Follow" ||
+                //     data.buttonText === "Follow Back"
+                // ) {
+                //     console.log("user was just unfollowed");
+                // } else if (data.buttonText === "Unfollow") {
+                //     console.log("user was just followed");
+                // }
                 setButtonText(data.buttonText);
             } catch (err) {
                 console.log("error in posting users' relationship ", err);

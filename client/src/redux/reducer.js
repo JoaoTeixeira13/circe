@@ -8,6 +8,8 @@ import wishlistReducer from "./wishlist/slice";
 import plantsToTradeReducer from "./plantsToTrade/slice";
 import matchesReducer from "./matches/slice";
 import fullMatchesReducer from "./fullMatch/slice";
+import followersReducer from "./followers/slice";
+import followingReducer from "./following/slice";
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -19,6 +21,8 @@ const rootReducer = combineReducers({
     plantsToTrade: plantsToTradeReducer,
     matches: matchesReducer,
     fullMatches: fullMatchesReducer,
+    followers: followersReducer,
+    following: followingReducer,
 });
 
 export default rootReducer;

@@ -5,6 +5,8 @@ import { loggedUser } from "./redux/user/slice";
 import { toggleUploader } from "./redux/toggleUploader/slice";
 import { wishlistReceived } from "./redux/wishlist/slice";
 import { plantsToTradeReceived } from "./redux/plantsToTrade/slice";
+import { followersReceived } from "./redux/followers/slice";
+import { followingReceived } from "./redux/following/slice";
 
 import Logo from "./logo";
 import ExploreWindow from "./exploreWindow";
@@ -29,6 +31,8 @@ export default function App() {
                 dispatch(toggleUploader(false));
                 dispatch(wishlistReceived(data.wishlist));
                 dispatch(plantsToTradeReceived(data.plantsToTrade));
+                dispatch(followersReceived(data.followers));
+                dispatch(followingReceived(data.following));
             } catch (err) {
                 console.log("error in fetching  logged user ", err);
             }

@@ -254,15 +254,15 @@ button:hover {
 }
 .userProfile .toTrade {
     width: 30vw;
+    height: 60vh;
 }
-.userProfile .toTrade {
-    height: 70vh;
-}
+
 .userProfile .plantList {
     height: 55vh;
 }
 
-.userSection button {
+.userSection button,
+.toggleButtons button {
     width: 200px;
     height: 35px;
     font-size: 18px;
@@ -362,13 +362,6 @@ button:hover {
 .matches {
     border: none;
 }
-/* #full_match {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-    align-self: flex-start;
-} */
 
 .fullMatch {
     color: #a11d16;
@@ -613,7 +606,17 @@ button:hover {
 
 /* garden collections element */
 
-.switch {
-    width: 100px;
-    float:right;
+.toggleButtons {
+    display: flex;
+    justify-content: space-between;
+}
+.toggleButtons button {
+    margin: 30px 0;
+}
+.gardenCollection {
+    width: 55vw;
+    height: 60vh;
+    border: #adedad 5px solid;
+    border-radius: 15px;
+    padding: 20px;
 }

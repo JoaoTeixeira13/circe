@@ -6,7 +6,7 @@ export default function MyGarden() {
     }, []);
 
     return (
-        <div>
+        <div className="gardenCollection">
             <h1>Your Garden</h1>
         </div>
     );

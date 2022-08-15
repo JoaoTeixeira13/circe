@@ -21,12 +21,12 @@ export default function Profile() {
                 <Weather />
             </div>
             <div>
-                <div>
+                <div className="toggleButtons">
                     <button onClick={() => setMyGarden(false)}>
-                        Wish & Offerings
+                        Trading
                     </button>
                     <button onClick={() => setMyGarden(true)}>
-                        Collection
+                        Your Garden
                     </button>
                 </div>
                 {!myGarden && (
@@ -41,9 +41,7 @@ export default function Profile() {
                     </div>
                 )}
             </div>
-            {/* <button onClick={() => handleClick()} className="switch">
-                SWITCH
-            </button> */}
+            
         </div>
     );
 }

@@ -4,6 +4,7 @@ import toggleUploaderReducer from "./toggleUploader/slice";
 import toggleTradeUploaderReducer from "./toggleTradeUploader/slice";
 import toggleMatchModalReducer from "./toggleMatchModal/slice";
 import toggleWishlistModalReducer from "./toggleWishlistUploader/slice";
+import toggleMyGardenUploaderReducer from "./toggleMyGardenUploader/slice";
 import wishlistReducer from "./wishlist/slice";
 import plantsToTradeReducer from "./plantsToTrade/slice";
 import matchesReducer from "./matches/slice";
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     toggleTradeUploader: toggleTradeUploaderReducer,
     toggleWishlistModal: toggleWishlistModalReducer,
     toggleMatchModal: toggleMatchModalReducer,
+    toggleMyGardenUploader: toggleMyGardenUploaderReducer,
     wishlist: wishlistReducer,
     plantsToTrade: plantsToTradeReducer,
     matches: matchesReducer,

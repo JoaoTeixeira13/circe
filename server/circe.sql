@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS reset_codes;
 DROP TABLE IF EXISTS wishlist;
 DROP TABLE IF EXISTS to_trade;
 DROP TABLE IF EXISTS followers;
+DROP TABLE IF EXISTS gardens;
 DROP TABLE IF EXISTS users;
 
 
@@ -46,6 +47,15 @@ CREATE TABLE users (
     leader_id INT REFERENCES users(id) NOT NULL,
     follower_id INT REFERENCES users(id) NOT NULL 
   );
+
+  CREATE TABLE gardens(
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) NOT NULL,
+    pid VARCHAR NOT NULL,
+    image_url VARCHAR NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 
 

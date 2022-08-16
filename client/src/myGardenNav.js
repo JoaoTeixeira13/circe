@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleMyGardenUploader } from "./redux/toggleMyGardenUploader/slice";
 
 export default function MyGardenNav() {
     const [posts, setPosts] = useState([]);
     const followers = useSelector((state) => state.followers);
     const following = useSelector((state) => state.following);
+    const modalWindow = useSelector((state) => state.toggleMyGardenUploader);
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        console.log("garden NavBar component mounted");
-    }, []);
+    useEffect(() => {}, []);
 
     const openModal = () => {
-        console.log("user wants to upload Picture");
+        dispatch(toggleMyGardenUploader(!modalWindow));
     };
 
     return (

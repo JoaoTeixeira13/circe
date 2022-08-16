@@ -3,7 +3,7 @@ export default function myGardenReducer(myGarden = [], action) {
         myGarden = action.payload.myGarden;
     }
     if (action.type === "myGarden/addToList") {
-        myGarden = [...myGarden, action.payload.plant];
+        myGarden = [action.payload.plant, ...myGarden];
     }
     if (action.type === "myGarden/removeFromList") {
         myGarden = myGarden.filter((plant) => {

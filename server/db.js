@@ -322,7 +322,7 @@ module.exports.fetchNewFollow = (userId, leader) => {
     );
 };
 
-// garden component 
+// garden component
 
 module.exports.fetchMyGarden = (userId) => {
     return db.query(
@@ -334,4 +334,13 @@ module.exports.fetchMyGarden = (userId) => {
     );
 };
 
+// add plant to myGarden
 
+module.exports.addToMyGarden = (user_id, pid, description, image_url) => {
+    const q = `INSERT INTO gardens(user_id, pid, description, image_url)
+     VALUES ($1, $2, $3, $4)
+     RETURNING id, pid, image_url, description
+    `;
+    const param = [user_id, pid, description, image_url];
+    return db.query(q, param);
+};

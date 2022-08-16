@@ -197,7 +197,8 @@ app.get("/api/user", async (req, res) => {
 
         const { rows: followers } = await db.fetchFollowers(req.session.userId);
         const { rows: following } = await db.fetchFollowing(req.session.userId);
-        const { rows: myGarden } = await db.fetchMyGarden(req.session.userId);
+        let { rows: myGarden } = await db.fetchMyGarden(req.session.userId);
+        myGarden.reverse();
 
         res.json({
             success: true,
@@ -803,6 +804,41 @@ app.post("/api/requestHandle/:viewedUser", async (req, res) => {
         });
     }
 });
+
+//my garden: adding plant to myGarden
+
+app.post(
+    "/uploadMyGardenPlant",
+    uploader.single("image"),
+    s3.upload,
+    async (req, res) => {
+        const url = "https://s3.amazonaws.com/spicedling/" + req.file.filename;
+
+        if (url) {
+            try {
+                const result = await db.addToMyGarden(
+                    req.session.userId,
+                    req.body.plant,
+                    req.body.description,
+                    url
+                );
+
+                res.json({
+                    sucess: true,
+                    plant: result.rows[0],
+                });
+            } catch (err) {
+                console.log("error in db. fetching user's profile ", err);
+                res.json({
+                    success: false,
+                    error: true,
+                });
+            }
+        } else {
+            console.log("invalid url");
+        }
+    }
+);
 
 app.get("/logout", (req, res) => {
     req.session = null;

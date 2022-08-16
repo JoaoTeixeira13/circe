@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleMyGardenUploader } from "./redux/toggleMyGardenUploader/slice";
 
@@ -8,8 +7,6 @@ export default function MyGardenNav() {
     const myGarden = useSelector((state) => state.myGarden);
     const modalWindow = useSelector((state) => state.toggleMyGardenUploader);
     const dispatch = useDispatch();
-
-    useEffect(() => {}, []);
 
     const openModal = () => {
         dispatch(toggleMyGardenUploader(!modalWindow));

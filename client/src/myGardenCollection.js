@@ -1,10 +1,8 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export default function MyGardenCollection() {
     const myGarden = useSelector((state) => state.myGarden);
 
-    useEffect(() => {}, []);
 
     return (
         <div>

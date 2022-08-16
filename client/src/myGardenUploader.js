@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-// import { addToPlantsToTrade } from "./redux/plantsToTrade/slice";
+import { addToMyGarden } from "./redux/myGarden/slice";
 import { toggleMyGardenUploader } from "./redux/toggleMyGardenUploader/slice";
 
 export default function MyGardenUploader() {
@@ -20,7 +20,7 @@ export default function MyGardenUploader() {
 
             const data = await resp.json();
 
-            // dispatch(addToPlantsToTrade(data.plant));
+            dispatch(addToMyGarden(data.plant));
             closeModal();
         } catch (err) {
             console.log("error in uploading user's picture ", err);

@@ -11,6 +11,7 @@ import matchesReducer from "./matches/slice";
 import fullMatchesReducer from "./fullMatch/slice";
 import followersReducer from "./followers/slice";
 import followingReducer from "./following/slice";
+import myGardenReducer from "./myGarden/slice";
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     fullMatches: fullMatchesReducer,
     followers: followersReducer,
     following: followingReducer,
+    myGarden: myGardenReducer,
 });
 
 export default rootReducer;

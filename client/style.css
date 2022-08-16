@@ -641,7 +641,7 @@ button:hover {
 }
 .breakBar {
     border: #adedad 1px solid;
-    margin: 0 -20px;
+    margin: 0 -20px 20px;
 }
 .gardenStats div {
     height: 70px;
@@ -658,4 +658,20 @@ button:hover {
     margin-top: 35px;
     width: 195px;
     box-shadow: inset 0px 0px 5px rgba(3, 38, 7, 0.5);
+}
+/* my garden styling */
+
+.plantList.myGarden {
+    text-align: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    overflow-y: scroll;
+}
+
+.plantList.myGarden img {
+    object-fit: cover;
+    height: 280px;
+    width: 280px;
+    margin: 10px;
+    /* border-radius: 15px; */
 }

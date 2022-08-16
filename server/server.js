@@ -197,6 +197,7 @@ app.get("/api/user", async (req, res) => {
 
         const { rows: followers } = await db.fetchFollowers(req.session.userId);
         const { rows: following } = await db.fetchFollowing(req.session.userId);
+        const { rows: myGarden } = await db.fetchMyGarden(req.session.userId);
 
         res.json({
             success: true,
@@ -205,6 +206,7 @@ app.get("/api/user", async (req, res) => {
             plantsToTrade,
             followers,
             following,
+            myGarden,
         });
     } catch (err) {
         console.log("error in db. fetching user's profile ", err);

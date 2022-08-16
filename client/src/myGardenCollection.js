@@ -1,12 +1,25 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function MyGardenCollection() {
-    useEffect(() => {
-    }, []);
+    const myGarden = useSelector((state) => state.myGarden);
+
+    useEffect(() => {}, []);
 
     return (
         <div>
-            <h1>My garden collection goes here.</h1>
+            <div className="plantList myGarden">
+                {myGarden &&
+                    myGarden.map((plant) => {
+                        return (
+                            <img
+                                key={plant.id}
+                                src={plant.image_url}
+                                alt={plant.pid}
+                            />
+                        );
+                    })}
+            </div>
         </div>
     );
 }

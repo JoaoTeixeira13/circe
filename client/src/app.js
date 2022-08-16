@@ -7,6 +7,7 @@ import { wishlistReceived } from "./redux/wishlist/slice";
 import { plantsToTradeReceived } from "./redux/plantsToTrade/slice";
 import { followersReceived } from "./redux/followers/slice";
 import { followingReceived } from "./redux/following/slice";
+import { myGardenReceived } from "./redux/myGarden/slice";
 
 import Logo from "./logo";
 import ExploreWindow from "./exploreWindow";
@@ -33,6 +34,7 @@ export default function App() {
                 dispatch(plantsToTradeReceived(data.plantsToTrade));
                 dispatch(followersReceived(data.followers));
                 dispatch(followingReceived(data.following));
+                dispatch(myGardenReceived(data.myGarden));
             } catch (err) {
                 console.log("error in fetching  logged user ", err);
             }

@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleMyGardenUploader } from "./redux/toggleMyGardenUploader/slice";
 
 export default function MyGardenNav() {
-    const [posts, setPosts] = useState([]);
     const followers = useSelector((state) => state.followers);
     const following = useSelector((state) => state.following);
+    const myGarden = useSelector((state) => state.myGarden);
     const modalWindow = useSelector((state) => state.toggleMyGardenUploader);
     const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ export default function MyGardenNav() {
                     +
                 </button>
                 <div>
-                    <h4>{posts.length}</h4>
+                    <h4>{myGarden.length}</h4>
                     <h4>Posts</h4>
                 </div>
 

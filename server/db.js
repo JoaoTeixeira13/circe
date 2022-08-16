@@ -321,3 +321,17 @@ module.exports.fetchNewFollow = (userId, leader) => {
         [userId, leader]
     );
 };
+
+// garden component 
+
+module.exports.fetchMyGarden = (userId) => {
+    return db.query(
+        `SELECT id, pid, image_url, description
+    FROM gardens
+    WHERE  user_id = $1
+     `,
+        [userId]
+    );
+};
+
+

@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
 
-export default function MyGardenCollection() {
+export default function MyGardenCollection(props) {
     const myGarden = useSelector((state) => state.myGarden);
-
+    const openModal = (plant) => {
+        props.setModalWindow(true);
+        props.setPlantDisplay(plant);
+    };
 
     return (
         <div>
@@ -11,6 +14,7 @@ export default function MyGardenCollection() {
                     myGarden.map((plant) => {
                         return (
                             <img
+                                onClick={() => openModal(plant)}
                                 key={plant.id}
                                 src={plant.image_url}
                                 alt={plant.pid}

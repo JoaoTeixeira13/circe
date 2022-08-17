@@ -673,5 +673,19 @@ button:hover {
     height: 280px;
     width: 280px;
     margin: 10px;
+    cursor: pointer;
     /* border-radius: 15px; */
+}
+
+/* myGardenModal */
+
+.modalWindow.matchModal.myGardenModal {
+    left: 0;
+    right: 0;
+    width: 60vw;
+    flex-direction: column;
+}
+.modalWindow.matchModal.myGardenModal img {
+    width: 500px;
+    height: 500px;
 }

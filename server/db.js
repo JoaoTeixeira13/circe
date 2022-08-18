@@ -353,7 +353,7 @@ module.exports.fetchGardens = (userId) => {
         users.first, users.last, users.imageUrl AS user_pic
         FROM gardens
         JOIN users ON gardens.user_id = users.id
-        JOIN followers ON (followers.leader_id = users.id OR followers.follower_id = users.id)
+        JOIN followers ON (followers.leader_id = users.id)
         WHERE followers.follower_id = $1
         ORDER BY id DESC
         LIMIT 6

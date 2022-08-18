@@ -845,7 +845,6 @@ app.post(
 app.get("/api/fetchGardens", async (req, res) => {
     try {
         const { rows: plants } = await db.fetchGardens(req.session.userId);
-        console.log("plants are", plants);
         res.json({ success: true, plants });
     } catch (err) {
         console.log("error in db fetching matching users ", err);

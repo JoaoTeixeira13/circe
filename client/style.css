@@ -689,3 +689,37 @@ button:hover {
     width: 500px;
     height: 500px;
 }
+
+/* gardens */
+.gardens {
+    display: flex;
+    width: 90vw;
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.userIcon {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #adedad;
+    margin-right: 20px;
+}
+.userInfo {
+    display: flex;
+    align-items: center;
+}
+
+.gardensPlant {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.gardenCell{
+    padding:25px
+}

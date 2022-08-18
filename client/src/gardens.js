@@ -4,15 +4,20 @@ import { useEffect } from "react";
 export default function Gardens() {
     const [plants, setPlants] = useState([]);
 
-    useEffect(() => {
-        console.log("gardens component just mounted!");
+    const openModal = (plant) => {
+        console.log(
+            "user wants to open modal window with following plant:",
+            plant
+        );
+    };
 
+    useEffect(() => {
         (async () => {
             try {
                 const resp = await fetch("/api/fetchGardens");
                 const data = await resp.json();
-                console.log("plants in data are , ", data.plants);
-                if (data.sucess) {
+
+                if (data.success) {
                     setPlants(data.plants);
                 }
             } catch (err) {
@@ -22,11 +27,28 @@ export default function Gardens() {
     }, []);
 
     return (
-        <div>
-            <h1>
-                Here all the plants in the users' collections you follow will be
-                displayed.
-            </h1>
+        <div className="gardens">
+            {plants.length !== 0 &&
+                plants.map((plant) => {
+                    return (
+                        <div className="gardenCell" key={plant.id}>
+                            <div className="userInfo">
+                                <img
+                                    src={plant.user_pic}
+                                    className="userIcon"
+                                />
+                                <h4>
+                                    {plant.first} {plant.last}
+                                </h4>
+                            </div>
+                            <img
+                                src={plant.image_url}
+                                className="gardensPlant"
+                                onClick={() => openModal(plant)}
+                            />
+                        </div>
+                    );
+                })}
         </div>
     );
 }

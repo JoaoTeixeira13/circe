@@ -698,6 +698,7 @@ button:hover {
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: row;
+    margin: 40px 0;
 }
 
 .userIcon {
@@ -720,6 +721,17 @@ button:hover {
     cursor: pointer;
 }
 
-.gardenCell{
-    padding:25px
+.gardenCell {
+    padding: 25px;
+}
+
+.gardenCell:hover {
+    border: #e1eda4 2px solid;
+    border-radius: 8px;
+}
+
+.gardensModal {
+    left: 0;
+    right: 0;
+    position: fixed;
 }

@@ -15,10 +15,9 @@ import Profile from "./profile";
 import ProfilePicture from "./profilePic";
 import OtherProfile from "./otherProfile";
 import LatestActivity from "./latestActivity";
-import Gardens from "./gardens";
-
 import Uploader from "./profilePicUploader";
 import TradeWindow from "./tradeWindow";
+import GardensWindow from "./gardensWindow";
 
 export default function App() {
     const dispatch = useDispatch();
@@ -95,7 +94,7 @@ export default function App() {
                     <LatestActivity />
                 </Route>
                 <Route path="/gardens">
-                    <Gardens />
+                    <GardensWindow />
                 </Route>
                 <Route path="/user/:otherUserId">
                     <OtherProfile />

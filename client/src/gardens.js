@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function Gardens() {
+export default function Gardens(props) {
     const [plants, setPlants] = useState([]);
 
     const openModal = (plant) => {
-        console.log(
-            "user wants to open modal window with following plant:",
-            plant
-        );
+        props.setModalWindow(true);
+        props.setPlantDisplay(plant);
     };
 
     useEffect(() => {

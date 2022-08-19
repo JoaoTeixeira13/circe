@@ -350,7 +350,14 @@ module.exports.addToMyGarden = (user_id, pid, description, image_url) => {
 module.exports.fetchGardens = (userId) => {
     return db.query(
         `SELECT gardens.id, gardens.user_id, gardens.pid, gardens.image_url, gardens.description,
-        users.first, users.last, users.imageUrl AS user_pic
+        users.first, users.last, users.imageUrl AS user_pic, (
+            SELECT gardens.id FROM gardens
+            JOIN users ON gardens.user_id = users.id
+            JOIN followers ON (followers.leader_id = users.id)
+            WHERE followers.follower_id = $1
+            ORDER BY id ASC
+            LIMIT 1
+        ) AS "lowestId"
         FROM gardens
         JOIN users ON gardens.user_id = users.id
         JOIN followers ON (followers.leader_id = users.id)
@@ -359,5 +366,27 @@ module.exports.fetchGardens = (userId) => {
         LIMIT 6
      `,
         [userId]
+    );
+};
+
+module.exports.fetchMoreImages = (userId, smallestId) => {
+    return db.query(
+        `SELECT gardens.id, gardens.user_id, gardens.pid, gardens.image_url, gardens.description,
+        users.first, users.last, users.imageUrl AS user_pic, (
+            SELECT gardens.id FROM gardens
+            JOIN users ON gardens.user_id = users.id
+            JOIN followers ON (followers.leader_id = users.id)
+            WHERE followers.follower_id = $1
+            ORDER BY id ASC
+            LIMIT 1
+        ) AS "lowestId"
+        FROM gardens
+        JOIN users ON gardens.user_id = users.id
+        JOIN followers ON (followers.leader_id = users.id)
+        WHERE followers.follower_id = $1 AND gardens.id < $2
+        ORDER BY id DESC
+        LIMIT 3
+     `,
+        [userId, smallestId]
     );
 };

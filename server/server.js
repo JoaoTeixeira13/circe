@@ -186,6 +186,8 @@ app.post("/password/reset/verify", async (req, res) => {
 
 app.get("/api/user", async (req, res) => {
     try {
+        // const[result, rows:wishlist, rows:plantsToTrade, rows:followwers, rows:following, rows:myGarden] =
+        // await Promise.all([db.fetchProfile(req.session.userId), db.fetchWishlist(req.session.userId), db.fetchTradelist( req.session.userId), db.fetchFollowers(req.session.userId), db.fetchFollowing(req.session.userId), db.fetchMyGarden(req.session.userId)])
         const result = await db.fetchProfile(req.session.userId);
         const user = result.rows[0];
 
@@ -847,7 +849,29 @@ app.get("/api/fetchGardens", async (req, res) => {
         const { rows: plants } = await db.fetchGardens(req.session.userId);
         res.json({ success: true, plants });
     } catch (err) {
-        console.log("error in db fetching matching users ", err);
+        console.log("error in db fetching gardens ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }
+});
+
+// fetch more images
+
+app.get("/api/fetchMoreImages/:id", async (req, res) => {
+    try {
+        const { rows: plants } = await db.fetchMoreImages(
+            req.session.userId,
+            req.params.id
+        );
+
+        res.json({
+            success: true,
+            plants,
+        });
+    } catch (err) {
+        console.log("error in db fetching more plants ", err);
         res.json({
             success: false,
             error: true,

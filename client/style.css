@@ -504,16 +504,18 @@ button:hover {
 
 .modalWindow.matchModal img {
     object-fit: cover;
-    height: 400px;
-    width: 400px;
+    height: 500px;
+    width: 500px;
     border-radius: 15px;
 }
+#gardenModalUser,
 #modalUser {
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
     border: #adedad 5px solid;
 }
+#gardenModalUser:hover,
 #modalUser:hover {
     border: #e1eda4 6px solid;
     cursor: pointer;
@@ -734,4 +736,25 @@ button:hover {
     left: 0;
     right: 0;
     position: fixed;
+}
+.gardenModalProfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ece2d6;
+}
+.gardensModal .matchInfo {
+    justify-content: space-evenly;
+}
+
+.gardenWindow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#gardensButton {
+    width: 150px;
+    margin-bottom: 40px;
 }

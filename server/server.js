@@ -186,8 +186,6 @@ app.post("/password/reset/verify", async (req, res) => {
 
 app.get("/api/user", async (req, res) => {
     try {
-        // const[result, rows:wishlist, rows:plantsToTrade, rows:followwers, rows:following, rows:myGarden] =
-        // await Promise.all([db.fetchProfile(req.session.userId), db.fetchWishlist(req.session.userId), db.fetchTradelist( req.session.userId), db.fetchFollowers(req.session.userId), db.fetchFollowing(req.session.userId), db.fetchMyGarden(req.session.userId)])
         const result = await db.fetchProfile(req.session.userId);
         const user = result.rows[0];
 
@@ -239,6 +237,16 @@ app.get("/api/user/:id", async (req, res) => {
                 const { rows: userPlants } = await db.fetchTradelist(
                     req.params.id
                 );
+
+                const { rows: followers } = await db.fetchFollowers(
+                    req.params.id
+                );
+                const { rows: following } = await db.fetchFollowing(
+                    req.params.id
+                );
+                let { rows: garden } = await db.fetchMyGarden(req.params.id);
+                garden.reverse();
+
                 if (!profile) {
                     res.json({
                         noMatch: true,
@@ -249,6 +257,9 @@ app.get("/api/user/:id", async (req, res) => {
                         profile,
                         userWishlist,
                         userPlants,
+                        followers,
+                        following,
+                        garden,
                     });
                 }
             } catch (error) {

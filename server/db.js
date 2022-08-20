@@ -345,7 +345,7 @@ module.exports.addToMyGarden = (user_id, pid, description, image_url) => {
     return db.query(q, param);
 };
 
-// gardens: fetch feed (user and users they follow)
+// gardens: fetch feed (users user follows)
 
 module.exports.fetchGardens = (userId) => {
     return db.query(

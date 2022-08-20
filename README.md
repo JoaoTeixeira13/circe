@@ -2,20 +2,24 @@
 
 ## 🌱 Overview
 
-This is a single-page application website made with React that allows users to trade plants with each other (based on offer and demand), as well as discover new plants they don't yet know and showcase their current plant collection.
+This is a single-page application website made with **React** that allows users to trade plants with each other (based on offer and demand), as well as discover new plants they don't yet know and showcase their current plant collection.
 
--   Page optimized for desktop full-screen. 
+-   Page optimized for desktop full-screen.
 
 ## 🌱 Features
 
 -   Application has a top navigation that allows the user to navigate to:
-    -   Personal profile
-    -   Page to trade plants with other users. Here users can add or delete plants to their wishlist (by simply clicking on a checkbox), as well as upload what they have to offer.
-        -   In the trade page, trading matches are displayed in two categories: if someone has something to trade that the user is looking for, it is displayed as a match. If the user also has something that the other user is looking for, then a message displaying FULL MATCH appears (an immediate trade can be done). A modal window leads from the matches page to the user's profile who has the desired plant.
-    -   Page to view latest users and plants for trade, and search for a specific user or specific plant.
-    -   Page to explore and discover new plants (by searching in the Plantbook API). Here users can learn about the requirements different plants have with the displayed data (temperature, humidity, light, etc). Users can add their discoveries to their wishlists.
-    -   Link that will enable the user to log out.
--   In the personal profile, the user can upload a profile picture as well as add a small biography. There is a component that displays the current weather conditions in the user's location (by requesting an weather API), and conditionally renders gardening advice based on factors such as temperature and humidity.
+    -   Personal **profile**
+    -   Page to **trade plants** with other users. Here users can add or delete plants to their wishlist (by simply clicking on a checkbox), as well as upload what they have to offer.
+        -   In the trade page, **trading matches** are displayed in two categories: **if someone has something to trade that the user is looking for, it is displayed as a match. If the user also has something that the other user is looking for, then a message displaying FULL MATCH appears (an immediate trade can be done).** A modal window leads from the matches page to the user's profile who has the desired plant.
+    -   Page to view **latest users and plants for trade**, and **search** for a specific user or specific plant.
+    -   Page to **explore and discover** new plants (by searching in the Plantbook API). Here users can learn about the requirements different plants have with the displayed data (temperature, humidity, light, etc). Users can add their discoveries to their wishlists.
+    -   Link that will enable the user to **log out**.
+-   In the personal profile, the user can upload a profile picture as well as add a small biography. There is a component that displays the **current weather** conditions in the user's location (by requesting an weather API), and **conditionally renders gardening advice** based on factors such as temperature and humidity.
+-   In the personal profile, users can add and display their **personal plant collections**.
+-   Users can **follow** or **unfollow** other users.
+-   Users can **visit other users profiles**, and view their collections and what they have for trade.
+-   In the gardens component, users can keep up with a **feed of plants from other users collections they follow**, ordered by most recently updated.
 
 ## 🌱 Technology
 
@@ -25,8 +29,22 @@ This is a single-page application website made with React that allows users to t
 
 ## Preview
 
-**_Profile Page and Weather API_**
-<img src="client/public/profile-page.gif">
+**_Profile Page and Weather API: toggling between trade window and collection window_**
+<img src="client/public/toggling-profile.gif">
+
+<br>
+
+<img src="client/public/profile-trading.gif">
+
+<br>
+
+<img src="client/public/my-garden.gif">
+
+<br>
+
+**_Weather API example_**
+
+<img src="client/public/weather.png">
 
 <br>
 
@@ -53,5 +71,15 @@ This is a single-page application website made with React that allows users to t
 
 <br>
 <img src="client/public/news2.gif">
+
+<br>
+
+**_Following feed_**
+<img src="client/public/news1.gif">
+
+<br>
+
+**_Other users' profiles_**
+<img src="client/public/other-user.gif">
 
 <br>

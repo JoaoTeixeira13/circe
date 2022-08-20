@@ -19,7 +19,7 @@ This is a single-page application website made with **React** that allows users 
 -   In the personal profile, users can add and display their **personal plant collections**.
 -   Users can **follow** or **unfollow** other users.
 -   Users can **visit other users profiles**, and view their collections and what they have for trade.
--   In the gardens component, users can keep up with a **feed of plants from other users collections they follow**, ordered by most recently updated.
+-   In the gardens component, users can keep up with a **feed of plants from other users collections they follow**, ordered by most recently uploaded.
 
 ## 🌱 Technology
 
@@ -75,7 +75,7 @@ This is a single-page application website made with **React** that allows users 
 <br>
 
 **_Following feed_**
-<img src="client/public/news1.gif">
+<img src="client/public/following-feed.gif">
 
 <br>
 
